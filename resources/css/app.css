@@ -1,0 +1,586 @@
+@import "bootstrap/css/bootstrap";
+
+:root {
+    --primary: #5D688A;
+    --secondary: #F7A5A5;
+    --accent: #FFDBB6;
+    --background: #FFF2EF;
+    --text: #333333;
+    --white: #FFFFFF;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+}
+
+
+/* =====================================================
+   LOGIN & REGISTER
+===================================================== */
+
+.login-content {
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: var(--background);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 1050px;
+    min-height: 600px;
+
+    display: flex;
+
+    overflow: hidden;
+
+    background: var(--white);
+
+    border-radius: 28px;
+
+    box-shadow: 0 15px 40px rgba(93, 104, 138, 0.15);
+}
+
+
+/* Bagian kiri */
+
+.auth-left {
+    width: 45%;
+    padding: 55px;
+
+    background: var(--primary);
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-logo {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.auth-left h1 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+.auth-left p {
+    font-size: 16px;
+    line-height: 1.7;
+    opacity: 0.9;
+}
+
+.auth-illustration {
+    font-size: 110px;
+    text-align: center;
+    margin-top: 35px;
+}
+
+
+/* Bagian kanan */
+
+.auth-right {
+    width: 55%;
+    padding: 55px 70px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-right h2 {
+    color: var(--primary);
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.auth-subtitle {
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.auth-label {
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.auth-input {
+    border: 1px solid #e5dede;
+    border-radius: 12px;
+    padding: 13px 15px;
+    background: #fffafa;
+}
+
+.auth-input:focus {
+    border-color: var(--secondary);
+
+    box-shadow:
+        0 0 0 3px rgba(247, 165, 165, 0.2);
+}
+
+.auth-button {
+    width: 100%;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 13px;
+
+    background: var(--secondary);
+    color: white;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.auth-button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.auth-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-link:hover {
+    color: var(--secondary);
+}
+
+
+/* =====================================================
+   CALENDAR PAGE
+===================================================== */
+
+.calendar-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    background: #FFF1F1;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.calendar-sidebar {
+    width: 334px;
+    min-height: 100vh;
+
+    background: white;
+
+    border-right: 1px solid #EA8A8A;
+
+    padding: 55px 25px 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex-shrink: 0;
+}
+
+
+/* BRAND */
+
+.calendar-sidebar .brand {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 0 10px;
+
+    margin-bottom: 60px;
+}
+
+.calendar-sidebar .brand-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #B2EBF2;
+
+    border-radius: 50%;
+
+    font-size: 30px;
+
+    flex-shrink: 0;
+}
+
+.calendar-sidebar .brand-title {
+    font-size: 20px;
+    font-weight: 500;
+
+    color: #000;
+}
+
+
+/* =====================================================
+   SIDEBAR MENU
+===================================================== */
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+.sidebar-item {
+    min-height: 57px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 0 18px;
+
+    border-radius: 10px;
+
+    color: #211744;
+
+    text-decoration: none;
+
+    font-size: 18px;
+}
+
+.sidebar-item:hover {
+    background: #FFF1F1;
+    color: #211744;
+}
+
+.sidebar-item.active {
+    background: #FFF1F1;
+
+    color: #BB8760;
+
+    font-weight: 600;
+}
+
+.sidebar-icon {
+    width: 30px;
+
+    text-align: center;
+
+    flex-shrink: 0;
+}
+
+
+/* BADGE TEMAN */
+
+.friend-badge {
+    margin-left: auto;
+
+    min-width: 35px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #F95252;
+
+    color: white;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   USER CARD
+===================================================== */
+
+.user-card {
+    margin-top: auto;
+
+    background: #FFDADA;
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #EDD75A;
+
+    border-radius: 50%;
+
+    flex-shrink: 0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info strong {
+    font-size: 13px;
+}
+
+.user-info small {
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   CALENDAR CONTENT
+===================================================== */
+
+.calendar-content {
+    flex: 1;
+
+    min-width: 0;
+
+    padding: 35px 40px;
+
+    background: #FFF1F1;
+}
+
+
+/* TITLE */
+
+.calendar-title {
+    font-size: 52px;
+
+    font-weight: 700;
+
+    color: #000;
+
+    margin: 0;
+}
+
+.calendar-subtitle {
+    color: #777;
+
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   CALENDAR
+===================================================== */
+
+.calendar-card-wrapper {
+    width: 100%;
+
+    max-width: 1030px;
+
+    margin-top: 35px;
+}
+
+
+/* NAMA HARI */
+
+.calendar-week {
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+
+    padding: 0 5px;
+}
+
+.calendar-week div {
+    text-align: center;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #242323;
+}
+
+
+/* GRID */
+
+.calendar-grid {
+    display: grid;
+
+    grid-template-columns: repeat(7, 1fr);
+
+    gap: 10px;
+}
+
+
+/* LINK */
+
+.calendar-grid a {
+    text-decoration: none;
+
+    color: inherit;
+}
+
+
+/* KOTAK TANGGAL */
+
+.calendar-date {
+    position: relative;
+
+    min-height: 119px;
+
+    padding: 10px;
+
+    background: #E5F4EF;
+
+    border: 1px solid #DDD3CB;
+
+    border-radius: 15px;
+
+    transition: 0.2s;
+}
+
+.calendar-date:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+
+/* NOMOR TANGGAL */
+
+.date-number {
+    display: block;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    color: #4C8C7D;
+}
+
+
+/* =====================================================
+   ULANG TAHUN
+===================================================== */
+
+.birthday-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    margin-top: 8px;
+}
+
+.birthday-badge {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 4px 6px;
+
+    background: #F7A5A5;
+
+    border-radius: 7px;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    overflow: hidden;
+}
+
+.birthday-badge span {
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   RESPONSIVE / MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    /* LOGIN */
+
+    .auth-card {
+        flex-direction: column;
+    }
+
+    .auth-left,
+    .auth-right {
+        width: 100%;
+        padding: 35px;
+    }
+
+
+    /* CALENDAR */
+
+    .calendar-sidebar {
+        display: none;
+    }
+
+    .calendar-content {
+        padding: 25px 15px;
+    }
+
+    .calendar-title {
+        font-size: 38px;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .calendar-week {
+        display: none;
+    }
+}
