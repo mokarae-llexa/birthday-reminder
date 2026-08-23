@@ -1,4 +1,4 @@
-@import "bootstrap/css/bootstrap";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 :root {
     --primary: #5D688A;
@@ -159,6 +159,14 @@ body {
 .auth-button:hover {
     background: var(--primary);
     color: white;
+}
+
+.auth-right .alert {
+    border-radius: 12px;
+    border: none;
+    background-color: #fff1f1;
+    color: #e3342f;
+    margin-bottom: 20px;
 }
 
 .auth-link {

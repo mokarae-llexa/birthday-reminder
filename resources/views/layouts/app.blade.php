@@ -30,6 +30,8 @@
         .auth-button:hover { background: var(--primary); color: white; }
         .auth-link { color: var(--primary); text-decoration: none; font-weight: 500; }
         .auth-link:hover { color: var(--secondary); }
+        .alert { border-radius: 12px; border: none; font-size: 14px; }
+        .is-invalid { border-color: #dc3545 !important; }
 
         @media (max-width: 768px) {
             .auth-card { flex-direction: column; }

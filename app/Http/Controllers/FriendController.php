@@ -1,10 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Friend;
+use App\Traits\MessageResponser;
 use Illuminate\Http\Request;
 
 class FriendController extends Controller
 {
+    use MessageResponser;
+
     public function index() //show all friends data
     {
         $friends = Friend::latest()->get();
@@ -31,7 +34,7 @@ class FriendController extends Controller
 
         return redirect()
             ->route('friends.index')
-            ->with('success', 'Data teman berhasil ditambahkan.');
+            ->with('success', $this->successMessage('ditambahkan', 'Data teman'));
     }
 
     public function edit(Friend $friend) //show form
@@ -51,7 +54,7 @@ class FriendController extends Controller
         $friend->update($validated);
         return redirect()
             ->route('friends.index')
-            ->with('success', 'Data teman berhasil diperbarui.');
+            ->with('success', $this->successMessage('diperbarui', 'Data teman'));
     }
 
     public function destroy(Friend $friend) //delete data
@@ -59,7 +62,7 @@ class FriendController extends Controller
         $friend->delete();
         return redirect()
             ->route('friends.index')
-            ->with('success', 'Data teman berhasil dihapus.');
+            ->with('success', $this->successMessage('dihapus', 'Data teman'));
     }
 
     public function calendar()

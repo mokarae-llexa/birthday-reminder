@@ -10,9 +10,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware('auth')->name('home');
+use App\Http\Controllers\HomeController;
+
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 Route::resource('friends', FriendController::class);
 Route::get('/calendar', [FriendController::class, 'calendar'])->name('calendar');
