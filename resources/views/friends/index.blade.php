@@ -16,13 +16,6 @@
                 </a>
             </div>
 
-            @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
-                    <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="background: #FFFFFF;">
                 <div class="card-body p-0">
                     <div class="table-responsive">

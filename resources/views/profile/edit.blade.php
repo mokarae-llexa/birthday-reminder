@@ -11,24 +11,6 @@
                 <p class="text-muted mb-0">Atur foto profil, nama, email, dan password Anda</p>
             </div>
 
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
-                    <i class="bi bi-check-circle me-2"></i> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert alert-danger rounded-3 mb-4">
-                    <strong><i class="bi bi-exclamation-triangle me-2"></i>Terjadi kesalahan:</strong>
-                    <ul class="mb-0 mt-2 ps-3">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
             <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: #FFFFFF;">
                 <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
                     <h5 class="fw-bold mb-0" style="color: #C55F4E;">
