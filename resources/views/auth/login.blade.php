@@ -7,16 +7,18 @@
 
             <div class="auth-left">
                 <div class="auth-logo">
-                    <img src="{{ asset("assets/icon-kue.webp") }}" alt="icon kue" class="img-fluid" width=64>
+                    <img src="{{ asset('assets/icon-kue.webp') }}" alt="Birthday Reminder Logo" width="64" class="img-fluid">
                 </div>
                 <h1>Birthday<br>Reminder</h1>
+                <p>Never miss a special day. Track and celebrate birthdays with your friends and family.</p>
             </div>
 
             <div class="auth-right">
-                <h2>FROM LOGIN</h2>
+                <h2>Form Login</h2>
+                <p class="auth-subtitle">Please enter your credentials to log in.</p>
 
                 @if ($errors->any())
-                    <div class="alert alert-danger py-2">
+                    <div class="alert alert-danger py-2 mb-3">
                         <p class="mb-0 small text-center">
                             {{ $errors->first() }}
                         </p>
@@ -36,7 +38,13 @@
                             placeholder="Drop your email here"
                             value="{{ old('email') }}"
                             required
+                            autofocus
                         >
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                     <div class="mb-3">
@@ -49,27 +57,40 @@
                             placeholder="Enter your password"
                             required
                         >
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
-                    <div class="form-check mb-4">
-                        <input
-                            class="form-check-input"
-                            type="checkbox"
-                            name="remember"
-                            id="remember"
-                        >
-                        <label class="form-check-label" for="remember">
-                            Remember me
-                        </label>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check mb-0">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="remember"
+                                id="remember"
+                                {{ old('remember') ? 'checked' : '' }}
+                            >
+                            <label class="form-check-label" for="remember">
+                                Remember me
+                            </label>
+                        </div>
+                        @if (Route::has('password.request'))
+                            <a class="auth-link small" href="{{ route('password.request') }}">
+                                Forgot password?
+                            </a>
+                        @endif
                     </div>
 
                     <button type="submit" class="auth-button">
-                        Here w go →
+                        Here we go →
                     </button>
                 </form>
 
                 <div class="text-center mt-4">
-                    <span>New here?</span>
+                    <span>New here? </span>
                     <a class="auth-link" href="{{ route('register') }}">
                         <b>Create an account</b>
                     </a>

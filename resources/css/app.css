@@ -25,7 +25,8 @@ body {
    LOGIN & REGISTER
 ===================================================== */
 
-.login-content {
+.login-content,
+.register-content {
     min-height: 100vh;
     width: 100%;
     margin: 0;
@@ -73,8 +74,13 @@ body {
 }
 
 .auth-logo {
-    font-size: 48px;
     margin-bottom: 20px;
+}
+
+.auth-logo img {
+    max-width: 72px;
+    height: auto;
+    object-fit: contain;
 }
 
 .auth-left h1 {
