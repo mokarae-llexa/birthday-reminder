@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 @section('content')
 
 <style>
@@ -28,7 +28,7 @@ body {
     z-index: 1;
 }
 .dashboard-wrapper {
-    padding: 24px 36px 36px 36px;
+    padding: 16px 36px 24px 36px; 
     position: relative;
     z-index: 3;
 }
@@ -70,10 +70,14 @@ body {
 
 .header-banner-container {
     width: 100%;
-    max-width: 720px;
-    margin-bottom: 24px;
+    max-width: 700px;
+    height: 150px;              /* naikkan dikit dari 90px */
+    margin-bottom: 12px;
     overflow: hidden;
     margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;  /* rata kanan, sesuai posisi kue di gambar asli */
 }
 .header-banner-img {
     width: 100%;
@@ -245,8 +249,6 @@ body {
 </style>
 
 <div class="birthday-dashboard">
-    @include('layouts.sidebar')
-
     <div class="main-content">
         <svg class="bottom-wavy-bg" viewBox="0 0 1440 200" preserveAspectRatio="none">
             <path d="M 0,140 C 350,110 750,180 1440,110 L 1440,200 L 0,200 Z" fill="#FFDADA" />

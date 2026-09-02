@@ -550,6 +550,72 @@ body {
     text-overflow: ellipsis;
 }
 
+/* =====================================================
+   FRIEND / DAFTAR TEMAN PAGE
+===================================================== */
+
+.friend-table-wrapper {
+    width: 100%;
+    max-width: 1030px;
+    margin-top: 35px;
+    background: var(--secondary);
+    border-radius: 16px;
+    padding: 16px;
+}
+
+.friend-table-wrapper table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.friend-table-wrapper thead th {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: left;
+    padding: 0 16px 8px;
+}
+
+.friend-table-wrapper tbody tr {
+    background: var(--white);
+}
+
+.friend-table-wrapper tbody td {
+    padding: 14px 16px;
+    color: var(--text);
+    vertical-align: middle;
+}
+
+.friend-table-wrapper tbody tr td:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.friend-table-wrapper tbody tr td:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.friend-note {
+    display: block;
+    font-size: 12px;
+    color: #999;
+}
+
+.friend-action-btn {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: none;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.friend-action-btn.edit { background: var(--accent); color: #333; }
+.friend-action-btn.delete { background: #F95252; }
 
 /* =====================================================
    RESPONSIVE / MOBILE
@@ -591,4 +657,145 @@ body {
     .calendar-week {
         display: none;
     }
+}
+
+/* Wadah Form yang Kompak */
+.form-container {
+    max-width: 500px; /* Membatasi lebar agar tidak melar */
+    margin: 40px auto; /* Membuat posisi ke tengah layar */
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 36px 40px;
+    box-shadow: 0 12px 36px rgba(217, 122, 133, 0.08);
+    border: 1px solid #FFF1F1;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.form-header h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2C2023;
+    margin-bottom: 6px;
+}
+
+.form-header p {
+    font-size: 13px;
+    color: #8E7C7E;
+}
+
+/* Kolom Input */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #5C4D50;
+    margin-bottom: 8px;
+}
+
+.input-group input, 
+.input-group textarea {
+    background: #FAFAFA;
+    border: 1px solid #EAEAEA;
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: #2C2023;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Efek estetik saat mengetik */
+.input-group input:focus, 
+.input-group textarea:focus {
+    background: #FFFFFF;
+    border-color: #D36B77;
+    box-shadow: 0 0 0 4px rgba(211, 107, 119, 0.1);
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: #B8B8B8;
+}
+
+/* Area Tombol */
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.btn-cancel, .btn-save {
+    padding: 14px 0;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    border: none;
+}
+
+.btn-cancel {
+    background: #FFF1F1;
+    color: #D36B77;
+    flex: 1;
+    text-decoration: none;
+}
+.btn-cancel:hover { background: #FCEBEB; }
+
+
+.btn-save {
+    background: #BB8760;
+    color: #FFFFFF;
+    flex: 2; /* Sedikit lebih lebar dari tombol kembali */
+}
+.btn-save:hover { background: #A3734E; }
+
+/* 1. Kontainer Utama (Membuatnya Nengah) */
+.content-wrapper {
+    max-width: 900px; /* Sesuaikan lebar ini jika tabel masih kurang panjang */
+    margin: 40px auto; /* Membuat posisi kiri-kanan seimbang di tengah */
+    width: 100%;
+    padding: 0 24px;
+}
+
+/* 2. Header Tabel (Memindahkan Tombol ke Kanan) */
+.table-header {
+    display: flex;
+    justify-content: flex-end; /* Kunci untuk mendorong elemen ke ujung kanan */
+    margin-bottom: 16px; /* Jarak antara tombol dan tabel */
+}
+
+/* 3. Desain Tombol Tambah Teman */
+.btn-tambah {
+    background-color: #D36B77; /* Warna merah pastel aslimu */
+    color: #FFFFFF;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    border: none;
+}
+.btn-tambah:hover {
+    background-color: #B55A65;
+}
+
+/* 4. Wadah Tabel (Merapikan kotak pink) */
+.table-container {
+    background-color: #FFF1F1;
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(217, 122, 133, 0.05);
 }

@@ -5,8 +5,10 @@
         <div class="auth-page">
             <div class="auth-card">
                 <div class="auth-left"
-                    style="background-color: #B2704E; border-color:black; border-radius: 5px; padding:10px;">
-                    <div class="auth-logo">🎂</div>
+                    style="background-color: #FFDBDB; border-color:black; border-radius: 5px; padding:10px;">
+                    <div class="auth-logo">
+                        <img src="{{ asset('assets/icon-kue.webp') }}" alt="icon kue" class="img-fluid" width=64>
+                    </div>
                     <h1>Birthday<br>Reminder</h1>
                 </div>
 
@@ -61,7 +63,7 @@
                                 name="password_confirmation" placeholder="Confirm your password" required
                                 autocomplete="new-password">
                         </div>
-                        <button type="submit" class="btn-register">
+                        <button type="submit" class="auth-button">
                             Register
                         </button>
                 </div>
