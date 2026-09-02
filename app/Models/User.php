@@ -18,6 +18,7 @@ class User extends Authenticatable
         'status',
         'password',
         'avatar',
+        'birth_date',
     ];
 
     public function getAvatarUrlAttribute(): string

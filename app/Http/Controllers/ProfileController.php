@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Traits\MessageResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +14,17 @@ use Illuminate\Validation\Rules\Password;
 class ProfileController extends Controller
 {
     use MessageResponser;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function show()
+    {
+        $user = Auth::user();
+        return view('profile.edit', compact('user'));
+    }
 
     public function edit()
     {
@@ -27,6 +39,7 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'birth_date' => 'nullable|date',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 

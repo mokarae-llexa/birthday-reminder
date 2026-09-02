@@ -178,7 +178,7 @@
             Friend
             <span class="badge-count">{{ $totalFriendsCount ?? 0 }}</span>
         </a>
-        <a href="#" class="{{ Route::currentRouteName() == 'notifications' ? 'active' : '' }}">
+        <a href="{{ Route::has('notifications.index') ? route('notifications.index') : '#' }}" class="{{ Route::currentRouteName() == 'notifications.index' ? 'active' : '' }}">
             <span class="menu-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
@@ -194,13 +194,26 @@
             </span>
             Calendar
         </a>
+        <a href="{{ route('profile.edit') }}" class="{{ Route::currentRouteName() == 'profile.edit' ? 'active' : '' }}">
+            <span class="menu-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+            </span>
+            Profile
+        </a>
     </div>
     
     <a href="{{ route('profile.edit') }}" class="sidebar-user text-decoration-none" style="cursor: pointer;">
         <img src="{{ Auth::user()->avatar_url }}" alt="User Avatar">
         <div class="user-info">
-            <div class="name">{{ Auth::user()->name }}</div>
-            <div class="email">{{ Auth::user()->email }}</div>
+            @auth
+                <div class="name">{{ Auth::user()->name }}</div>
+                <div class="email">{{ Auth::user()->email }}</div>
+            @else
+                <div class="name">Guest</div>
+                <div class="email">-</div>
+            @endauth
         </div>
         <div class="user-actions">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">

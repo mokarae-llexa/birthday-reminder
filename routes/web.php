@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FriendController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -10,16 +13,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-use App\Http\Controllers\HomeController;
-
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
-
-Route::resource('friends', FriendController::class);
-Route::get('/calendar', [FriendController::class, 'calendar'])->name('calendar');
-
-use App\Http\Controllers\ProfileController;
-
 Route::middleware('auth')->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    Route::resource('friends', FriendController::class);
+    Route::get('/calendar', [FriendController::class, 'calendar'])->name('calendar');
+
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
+    Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');

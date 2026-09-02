@@ -1,0 +1,156 @@
+.pc-container * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Figtree', sans-serif;
+}
+
+.pc-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+
+.pc-banner {
+    height: 150px;
+    background: linear-gradient(to right, #ffc0c7, #fca5a5);
+}
+
+
+.pc-header-content {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 40px;
+    margin-top: -60px;
+}
+
+
+.pc-avatar-wrapper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 5px solid #ffffff;
+    background: #e5e7eb;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pc-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.pc-name-info {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.pc-user-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    text-transform: lowercase;
+}
+
+.pc-user-email {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+
+.pc-body {
+    padding: 30px 40px 40px;
+}
+
+
+.pc-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1f2937;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f3f4f6;
+    margin-bottom: 25px;
+}
+
+.pc-title-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background-color: #fee2e2;
+    border-radius: 8px;
+    color: #ef4444;
+}
+
+
+.pc-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pc-info-item {
+    display: flex;
+    align-items: center;
+}
+
+
+.pc-info-label {
+    width: 150px;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+
+.pc-info-colon {
+    color: #d1d5db;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+
+.pc-info-value {
+    flex: 1;
+    color: #111827;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.pc-actions {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.pc-btn-edit {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #fca5a5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.pc-btn-edit:hover {
+    background-color: #f87171;
+}
