@@ -77,15 +77,12 @@
                                                    title="Edit Data">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('friends.destroy', $friend->id) }}"
-                                                      method="POST"
-                                                      onsubmit="return confirm('Yakin ingin menghapus data {{ $friend->name }}?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger rounded-pill px-3" title="Hapus Data">
-                                                        Hapus
-                                                    </button>
-                                                </form>
+                                                <button type="button"
+                                                        class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                                        title="Hapus Data"
+                                                        onclick="openDeleteModal('{{ route('friends.destroy', $friend->id) }}', '{{ addslashes($friend->name) }}')">
+                                                    Hapus
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
@@ -108,4 +105,6 @@
         </div>
     </div>
 </div>
+
+<x-delete-confirm-modal />
 @endsection
