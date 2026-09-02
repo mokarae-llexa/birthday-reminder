@@ -1,6 +1,39 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+.search-box {
+    width: 320px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    background: #FFE6E3;
+    border-radius: 20px;
+}
+.search-box span {
+    margin-right: 8px;
+    color: #B58F86;
+    display: flex;
+    align-items: center;
+}
+.search-box span svg {
+    width: 16px;
+    height: 16px;
+}
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
+    color: #1f1f1f;
+}
+.search-box input::placeholder {
+    color: #B58F86;
+}
+</style>
+
 <div class="birthday-dashboard" style="display: flex; min-height: 100vh; background: #FFF6F4;">
     @include('layouts.sidebar')
 
@@ -12,21 +45,16 @@
                     <p class="text-muted mb-0">Kelola data teman dan pengingat ulang tahun</p>
                 </div>
                 <div class="d-flex align-items-center gap-2 flex-wrap">
-                    <form action="{{ route('friends.index') }}" method="GET" class="d-flex align-items-center">
-                        <div class="input-group shadow-sm rounded-pill overflow-hidden border" style="background: #FFFFFF; min-width: 280px;">
-                            <span class="input-group-text bg-transparent border-0 pe-1 ps-3 text-muted">
-                                🔍
+                    <form action="{{ route('friends.index') }}" method="GET" style="margin: 0;">
+                        <div class="search-box">
+                            <span>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
                             </span>
-                            <input type="text"
-                                   name="search"
-                                   class="form-control border-0 bg-transparent shadow-none"
-                                   placeholder="Cari nama, email, no hp..."
-                                   value="{{ request('search') }}"
-                                   style="font-size: 14px;">
+                            <input type="text" name="search" placeholder="Search" value="{{ request('search') }}">
                             @if(request('search'))
-                                <a href="{{ route('friends.index') }}" class="btn btn-transparent border-0 text-muted pe-3 text-decoration-none" title="Bersihkan Pencarian">
-                                    ✕
-                                </a>
+                                <a href="{{ route('friends.index') }}" style="color: #B58F86; text-decoration: none; font-size: 14px; margin-left: 6px;" title="Reset">✕</a>
                             @endif
                         </div>
                     </form>
