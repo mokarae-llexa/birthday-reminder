@@ -275,11 +275,8 @@ body {
             <div class="birthday-area">
                 <div class="today-card">
                     @if ($highlightFriend)
-                        @php
-                            $highlightAvatar = 'https://ui-avatars.com/api/?name=' . urlencode($highlightFriend->name) . '&background=FFE1DD&color=C55F4E&size=160&bold=true';
-                        @endphp
                         <div class="birthday-avatar-wrap">
-                            <img src="{{ $highlightAvatar }}" alt="{{ $highlightFriend->name }}">
+                            <img src="{{ $highlightFriend->avatar_url }}" alt="{{ $highlightFriend->name }}">
                         </div>
                         <h3>{{ $highlightFriend->name }}</h3>
                         <p>{{ Carbon\Carbon::parse($highlightFriend->birth_date)->translatedFormat('j F') }}</p>
@@ -300,13 +297,10 @@ body {
                     </div>
                     <div class="upcoming-list">
                         @forelse ($upcomingFriends as $friend)
-                            @php
-                                $friendAvatar = 'https://ui-avatars.com/api/?name=' . urlencode($friend->name) . '&background=FFE1DD&color=C55F4E&size=48&bold=true';
-                            @endphp
                             <div class="upcoming-item">
                                 <div class="friend-info">
                                     <div class="friend-avatar">
-                                        <img src="{{ $friendAvatar }}" alt="{{ $friend->name }}">
+                                        <img src="{{ $friend->avatar_url }}" alt="{{ $friend->name }}">
                                     </div>
                                     <div class="friend-details">
                                         <h4 class="friend-name">{{ $friend->name }}</h4>

@@ -11,6 +11,7 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    overflow-y: auto;
 }
 .brand {
     display: flex;
@@ -66,6 +67,7 @@
     align-items: center;
     justify-content: center;
     color: currentColor;
+    flex-shrink: 0;
 }
 .menu-icon svg {
     width: 18px;
@@ -89,13 +91,19 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.sidebar-user:hover {
+    background: #FFDADA;
 }
 .sidebar-user img {
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     object-fit: cover;
     border: 1.5px solid #FFFFFF;
+    flex-shrink: 0;
 }
 .user-info {
     flex: 1;
@@ -117,9 +125,11 @@
     text-overflow: ellipsis;
 }
 .user-actions {
-    color: #A0AEC0;
+    color: #C55F4E;
     display: flex;
     align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 @media (max-width: 992px) {
@@ -186,20 +196,16 @@
         </a>
     </div>
     
-    <div class="sidebar-user">
-        @php
-            $userAvatar = 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=FFE1DD&color=C55F4E&size=64&bold=true';
-        @endphp
-        <img src="{{ $userAvatar }}" alt="User Avatar">
+    <a href="{{ route('profile.edit') }}" class="sidebar-user text-decoration-none" style="cursor: pointer;">
+        <img src="{{ Auth::user()->avatar_url }}" alt="User Avatar">
         <div class="user-info">
             <div class="name">{{ Auth::user()->name }}</div>
             <div class="email">{{ Auth::user()->email }}</div>
         </div>
         <div class="user-actions">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="8 9 12 5 16 9"></polyline>
-                <polyline points="16 15 12 19 8 15"></polyline>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18l6-6-6-6"></path>
             </svg>
         </div>
-    </div>
+    </a>
 </div>

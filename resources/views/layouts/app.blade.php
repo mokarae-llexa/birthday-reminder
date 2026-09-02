@@ -8,6 +8,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css" rel="stylesheet">
 
     <style>
         :root { --primary: #5D688A; --secondary: #F7A5A5; --accent: #FFDBB6; --background: #FFF2EF; --text: #333333; --white: #FFFFFF; }
@@ -34,6 +35,28 @@
         .alert { border-radius: 12px; border: none; font-size: 14px; }
         .is-invalid { border-color: #dc3545 !important; }
 
+        /* Custom Global Theme Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FFF6F4;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F7A5A5;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C55F4E;
+        }
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #F7A5A5 #FFF6F4;
+        }
+
         @media (max-width: 768px) {
             .auth-card { flex-direction: column; }
             .auth-left, .auth-right { width: 100%; padding: 35px; }
@@ -42,5 +65,7 @@
 </head>
 <body>
     @yield('content')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
 </body>
 </html>
