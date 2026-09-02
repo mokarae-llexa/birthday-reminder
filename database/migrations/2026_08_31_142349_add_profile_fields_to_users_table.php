@@ -6,21 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->string('avatar')->nullable()->after('email');
-        $table->date('birth_date')->nullable()->after('avatar');
-    });
-}
+    {
+        Schema::table('users', function (Blueprint $table) {
+            if (!Schema::hasColumn('users', 'avatar')) {
+                $table->string('avatar')->nullable()->after('email');
+            }
+            if (!Schema::hasColumn('users', 'birth_date')) {
+                $table->date('birth_date')->nullable()->after('avatar');
+            }
+        });
+    }
 
-public function down(): void
-{
-    Schema::table('users', function (Blueprint $table) {
-        $table->dropColumn(['avatar', 'birth_date']);
-    });
-}
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['avatar', 'birth_date']);
+        });
+    }
 };

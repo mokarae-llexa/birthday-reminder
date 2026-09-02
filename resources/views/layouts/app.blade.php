@@ -1,5 +1,3 @@
-@extends('layouts.dashboard')
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +35,6 @@
         .alert { border-radius: 12px; border: none; font-size: 14px; }
         .is-invalid { border-color: #dc3545 !important; }
 
-        /* Custom Global Theme Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
