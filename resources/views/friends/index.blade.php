@@ -11,9 +11,29 @@
                     <h2 class="fw-bold mb-1" style="color: #1F1F1F;">Daftar Teman</h2>
                     <p class="text-muted mb-0">Kelola data teman dan pengingat ulang tahun</p>
                 </div>
-                <a href="{{ route('friends.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm" style="background-color: #C55F4E; border-color: #C55F4E;">
-                    + Tambah Teman
-                </a>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                    <form action="{{ route('friends.index') }}" method="GET" class="d-flex align-items-center">
+                        <div class="input-group shadow-sm rounded-pill overflow-hidden border" style="background: #FFFFFF; min-width: 280px;">
+                            <span class="input-group-text bg-transparent border-0 pe-1 ps-3 text-muted">
+                                🔍
+                            </span>
+                            <input type="text"
+                                   name="search"
+                                   class="form-control border-0 bg-transparent shadow-none"
+                                   placeholder="Cari nama, email, no hp..."
+                                   value="{{ request('search') }}"
+                                   style="font-size: 14px;">
+                            @if(request('search'))
+                                <a href="{{ route('friends.index') }}" class="btn btn-transparent border-0 text-muted pe-3 text-decoration-none" title="Bersihkan Pencarian">
+                                    ✕
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                    <a href="{{ route('friends.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm" style="background-color: #C55F4E; border-color: #C55F4E;">
+                        + Tambah Teman
+                    </a>
+                </div>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="background: #FFFFFF;">
@@ -90,9 +110,22 @@
                                     <tr>
                                         <td colspan="8" class="text-center py-5">
                                             <div class="my-3">
-                                                <div class="fs-1 mb-2">🎈</div>
-                                                <h5 class="fw-bold text-dark mb-1">Belum Ada Data Teman</h5>
-                                                <p class="text-muted small mb-3">Mulai tambahkan teman untuk mendapatkan pengingat ulang tahun.</p>
+                                                <div class="fs-1 mb-2">{{ request('search') ? '🔍' : '🎈' }}</div>
+                                                <h5 class="fw-bold text-dark mb-1">
+                                                    {{ request('search') ? 'Hasil Tidak Ditemukan' : 'Belum Ada Data Teman' }}
+                                                </h5>
+                                                <p class="text-muted small mb-3">
+                                                    {{ request('search') ? 'Tidak ada data teman yang cocok dengan kata kunci "' . request('search') . '".' : 'Mulai tambahkan teman untuk mendapatkan pengingat ulang tahun.' }}
+                                                </p>
+                                                @if(request('search'))
+                                                    <a href="{{ route('friends.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-4">
+                                                        Reset Pencarian
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('friends.create') }}" class="btn btn-sm btn-primary rounded-pill px-4" style="background-color: #C55F4E; border-color: #C55F4E;">
+                                                        + Tambah Teman Pertama
+                                                    </a>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

@@ -92,4 +92,28 @@ class FriendAvatarTest extends TestCase
         $this->actingAs($user)->delete(route('friends.destroy', $friend->id));
         Storage::disk('public')->assertMissing($avatarPath);
     }
+
+    public function test_can_search_friends(): void
+    {
+        $user = User::factory()->create();
+
+        Friend::create([
+            'name' => 'Alice Johnson',
+            'email' => 'alice@test.com',
+            'phone' => '08111',
+            'birth_date' => '1995-01-01',
+        ]);
+
+        Friend::create([
+            'name' => 'Bob Smith',
+            'email' => 'bob@test.com',
+            'phone' => '08222',
+            'birth_date' => '1996-02-02',
+        ]);
+
+        $response = $this->actingAs($user)->get(route('friends.index', ['search' => 'Alice']));
+        $response->assertOk();
+        $response->assertSee('Alice Johnson');
+        $response->assertDontSee('Bob Smith');
+    }
 }
