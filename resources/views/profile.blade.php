@@ -23,7 +23,7 @@
 
   .profile-banner {
     height: 160px;
-    background: linear-gradient(135deg, #FFF1F2 0%, #EA8A8A 100%);
+    background:  #ffa0a6;
     border-bottom: 1.5px solid #FECDD3;
   }
 
@@ -196,12 +196,12 @@
             <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
           </svg>
         </div>
-        <span class="section-title">INFORMASI AKUN</span>
+        <span class="section-title">ACCOUNT INFORMATION</span>
       </div>
 
       <div class="info-table">
         <div class="info-item">
-          <span class="info-key">Nama</span>
+          <span class="info-key">Name</span>
           <span class="info-sep">:</span>
           <span class="info-val">{{ $user->name }}</span>
         </div>
@@ -211,7 +211,7 @@
           <span class="info-val">{{ $user->email }}</span>
         </div>
         <div class="info-item">
-          <span class="info-key">Tanggal Lahir</span>
+          <span class="info-key">Birth Date</span>
           <span class="info-sep">:</span>
           <span class="info-val">
             {{ $user->birth_date ? \Carbon\Carbon::parse($user->birth_date)->translatedFormat('d F Y') : '-' }}

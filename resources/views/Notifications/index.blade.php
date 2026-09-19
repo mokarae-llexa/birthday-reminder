@@ -1,43 +1,46 @@
-@extends('layouts.dashboard')
+@extends('layouts.app')
 
 @section('content')
 <style>
-    /* Container utama agar lebih lebar dan mengisi layar secara seimbang */
     .notif-container {
         width: 100%;
-        max-width: 95%; /* Melebar proporsional mengikuti layar */
+        max-width: 900px; 
         margin: 0 auto;
-        padding: 30px 20px 50px 20px;
+        padding: 40px 20px 60px 20px;
         display: flex;
         flex-direction: column;
     }
 
-    /* Search Bar lebih pas dan proporsional */
     .search-wrapper {
         display: flex;
         justify-content: flex-end;
-        margin-bottom: 24px;
+        margin-bottom: 28px;
+
     }
 
     .search-box {
         position: relative;
-        width: 240px;
+        width: 260px;
     }
 
     .search-box input {
         width: 100%;
-        padding: 10px 16px 10px 42px;
-        background-color: #FFDADA;
-        border: 1.5px solid #222;
-        border-radius: 12px;
+        padding: 10px 16px 10px 40px;
+        background-color: #FFFFFF;
+        border: 1px solid #E8E8E8;
+        border-radius: 20px;
         font-size: 13px;
-        color: #222;
+        color: #333333;
         outline: none;
-        font-weight: 500;
+        transition: all 0.2s ease;
+    }
+    .search-box input:focus {
+        border-color: #FFB6C1;
+        box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
     }
 
     .search-box input::placeholder {
-        color: #666;
+        color: #A0A0A0;
     }
 
     .search-box i {
@@ -45,144 +48,133 @@
         left: 14px;
         top: 50%;
         transform: translateY(-50%);
-        font-size: 16px;
-        color: #444;
+        font-size: 15px;
+        color: #888888;
     }
 
-    /* List Kartu Notifikasi */
     .notif-list {
         display: flex;
         flex-direction: column;
-        gap: 20px; /* Jarak antar kartu yang pas */
     }
 
-    /* Kartu Notifikasi lebih tebal, tinggi, dan kokoh */
-    .notif-card {
-        background-color: #FFDADA;
-        border: 2px solid #222222;
-        border-radius: 16px;
-        padding: 18px 32px;
+    .notif-item {
+        border-radius: 12px;
+        background-color: #F9F6C4;
+        border-bottom: 1px solid #EEEEEE;
+        border: 4px solid #FFB6C1;
+        padding: 20px 8px;
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        min-height: 105px; /* Lebih tinggi agar tidak terlihat gepeng */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        transition: transform 0.15s ease;
+        transition: background-color 0.2s ease;
     }
 
-    .notif-card:hover {
-        transform: translateY(-2px);
+    .notif-item:hover {
+        background-color: rgba(255, 255, 255, 0.5);
     }
 
     .notif-left {
         display: flex;
         align-items: center;
-        gap: 24px;
+        gap: 16px;
     }
 
-    /* Ukuran Avatar diperbesar */
-    .avatar-frame {
-        width: 72px;
-        height: 72px;
+    .notif-avatar {
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
-        border: 2px solid #222;
-        overflow: hidden;
-        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.25);
+        background-color: #FFEAEB;
+        color: #D87093;
+        margin: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
         flex-shrink: 0;
-        background-color: #fff;
+        border: 1px solid #FFB6C1;
     }
 
-    .avatar-frame img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* Teks detail */
     .notif-text h4 {
-        font-size: 18px; /* Judul lebih tegas */
-        font-weight: 700;
-        color: #111;
-        margin: 0 0 4px 0;
-        letter-spacing: -0.2px;
+        font-size: 15px;
+        text-align: justify;
+        font-weight: 600;
+        color: #222222;
+        margin: 0 0 3px 0;
     }
 
     .notif-text p {
-        font-size: 13px;
-        color: #333;
-        margin: 0;
+        font-size: 16px;
+        color: #666666;
+        margin: 3;
+        text-align: center;
         font-weight: 500;
     }
 
-    /* Tombol Aksi */
     .btn-wish {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-        gap: 10px;
-        background-color: #BB8760;
-        color: #FFFFFF !important;
+        gap: 6px;
+        background-color: transparent;
+        color: #BB8760 !important;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
-        padding: 12px 28px;
+        padding: 8px 14px;
         border-radius: 8px;
-        min-width: 150px;
-        border: 1px solid rgba(0,0,0,0.1);
-        transition: background-color 0.2s;
+        text-align: center;
+        transition: all 0.2s ease;
     }
 
     .btn-wish:hover {
-        background-color: #a4724d;
+        background-color: #FFF2EB;
+        color: #9A6843 !important;
     }
 
     .btn-wish i {
-        font-size: 15px;
+        font-size: 14px;
+        transition: transform 0.2s ease;
     }
 
-    /* Pesan Penutup Bawah */
+    .btn-wish:hover i {
+        transform: translateX(3px);
+    }
+
     .end-text {
         text-align: center;
-        margin-top: 45px;
-        padding: 12px 20px;
-        background-color: rgba(255, 255, 255, 0.7); /* Biar lebih terbaca di atas background motif */
-        border-radius: 12px;
-        width: fit-content;
-        margin-left: auto;
-        margin-right: auto;
-        backdrop-filter: blur(4px);
+        margin-top: 40px;
+        padding: 20px;
     }
 
     .end-text h5 {
         font-size: 13px;
-        font-weight: 700;
-        color: #111;
-        margin: 0 0 2px 0;
+        font-weight: 600;
+        color: #888888;
+        margin: 0 0 4px 0;
+        text-align: center;
     }
 
     .end-text p {
         font-size: 12px;
-        color: #444;
+        color: #B0B0B0;
         margin: 0;
     }
 </style>
 
 <div class="notif-container">
-    <!-- Search Bar -->
     <div class="search-wrapper">
         <div class="search-box">
-            <i class="bi bi-person"></i>
+            <i class="bi bi-search"></i>
             <input type="text" placeholder="Search Friend...">
         </div>
     </div>
 
-    <!-- Notification Cards List -->
     <div class="notif-list">
-        @foreach($notifications as $notif)
-            <div class="notif-card">
+        @foreach($notification as $notif)
+            <div class="notif-item">
                 <div class="notif-left">
-                    <div class="avatar-frame">
-                        <img src="{{ $notif['avatar'] }}" alt="Avatar">
+                    <div class="notif-avatar">
+                        <i class="bi bi-cake2"></i>
                     </div>
                     <div class="notif-text">
                         <h4>{{ $notif['title'] }}</h4>
@@ -198,12 +190,6 @@
                 </div>
             </div>
         @endforeach
-    </div>
-
-    <!-- End of list note -->
-    <div class="end-text">
-        <h5>You've reached the end!</h5>
-        <p>We'll notify you when there's something new.</p>
     </div>
 </div>
 @endsection

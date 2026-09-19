@@ -2,54 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Friend;
 use Carbon\Carbon;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $today = Carbon::today();
-        
-        $friends = Friend::all();
-        
-        $friends = $friends->map(function ($friend) use ($today) {
-            $birthDate = Carbon::parse($friend->birth_date);
-            $nextBirthday = Carbon::parse($friend->birth_date)->year($today->year);
-            
-            if ($nextBirthday->isPast()) {
-                $nextBirthday->addYear();
-            }
-            
-            $friend->days_left = (int) $today->diffInDays($nextBirthday, false);
-            return $friend;
-        });
-        
-        $sortedFriends = $friends->sortBy('days_left')->values();
-        
-        $todayBirthdays = $sortedFriends->filter(function ($friend) {
-            return $friend->days_left == 0;
-        });
-        
-        $highlightFriend = $todayBirthdays->first() ?? $sortedFriends->first();
-        
-        $upcomingFriends = $sortedFriends;
-        if ($highlightFriend) {
-            $upcomingFriends = $sortedFriends->filter(function ($friend) use ($highlightFriend) {
-                return $friend->id !== $highlightFriend->id;
+        $awalMinggu = $today->copy()->startOfWeek(); 
+        $akhirMinggu = $today->copy()->endOfWeek();    
+        $friends = Friend::query()
+            ->whereNotNull('birth_date')
+            ->get()
+            ->map(function ($f) use ($today) {
+                $lahir = Carbon::parse($f->birth_date);
+
+                $tahunIni = Carbon::create($today->year, $lahir->month, $lahir->day)->startOfDay();
+                $berikutnya = $tahunIni->lt($today) ? $tahunIni->copy()->addYear() : $tahunIni;
+
+                $f->ulang_tahun_ini = $tahunIni;
+                $f->ulang_tahun_berikutnya = $berikutnya;
+                $f->sisa_hari = (int) $today->diffInDays($berikutnya);
+                $f->umur_berikutnya = $berikutnya->year - $lahir->year;
+
+                return $f;
             });
-        }
-        
-        $upcomingFriends = $upcomingFriends->take(3)->values();
-        
-        $totalFriendsCount = Friend::count();
-        
-        return view('home', compact('highlightFriend', 'upcomingFriends', 'totalFriendsCount'));
+
+        return view('home', [
+            'hariIni'    => $friends->where('sisa_hari', 0)->values(),
+            'mingguIni'  => $friends->filter(fn ($f) => $f->ulang_tahun_ini->between($awalMinggu, $akhirMinggu))->values(),
+            'bulanIni'   => $friends->filter(fn ($f) => $f->ulang_tahun_ini->month === $today->month)->values(),
+            'berikutnya' => $friends->filter(fn ($f) => $f->sisa_hari > 0)->sortBy('sisa_hari')->take(6)->values(),
+            'totalFriendsCount' => $friends->count(),
+        ]);
     }
 }

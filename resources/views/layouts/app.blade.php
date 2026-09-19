@@ -1,71 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Birthday Reminder</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-        :root { --primary: #5D688A; --secondary: #F7A5A5; --accent: #FFDBB6; --background: #FFF2EF; --text: #333333; --white: #FFFFFF; }
-        body { margin: 0; font-family: "Poppins", sans-serif; background-color: var(--background); color: var(--text); }
-        .login-content, .register-content { min-height: 100vh; width: 100%; }
-        .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px; background: var(--background); }
-        .auth-card { width: 100%; max-width: 1050px; min-height: 600px; display: flex; overflow: hidden; background: var(--white); border-radius: 28px; box-shadow: 0 15px 40px rgba(93, 104, 138, 0.15); }
-        .auth-left { width: 45%; padding: 55px; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: center; }
-        .auth-logo { margin-bottom: 20px; }
-        .auth-logo img { max-width: 72px; height: auto; object-fit: contain; }
-        .auth-left h1 { font-size: 42px; font-weight: 700; line-height: 1.1; margin-bottom: 15px; }
-        .auth-left p { font-size: 16px; line-height: 1.7; opacity: 0.9; }
-        .auth-illustration { font-size: 110px; text-align: center; margin-top: 35px; }
-        .auth-right { width: 55%; padding: 55px 70px; display: flex; flex-direction: column; justify-content: center; }
-        .auth-right h2 { color: var(--primary); font-size: 30px; font-weight: 700; margin-bottom: 8px; }
-        .auth-subtitle { color: #777; margin-bottom: 30px; }
-        .auth-label { font-weight: 600; color: var(--primary); margin-bottom: 8px; }
-        .auth-input { border: 1px solid #e5dede; border-radius: 12px; padding: 13px 15px; background: #fffafa; }
-        .auth-input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(247, 165, 165, 0.2); }
-        .auth-button { width: 100%; border: none; border-radius: 12px; padding: 13px; background: var(--secondary); color: white; font-weight: 600; transition: 0.2s; }
-        .auth-button:hover { background: var(--primary); color: white; }
-        .auth-link { color: var(--primary); text-decoration: none; font-weight: 500; }
-        .auth-link:hover { color: var(--secondary); }
-        .alert { border-radius: 12px; border: none; font-size: 14px; }
-        .is-invalid { border-color: #dc3545 !important; }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #FFF6F4;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #F7A5A5;
-            border-radius: 10px;
-            transition: background 0.2s ease;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #C55F4E;
-        }
-        * {
-            scrollbar-width: thin;
-            scrollbar-color: #F7A5A5 #FFF6F4;
+        :root {
+            --primary: #5D688A;
+            --secondary: #F7A5A5;
+            --accent: #FFDBB6;
+            --background: #FFF2EF;
+            --text: #333333;
+            --white: #FFFFFF;
         }
 
-        @media (max-width: 768px) {
-            .auth-card { flex-direction: column; }
-            .auth-left, .auth-right { width: 100%; padding: 35px; }
+        body {
+            margin: 0;
+            font-family: "Poppins", sans-serif;
+            color: var(--text);
+            background-image: url("{{ asset('assets/bg-pattern.png') }}");
+            background-repeat: repeat;
+            background-size: 350px auto;
+            background-attachment: fixed;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 260px;
+            transition: transform 0.3s ease, margin-left 0.3s ease;
+            flex-shrink: 0;
+            z-index: 1000;
+        }
+
+        .sidebar.closed {
+            transform: translateX(-100%);
+            margin-left: -260px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        #sidebarBackdrop {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        #sidebarBackdrop.show {
+            display: block !important;
+        }
+
+        #sidebarToggle {
+            position: fixed;
+            top: 20px;
+            left: 272px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #FFFFFF;
+            border: 1.5px solid #FFD6D2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #C55F4E;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+            z-index: 1100;
+            transition: left 0.3s ease;
+        }
+
+        #sidebarToggle:hover {
+            background: #FFF0EE;
+        }
+
+        .sidebar.closed~#sidebarToggle {
+            left: 20px;
         }
     </style>
 </head>
+
 <body>
-    <x-toast-notification />
-    @yield('content')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+    <div class="dashboard-container">
+        <div id="sidebarBackdrop" class="position-fixed top-0 start-0 w-100 h-100" style="z-index: 1040;"></div>
+        <button id="sidebarToggle" class="sidebar-edge-toggle" aria-label="Toggle sidebar">
+            <i class="bi bi-list"></i>
+        </button>
+
+        @include('layouts.sidebar')
+
+        <main class="main-content">
+            @yield('content')
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const backdrop = document.getElementById('sidebarBackdrop');
+
+            if (!sidebar || !toggleBtn) return; 
+            function isOpen() {
+                return !sidebar.classList.contains('closed');
+            }
+
+            function updateToggleBtnPosition() {
+                if (isOpen()) {
+                    toggleBtn.style.left = '272px';
+                } else {
+                    toggleBtn.style.left = '20px';
+                }
+            }
+            
+            if (window.innerWidth <= 768) {
+                sidebar.classList.add('closed');
+            }
+            updateToggleBtnPosition();
+
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('closed');
+                backdrop?.classList.toggle('show', isOpen() && window.innerWidth <= 768);
+                updateToggleBtnPosition(); 
+            });
+
+            backdrop?.addEventListener('click', () => {
+                sidebar.classList.add('closed');
+                backdrop.classList.remove('show');
+                updateToggleBtnPosition();
+            });
+        });
+    </script>
 </body>
+
 </html>

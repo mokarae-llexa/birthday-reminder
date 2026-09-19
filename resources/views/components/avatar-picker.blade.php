@@ -27,10 +27,10 @@
                 </button>
             </div>
             <div class="form-text text-muted" style="font-size: 12px;">
-                Format: JPG, PNG, WEBP. Maksimal <strong>2MB</strong>.
+                Format: JPG, PNG, WEBP. Max <strong>2MB</strong>.
             </div>
             <button type="button" class="btn btn-link text-danger text-decoration-none btn-sm p-0 align-self-start {{ $currentAvatar ? '' : 'd-none' }}" id="btnRemoveAvatar">
-                Hapus Foto
+                Delete Photo
             </button>
         </div>
     </div>
@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const file = files[0];
         if (file.size > 2 * 1024 * 1024) {
-            alert('Ukuran file melebihi batas maksimal 2MB! Silakan pilih file yang lebih kecil.');
+            alert('File size exceeds the maximum limit of 2MB! Please choose a smaller file.');
             fileInput.value = '';
             return;
         }
