@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('layouts.guest')
 @section('content')
 <div class="register-content">
     <div class="auth-page">
