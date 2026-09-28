@@ -32,7 +32,7 @@ class ProfileTest extends TestCase
         $response = $this->actingAs($user)->get(route('profile.edit'));
 
         $response->assertStatus(200);
-        $response->assertSee('Kelola Profil Saya');
+        $response->assertSee('Manage My Profile');
         $response->assertSee($user->email);
     }
 

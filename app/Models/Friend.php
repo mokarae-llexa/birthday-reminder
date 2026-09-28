@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class Friend extends Model
@@ -19,6 +20,16 @@ class Friend extends Model
     ];
 
     protected $appends = ['avatar_url'];
+
+    public function greetings(): HasMany
+    {
+        return $this->hasMany(Greeting::class)->latest();
+    }
+
+    public function birthdayNotifications(): HasMany
+    {
+        return $this->hasMany(BirthdayNotification::class)->latest();
+    }
 
     public function getAvatarUrlAttribute(): string
     {

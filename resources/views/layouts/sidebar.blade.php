@@ -19,31 +19,6 @@
             transform: translateX(-100%);
         }
 
-        .sidebar-edge-toggle {
-            position: absolute;
-            top: 20px;
-
-            right: -45px;
-
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: #FFFFFF;
-            border: 1.5px solid #FFD6D2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #C55F4E;
-            cursor: pointer;
-            box-shadow: 2px 0 6px rgba(0, 0, 0, 0.08);
-            z-index: 1001;
-            overflow-y: auto;
-        }
-
-        .sidebar-edge-toggle:hover {
-            background: #FFF0EE;
-        }
-
         .brand {
             display: flex;
             align-items: center;
@@ -242,10 +217,6 @@
         }
     </style>
     <div class="sidebar">
-        <button id="sidebarToggle" class="sidebar-edge-toggle" aria-label="Toggle sidebar">
-            <i class="bi bi-list"></i>
-        </button>
-
         <div class="brand">
             <img src="{{ asset('assets/icon-kue.webp') }}" alt="Cake Icon">
             <h1><strong>BIRTHDAY</strong> Reminder</h1>
@@ -284,6 +255,7 @@
                     </svg>
                 </span>
                 <span class="menu-label">Notification</span>
+                <span class="badge-count" id="notifBadge" style="{{ ($unreadNotificationsCount ?? 0) > 0 ? '' : 'display:none;' }}">{{ $unreadNotificationsCount ?? 0 }}</span>
             </a>
             <a href="{{ route('calendar') }}" class="{{ Route::currentRouteName() == 'calendar' ? 'active' : '' }}">
                 <span class="menu-icon">
