@@ -22,4 +22,7 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
-*.png
+*.yml
+*.yaml
+docker-compose.yml
+Dockerfile

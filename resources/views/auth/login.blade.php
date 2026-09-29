@@ -85,7 +85,7 @@
                     </div>
 
                     <button type="submit" class="auth-button">
-                        Here we go →
+                        Login →
                     </button>
                 </form>
 
