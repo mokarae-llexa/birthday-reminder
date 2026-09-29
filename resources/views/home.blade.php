@@ -15,7 +15,7 @@
 
         $kartu = [
             ['judul' => 'Today', 'kelas' => 'pink', 'ikon' => '🎂', 'daftar' => $hariIni],
-            ['judul' => 'This week', 'kelas' => 'lavender', 'ikon' => '🗓️', 'daftar' => $mingguIni],
+            ['judul' => 'This week', 'kelas' => 'lavender', 'ikon' => '🎉', 'daftar' => $mingguIni],
             ['judul' => 'This Month', 'kelas' => 'yellow', 'ikon' => '📅', 'daftar' => $bulanIni],
         ];
     @endphp
@@ -33,9 +33,9 @@
             --pink-bg: #FFEBEC;
             --pink-fg: #E8637D;
             --pink-av: #FFD3D9;
-            --lav-bg: #EEEBFF;
-            --lav-fg: #7C5CE0;
-            --lav-av: #DCD5FF;
+            --lav-bg: #E3F2FD;
+            --lav-fg: #2196F3;
+            --lav-av: #90CAF9;
             --yel-bg: #FFF7D6;
             --yel-fg: #E39B0B;
             --yel-av: #FFE9A3;
@@ -107,11 +107,12 @@
         }
 
         .beranda-body {
-            max-width: 1100px;
+            width: 100%;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 8px 32px 48px;
+            padding: 32px 40px 56px;
             display: grid;
-            gap: 24px;
+            gap: 32px;
         }
 
         .ringkasan {
@@ -341,6 +342,42 @@
             font-weight: 600;
         }
 
+        .avatar-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 8px 0 4px;
+        }
+
+        .avatar-item {
+            display: inline-flex;
+            transition: transform .15s ease;
+        }
+
+        .avatar-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .av.x1{
+            width: 64px;
+            height: 64px;
+            font-size: 18px;
+            border: 3px solid #FFB6C1;
+        }
+
+        .avatar-lebih {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            background: var(--pink-bg);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 16px;
+            border: 3px solid #FFB6C1;
+        }
+
         @media (max-width: 900px) {
             .daftar {
                 grid-template-columns: 1fr;
@@ -361,7 +398,7 @@
             }
 
             .beranda-body {
-                max-width: 1300px;    
+                max-width: 1300px;
                 padding: 8px 16px 32px;
                 gap: 32px;
             }
@@ -369,10 +406,6 @@
     </style>
 
     <div class="beranda">
-        <header class="beranda-head">
-            <a href="{{ route('friends.create') }}" class="btn-tambah">+ Add Friend</a>
-        </header>
-
         <div class="beranda-body">
 
             <section class="ringkasan" aria-label="Ringkasan ulang tahun">
@@ -393,7 +426,7 @@
                             <div class="tumpuk">
                                 @foreach (collect($k['daftar'])->take(3) as $t)
                                     <img class="av"
-                                        src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=64&bold=true' }}"
+                                        src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
                                         alt="{{ $t->name }}" title="{{ $t->name }}">
                                 @endforeach
                             </div>
@@ -436,7 +469,7 @@
                                 <div class="baris-kanan">
                                     <div>
                                         <p class="baris-tgl">
-                                            {{ $b->ulang_tahun_berikutnya->locale('id')->isoFormat('D MMM') }}</p>
+                                            {{ $b->ulang_tahun_berikutnya->format('j M') }}</p>
                                         <p class="baris-sub">
                                             {{ $b->sisa_hari === 1 ? 'Tomorrow' : $b->sisa_hari . ' days left' }}</p>
                                     </div>
@@ -445,6 +478,36 @@
                             </div>
                         @endforeach
                     </div>
+                @endif
+            </section>
+            <section class="panel">
+                <div class="panel-head">
+                    <h2 class="panel-judul">Friends Who Have Joined</h2>
+                    <a href="{{route('friends.index')}}" class="panel-link">See all</a>
+                </div>
+
+                @if ($semuaTeman->isEmpty())
+                <p class="kosong">
+                    No Friend's yet.
+                    <a href="{{route('friends.create')}}">Add Friend</a>
+                </p>
+                @else
+                @php $maks = 14; @endphp
+                <div class="avatar-grid">
+                    @foreach ($semuaTeman->take($maks) as $t)
+                        <a href="{{route('friends.edit' , $t->id) }}" class="avatar-item"
+                            title="{{ $t->name}}">
+                            <img class="av x1"
+                            src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
+                            alt="{{$t->name}}">
+                    @endforeach
+
+                    @if ($semuaTeman->count() > $maks)
+                    <a href="{{route('friends.index')}}" class="avatar-item avatar-lebih">
+                        +{{ $semuaTeman->count() -$maks}}
+                    </a>
+                    @endif
+                </div>
                 @endif
             </section>
 

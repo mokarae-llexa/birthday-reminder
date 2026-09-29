@@ -84,12 +84,19 @@
                         @enderror
                     </div>
 
-                        <div class="mb-3">
-                            <label for="password-confirm" class="auth-label">Confirm Password</label>
-                            <input id="password-confirm" type="password" class="form-control auth-input"
-                                name="password_confirmation" placeholder="Confirm your password" required
-                                autocomplete="new-password">
-                        </div>
+                    <div class="mb-4">
+                        <label for="password-confirm" class="auth-label">Confirm Password</label>
+                        <input
+                            id="password-confirm"
+                            type="password"
+                            class="form-control auth-input"
+                            name="password_confirmation"
+                            placeholder="Confirm your password"
+                            required
+                            autocomplete="new-password"
+                        >
+                    </div>
+
                     <button type="submit" class="auth-button">
                         Register →
                     </button>

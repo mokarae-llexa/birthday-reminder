@@ -183,7 +183,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const toastContainer = document.getElementById('toastContainer');
     
-    // Auto dismiss existing static toasts after 4.5 seconds
     const toasts = toastContainer.querySelectorAll('.toast-card');
     toasts.forEach(toast => {
         setTimeout(() => {
@@ -192,7 +191,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 4500);
     });
 
-    // Global helper method to programmatically show toasts from JS
     window.showToast = function ({ type = 'success', title = 'Berhasil!', message = '' }) {
         const toast = document.createElement('div');
         toast.className = `toast-card toast-${type}`;

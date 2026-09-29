@@ -1,9 +1,11 @@
     <style>
         .sidebar {
             width: 260px;
-            height: 100dvh;
-            position: sticky;
+            height: 100vh;
+            position: fixed;
             top: 0;
+            bottom: 0;
+            left: 0;
             align-self: flex-start;
             padding: 24px 16px;
             display: flex;
@@ -17,6 +19,18 @@
 
         .sidebar.closed {
             transform: translateX(-100%);
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+            padding: 30px;
+            margin-left: 260px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar.closed~.main-content {
+            margin-left: 0;
         }
 
         .brand {

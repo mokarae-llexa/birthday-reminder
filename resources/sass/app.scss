@@ -12,7 +12,6 @@ body { margin: 0; font-family: "Poppins", sans-serif; background-color: var(--ba
 .auth-input { border: 1px solid #e5dede; border-radius: 12px; padding: 13px 15px; background: #fffafa; }
 .auth-button { width: 100%; border: none; border-radius: 12px; padding: 13px; background: var(--secondary); color: white; font-weight: 600; }
 
-//calendar page
 .calendar-page { min-height: 100vh; display: flex; background: #FFF1F1; }
 .calendar-sidebar { width: 334px; min-height: 100vh; background: white; border-right: 1px solid #EA8A8A; padding: 55px 25px 25px; display: flex; flex-direction: column; flex-shrink: 0; }
 .calendar-brand { display: flex; align-items: center; gap: 15px; padding: 0 10px; margin-bottom: 60px; }
