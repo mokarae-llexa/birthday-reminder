@@ -6,9 +6,9 @@
                      style="width: 64px; height: 64px; background-color: #FFE6E3; color: #C55F4E; font-size: 28px;">
                     🗑️
                 </div>
-                <h5 class="fw-bold mb-2" id="deleteConfirmModalLabel" style="color: #1F1F1F;">Hapus Data Teman?</h5>
+                <h5 class="fw-bold mb-2" id="deleteConfirmModalLabel" style="color: #1F1F1F;">Delete friend data?</h5>
                 <p class="text-muted small mb-4" style="line-height: 1.5;">
-                    Apakah Anda yakin ingin menghapus data <strong id="deleteTargetName" style="color: #C55F4E;"></strong>? Tindakan ini tidak dapat dibatalkan.
+                    Are you sure you want to delete <strong id="deleteTargetName" style="color: #C55F4E;"></strong>? This action can't be undone
                 </p>
 
                 <form id="deleteConfirmForm" method="POST" action="">
@@ -16,10 +16,10 @@
                     @method('DELETE')
                     <div class="d-flex justify-content-center gap-2">
                         <button type="button" class="btn btn-light rounded-pill px-4 fw-semibold border" data-bs-dismiss="modal">
-                            Batal
+                            Cancel
                         </button>
                         <button type="submit" class="btn rounded-pill px-4 fw-semibold text-white shadow-sm" style="background-color: #C55F4E; border-color: #C55F4E;">
-                            Ya, Hapus Data
+                            Yes, Delete
                         </button>
                     </div>
                 </form>

@@ -117,10 +117,10 @@
 
                 <div class="w-100 d-flex justify-content-end gap-2">
                     <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">
-                        Batal
+                        Cancel
                     </button>
                     <button type="button" class="btn btn-danger rounded-pill px-4" id="btnApplyCrop" style="background-color: #C55F4E; border-color: #C55F4E;">
-                        Simpan Foto
+                        Save Photo
                     </button>
                 </div>
             </div>

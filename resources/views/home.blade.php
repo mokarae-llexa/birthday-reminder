@@ -11,7 +11,7 @@
         $namaDepan = fn($nama) => explode(' ', trim($nama))[0];
         $warna = fn($nama) => ['pink', 'lavender', 'yellow', 'mint', 'blue'][crc32($nama) % 5];
 
-        $tanggalHariIni = \Carbon\Carbon::now()->locale('id')->isoFormat('dddd, D MMMM Y');
+        $tanggalHariIni = \Carbon\Carbon::now()->locale('en')->isoFormat('dddd, MMMM D, Y');
 
         $kartu = [
             ['judul' => 'Today', 'kelas' => 'pink', 'ikon' => '🎂', 'daftar' => $hariIni],

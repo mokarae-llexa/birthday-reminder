@@ -355,7 +355,7 @@
                 <textarea id="wishMessage" class="form-control rounded-3" rows="3" maxlength="1000" placeholder="Tulis ucapanmu di sini..."></textarea>
 
                 <div class="d-flex gap-3 mt-2 mb-3">
-                    <label class="small"><input type="radio" name="wishChannel" value="inapp" checked> Simpan di aplikasi</label>
+                    <label class="small"><input type="radio" name="wishChannel" value="inapp" checked> Save in App</label>
                     <label class="small"><input type="radio" name="wishChannel" value="whatsapp"> Via WhatsApp</label>
                     <label class="small"><input type="radio" name="wishChannel" value="email"> Via Email</label>
                 </div>
