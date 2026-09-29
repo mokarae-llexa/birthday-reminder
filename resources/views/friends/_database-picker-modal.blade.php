@@ -13,7 +13,7 @@
         <div class="modal-content rounded-4 border-0 shadow">
             <div class="modal-header border-0 pb-0">
                 <div>
-                    <h5 class="modal-title fw-bold mb-1" id="{{ $modalId }}Label">Select from Database</h5>
+                    <h5 class="modal-title fw-bold mb-1" id="{{ $modalId }}Label">Select Online Friend/h5>
                     <p class="text-muted small mb-0">Search registered users or saved friends, then pick one to auto-fill the form.</p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -133,7 +133,7 @@
                             extraBadges +
                         '</div>' +
                         '<div class="text-muted small text-truncate">' + escapeHtml(item.email || 'No email yet') + (item.birth_date ? ' • 🎂 ' + escapeHtml(item.birth_date) : '') + '</div>' +
-                        (item.source === 'user' ? '<div class="small" style="color:#1A56DB;">🔗 Will be linked & synced automatically</div>' : '') +
+                        (item.source === 'user' ? '<div class="small" style="color:#1A56DB;"></div>' : '') +
                     '</div>' +
                     pickBtn;
 

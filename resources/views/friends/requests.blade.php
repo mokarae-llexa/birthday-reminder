@@ -31,7 +31,6 @@
                 </div>
             @empty
                 <div class="text-center py-4">
-                    <div class="fs-1 mb-2">📭</div>
                     <p class="text-muted small mb-0">No incoming requests.</p>
                 </div>
             @endforelse
@@ -47,7 +46,7 @@
                     <div class="flex-grow-1" style="min-width:0;">
                         <div class="fw-bold text-dark">{{ $request->display_name }}</div>
                         <div class="text-muted small text-truncate">{{ $request->display_email ?? 'No email yet' }}</div>
-                        <span class="badge rounded-pill mt-1" style="font-size:10px;background:#FFF7E6;color:#B7791F;border:1px solid #F5D67B;">⏳ Pending confirmation</span>
+                        <span class="badge rounded-pill mt-1" style="font-size:10px;background:#FFF7E6;color:#B7791F;border:1px solid #F5D67B;">Pending confirmation</span>
                     </div>
                     <form action="{{ route('friends.destroy', $request->id) }}" method="POST" style="margin:0;" class="flex-shrink-0">
                         @csrf
@@ -57,7 +56,6 @@
                 </div>
             @empty
                 <div class="text-center py-4">
-                    <div class="fs-1 mb-2">📤</div>
                     <p class="text-muted small mb-0">No sent requests yet.</p>
                 </div>
             @endforelse
