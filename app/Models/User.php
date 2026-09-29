@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -20,6 +21,16 @@ class User extends Authenticatable
         'avatar',
         'birth_date',
     ];
+
+    public function greetings(): HasMany
+    {
+        return $this->hasMany(Greeting::class)->latest();
+    }
+
+    public function birthdayNotifications(): HasMany
+    {
+        return $this->hasMany(BirthdayNotification::class)->latest();
+    }
 
     public function getAvatarUrlAttribute(): string
     {

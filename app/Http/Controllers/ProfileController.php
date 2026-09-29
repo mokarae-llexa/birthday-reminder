@@ -87,7 +87,7 @@ class ProfileController extends Controller
             $base64Image = $request->input('avatar_base64');
             if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
                 $data = substr($base64Image, strpos($base64Image, ',') + 1);
-                $data = base64_decode($data);
+                $data = base64_decode($data, true);
 
                 if ($data === false) {
                     return $oldAvatar;

@@ -84,6 +84,7 @@
                         @enderror
                     </div>
 
+<<<<<<< HEAD
                     <div class="mb-4">
                         <label for="password-confirm" class="auth-label">Confirm Password</label>
                         <input
@@ -97,6 +98,14 @@
                         >
                     </div>
 
+=======
+                        <div class="mb-3">
+                            <label for="password-confirm" class="auth-label">Confirm Password</label>
+                            <input id="password-confirm" type="password" class="form-control auth-input"
+                                name="password_confirmation" placeholder="Confirm your password" required
+                                autocomplete="new-password">
+                        </div>
+>>>>>>> 5bb8283c118804bb0a38c27628232af1eb3b2393
                     <button type="submit" class="auth-button">
                         Register →
                     </button>

@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Birthday Reminder</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
 
     <style>
         :root {
@@ -65,31 +67,30 @@
             display: block !important;
         }
 
+        .topbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
         #sidebarToggle {
-            position: fixed;
-            top: 20px;
-            left: 272px;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
             background: #FFFFFF;
             border: 1.5px solid #FFD6D2;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             color: #C55F4E;
             cursor: pointer;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-            z-index: 1100;
-            transition: left 0.3s ease;
+            flex-shrink: 0;
         }
 
         #sidebarToggle:hover {
             background: #FFF0EE;
-        }
-
-        .sidebar.closed~#sidebarToggle {
-            left: 20px;
         }
     </style>
 </head>
@@ -97,16 +98,20 @@
 <body>
     <div class="dashboard-container">
         <div id="sidebarBackdrop" class="position-fixed top-0 start-0 w-100 h-100" style="z-index: 1040;"></div>
-        <button id="sidebarToggle" class="sidebar-edge-toggle" aria-label="Toggle sidebar">
-            <i class="bi bi-list"></i>
-        </button>
 
         @include('layouts.sidebar')
 
         <main class="main-content">
+            <div class="topbar">
+                <button id="sidebarToggle" aria-label="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
             @yield('content')
         </main>
     </div>
+
+    <x-toast-notification />
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -118,33 +123,26 @@
             function isOpen() {
                 return !sidebar.classList.contains('closed');
             }
-
-            function updateToggleBtnPosition() {
-                if (isOpen()) {
-                    toggleBtn.style.left = '272px';
-                } else {
-                    toggleBtn.style.left = '20px';
-                }
-            }
             
             if (window.innerWidth <= 768) {
                 sidebar.classList.add('closed');
             }
-            updateToggleBtnPosition();
 
             toggleBtn.addEventListener('click', () => {
                 sidebar.classList.toggle('closed');
                 backdrop?.classList.toggle('show', isOpen() && window.innerWidth <= 768);
-                updateToggleBtnPosition(); 
             });
 
             backdrop?.addEventListener('click', () => {
                 sidebar.classList.add('closed');
                 backdrop.classList.remove('show');
-                updateToggleBtnPosition();
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

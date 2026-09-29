@@ -52,7 +52,7 @@
                                 </h5>
                             </div>
                             <div class="card-body p-4">
-                                <form action="{{ route('password.update') }}" method="POST">
+                                <form action="{{ route('profile.update-password') }}" method="POST">
                                     @csrf
                                     @method('PUT')
 

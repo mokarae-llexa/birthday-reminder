@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <input type="file" id="avatarFileInput" accept="image/png, image/jpeg, image/webp, image/gif" class="d-none">
+    <input type="file" id="avatarFileInput" name="avatar" accept="image/png, image/jpeg, image/webp, image/gif" class="d-none">
     <input type="hidden" name="avatar_base64" id="avatarBase64Input">
     <input type="hidden" name="avatar_remove" id="avatarRemoveInput" value="0">
 </div>
@@ -228,8 +228,16 @@ document.addEventListener('DOMContentLoaded', function () {
             avatarPreview.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('{{ $defaultName }}') + '&background=FFE1DD&color=C55F4E&size=160&bold=true';
             avatarBase64Input.value = '';
             avatarRemoveInput.value = "1";
+            fileInput.value = '';
             btnRemoveAvatar.classList.add('d-none');
         });
+    }
+
+    function setAvatarDirectly(dataUrl) {
+        avatarPreview.src = dataUrl;
+        avatarBase64Input.value = dataUrl;
+        avatarRemoveInput.value = "0";
+        if (btnRemoveAvatar) btnRemoveAvatar.classList.remove('d-none');
     }
 
     fileInput.addEventListener('change', function (e) {
@@ -245,18 +253,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const reader = new FileReader();
         reader.onload = function (evt) {
+            // Fallback: jika Bootstrap Modal / Cropper.js gagal dimuat (mis. offline),
+            // langsung pakai gambar asli tanpa crop agar upload tetap berfungsi.
+            if (!cropperModal || typeof Cropper === 'undefined') {
+                setAvatarDirectly(evt.target.result);
+                return;
+            }
             cropperImageSrc.src = evt.target.result;
             cropperAlert.classList.add('d-none');
             cropperAlert.innerText = '';
             
-            if (cropperModal) {
-                cropperModal.show();
-            }
+            cropperModal.show();
         };
         reader.readAsDataURL(file);
     });
 
+    if (cropperModalElement) {
     cropperModalElement.addEventListener('shown.bs.modal', function () {
+        if (typeof Cropper === 'undefined') return;
         if (cropper) {
             cropper.destroy();
         }
@@ -290,7 +304,10 @@ document.addEventListener('DOMContentLoaded', function () {
             cropper.destroy();
             cropper = null;
         }
+        // Jika user menutup modal tanpa menyimpan crop, file mentah di fileInput
+        // tetap dikirim sebagai fallback sehingga upload tidak hilang.
     });
+    } // end if (cropperModalElement)
 
     document.getElementById('btnZoomIn').addEventListener('click', function () {
         if (cropper) cropper.zoom(0.1);

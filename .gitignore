@@ -22,6 +22,13 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+<<<<<<< HEAD
 *.png
 .vercel
 .env*
+=======
+*.yml
+*.yaml
+docker-compose.yml
+Dockerfile
+>>>>>>> 5bb8283c118804bb0a38c27628232af1eb3b2393

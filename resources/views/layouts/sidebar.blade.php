@@ -21,6 +21,7 @@
             transform: translateX(-100%);
         }
 
+<<<<<<< HEAD
         .main-content {
             flex: 1;
             min-width: 0;
@@ -58,6 +59,8 @@
             background: #FFF0EE;
         }
 
+=======
+>>>>>>> 5bb8283c118804bb0a38c27628232af1eb3b2393
         .brand {
             display: flex;
             align-items: center;
@@ -256,10 +259,6 @@
         }
     </style>
     <div class="sidebar">
-        <button id="sidebarToggle" class="sidebar-edge-toggle" aria-label="Toggle sidebar">
-            <i class="bi bi-list"></i>
-        </button>
-
         <div class="brand">
             <img src="{{ asset('assets/icon-kue.webp') }}" alt="Cake Icon">
             <h1><strong>BIRTHDAY</strong> Reminder</h1>
@@ -298,6 +297,7 @@
                     </svg>
                 </span>
                 <span class="menu-label">Notification</span>
+                <span class="badge-count" id="notifBadge" style="{{ ($unreadNotificationsCount ?? 0) > 0 ? '' : 'display:none;' }}">{{ $unreadNotificationsCount ?? 0 }}</span>
             </a>
             <a href="{{ route('calendar') }}" class="{{ Route::currentRouteName() == 'calendar' ? 'active' : '' }}">
                 <span class="menu-icon">
