@@ -13,7 +13,7 @@
         <div class="modal-content rounded-4 border-0 shadow">
             <div class="modal-header border-0 pb-0">
                 <div>
-                    <h5 class="modal-title fw-bold mb-1" id="{{ $modalId }}Label">Select Online Friend/h5>
+                    <h5 class="modal-title fw-bold mb-1" id="{{ $modalId }}Label">Select Online Friend</h5>
                     <p class="text-muted small mb-0">Search registered users or saved friends, then pick one to auto-fill the form.</p>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
