@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,11 +37,12 @@
 
         .main-content {
             flex: 1;
+            min-width: 0;
             padding: 30px;
-            overflow-y: auto;
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         @include('layouts.sidebar')
@@ -50,4 +52,5 @@
         </main>
     </div>
 </body>
+
 </html>

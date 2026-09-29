@@ -84,17 +84,6 @@
                         @enderror
                     </div>
 
-<<<<<<< HEAD
-                        <div class="mb-3">
-                            <label for="password-confirm" class="auth-label">Confirm Password</label>
-                            <input id="password-confirm" type="password" class="form-control auth-input"
-                                name="password_confirmation" placeholder="Confirm your password" required
-                                autocomplete="new-password">
-                        </div>
-                        <button type="submit" class="auth-button">
-                            Register
-                        </button>
-=======
                     <div class="mb-4">
                         <label for="password-confirm" class="auth-label">Confirm Password</label>
                         <input
@@ -118,7 +107,6 @@
                     <a class="auth-link" href="{{ route('login') }}">
                         <b>Log in</b>
                     </a>
->>>>>>> fdfe99c6b779f08c5f9c3ce957f80471c5fd0930
                 </div>
             </div>
 

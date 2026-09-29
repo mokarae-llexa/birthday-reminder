@@ -5,10 +5,10 @@
         $hariIniTgl = \Carbon\Carbon::today();
         $awalGrid = $tampil->copy()->startOfWeek();
         $akhirGrid = $tampil->copy()->endOfMonth()->endOfWeek();
-        $namaHari = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+        $namaHari = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
         $bulanIniAktif = $tampil->format('Y-m') === $hariIniTgl->format('Y-m');
-        $namaBulan = $tampil->copy()->locale('id')->isoFormat('MMMM');
-        $namaBulanTahun = $tampil->copy()->locale('id')->isoFormat('MMMM Y');
+        $namaBulan = $tampil->copy()->format('F');
+        $namaBulanTahun = $tampil->copy()->format('F Y');
 
         $urlBulan = fn($tgl) => route('calendar', ['bulan' => $tgl->format('Y-m')]);
     @endphp
@@ -365,7 +365,7 @@
                     <div class="sec-head">
                         <div>
                             <h6 class="fw-bold mb-0" style="color: #1F1F1F;">
-                                {{ $dipilih ? 'Ulang tahun ' . $dipilih . ' ' . $namaBulan : 'Birthday this month' }}
+                                {{ $dipilih ? 'Birthday on ' . $dipilih . ' ' . $namaBulan : 'Birthday this month' }}
                             </h6>
                             <p class="sec-sub">{{ $namaBulanTahun }}</p>
                         </div>
@@ -382,16 +382,16 @@
                                 @php
                                     $selisih = (int) $hariIniTgl->diffInDays($f->tanggal_ulang_tahun, false);
                                     if ($selisih === 0) {
-                                        $label = 'Hari ini 🎂';
+                                        $label = 'Today 🎂';
                                         $kelas = 'hari-ini';
                                     } elseif ($selisih === 1) {
-                                        $label = 'Besok';
+                                        $label = 'Tomorrow';
                                         $kelas = '';
                                     } elseif ($selisih > 1) {
                                         $label = $selisih . ' days left';
                                         $kelas = '';
                                     } else {
-                                        $label = 'Sudah lewat';
+                                        $label = 'Passed';
                                         $kelas = 'lewat';
                                     }
                                     $foto =
@@ -406,8 +406,8 @@
                                         <div>
                                             <h3 class="bday-nama" style="margin:0;">{{ $f->name }}</h3>
                                             <p class="bday-info">
-                                                {{ $f->tanggal_ulang_tahun->copy()->locale('id')->isoFormat('D MMMM') }}
-                                                · become {{ $f->umur }} years
+                                                {{ $f->tanggal_ulang_tahun->format('F j') }}
+                                                · turns {{ $f->umur }}
                                             </p>
                                         </div>
                                     </div>

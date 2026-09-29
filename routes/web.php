@@ -8,6 +8,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\CalendarController;
 
+use Illuminate\Http\JsonResponse;
+
+
+Route::get('/health', static function (): JsonResponse {
+    return response()->json(['status' => 'ok']);
+});
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
