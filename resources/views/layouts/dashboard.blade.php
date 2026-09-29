@@ -25,7 +25,7 @@
             margin: 0;
             font-family: "Poppins", sans-serif;
             color: var(--text);
-            background-image: url("{{ asset('assets/bg-pattern.png') }}");
+            background-image: url("{{ asset('assets/bg-pattern.jpeg') }}");
             background-repeat: repeat;
             background-size: 350px auto;
             background-attachment: fixed;
