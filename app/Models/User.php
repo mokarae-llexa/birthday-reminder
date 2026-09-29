@@ -27,6 +27,11 @@ class User extends Authenticatable
         return $this->hasMany(Greeting::class)->latest();
     }
 
+    public function linkedFriends(): HasMany
+    {
+        return $this->hasMany(Friend::class, 'linked_user_id');
+    }
+
     public function birthdayNotifications(): HasMany
     {
         return $this->hasMany(BirthdayNotification::class)->latest();

@@ -19,7 +19,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::resource('friends', FriendController::class);
+    Route::get('/friends/search/database', [FriendController::class, 'searchDatabase'])->name('friends.search-database');
+    Route::get('/friends/requests', [FriendController::class, 'inbox'])->name('friends.requests');
+    Route::post('/friends/{friend}/accept', [FriendController::class, 'accept'])->name('friends.accept');
+    Route::post('/friends/{friend}/decline', [FriendController::class, 'decline'])->name('friends.decline');
+
+    Route::resource('friends', FriendController::class)->except(['show']);
     
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 

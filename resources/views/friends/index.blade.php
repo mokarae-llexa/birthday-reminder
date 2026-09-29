@@ -56,6 +56,9 @@
             <a href="{{ route('friends.create') }}" class="btn btn-primary rounded-pill px-4 shadow-sm" style="background-color: #C55F4E; border-color: #C55F4E;">
                 + Add Friend
             </a>
+            <button type="button" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#databasePickerIndexModal">
+                🔍 From Database
+            </button>
         </div>
     </div>
 
@@ -80,10 +83,16 @@
                             <tr>
                                 <td class="text-center fw-bold text-muted py-3 px-4">{{ $loop->iteration }}</td>
                                 <td class="py-3 px-3">
-                                    <img src="{{ $friend->avatar_url }}" alt="{{ $friend->name }}" class="rounded-circle shadow-sm border" style="width: 44px; height: 44px; object-fit: cover; border-color: #FFE6E3 !important;">
+                                    <img src="{{ $friend->display_avatar_url }}" alt="{{ $friend->display_name }}" class="rounded-circle shadow-sm border" style="width: 44px; height: 44px; object-fit: cover; border-color: #FFE6E3 !important;">
                                 </td>
                                 <td class="py-3 px-3">
-                                    <span class="fw-bold d-block text-dark" style="font-size: 15px;">{{ $friend->name }}</span>
+                                    <span class="fw-bold d-block text-dark" style="font-size: 15px;">{{ $friend->display_name }}</span>
+                                    @if($friend->is_linked)
+                                        <span class="badge rounded-pill mt-1" style="font-size:10px;background:#E8F0FE;color:#1A56DB;border:1px solid #C7DBFF;" title="Auto-synced from {{ $friend->linkedUser?->name }}'s profile">🔗 Linked</span>
+                                    @endif
+                                    @if($friend->isPending())
+                                        <span class="badge rounded-pill mt-1" style="font-size:10px;background:#FFF7E6;color:#B7791F;border:1px solid #F5D67B;">⏳ Pending confirmation</span>
+                                    @endif
                                 </td>
                                 <td class="py-3 px-3">
                                     @if($friend->phone)
@@ -95,9 +104,9 @@
                                     @endif
                                 </td>
                                 <td class="py-3 px-3">
-                                    @if($friend->email)
+                                    @if($friend->display_email)
                                         <span class="text-secondary small d-block" style="font-size: 12.5px;">
-                                            ✉️ {{ $friend->email }}
+                                            ✉️ {{ $friend->display_email }}
                                         </span>
                                     @else
                                         <span class="text-muted small">-</span>
@@ -105,7 +114,7 @@
                                 </td>
                                 <td class="py-3 px-3">
                                     <span class="fw-semibold text-secondary" style="font-size: 14px;">
-                                        🎂 {{ \Carbon\Carbon::parse($friend->birth_date)->translatedFormat('d F Y') }}
+                                        🎂 {{ \Carbon\Carbon::parse($friend->display_birth_date)->translatedFormat('d F Y') }}
                                     </span>
                                 </td>
                                 <td class="py-3 px-3 text-muted small" style="max-width: 220px;">
@@ -114,6 +123,12 @@
                                     </div>
                                 </td>
                                 <td class="py-3 px-4 text-center">
+                                    @if($friend->isPending() && (int) $friend->linked_user_id === (int) auth()->id() && (int) $friend->created_by !== (int) auth()->id())
+                                        <a href="{{ route('friends.requests') }}"
+                                           class="btn btn-sm btn-outline-primary rounded-pill px-3">
+                                            Respond
+                                        </a>
+                                    @else
                                     <div class="d-flex justify-content-center gap-2">
                                         <a href="{{ route('friends.edit', $friend->id) }}"
                                            class="btn btn-sm btn-outline-warning rounded-pill px-3"
@@ -122,11 +137,12 @@
                                         </a>
                                         <button type="button"
                                                 class="btn btn-sm btn-outline-danger rounded-pill px-3"
-                                                title="Hapus Data"
-                                                onclick="openDeleteModal('{{ route('friends.destroy', $friend->id) }}', '{{ addslashes($friend->name) }}')">
-                                            Hapus
+                                                title="Delete Data"
+                                                onclick="openDeleteModal('{{ route('friends.destroy', $friend->id) }}', '{{ addslashes($friend->display_name) }}')">
+                                            Delete
                                         </button>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
@@ -135,14 +151,14 @@
                                     <div class="my-3">
                                         <div class="fs-1 mb-2">{{ request('search') ? '🔍' : '🎈' }}</div>
                                         <h5 class="fw-bold text-dark mb-1">
-                                            {{ request('search') ? 'Hasil Tidak Ditemukan' : 'Belum Ada Data Teman' }}
+                                            {{ request('search') ? 'No Results Found' : 'No Friends Yet' }}
                                         </h5>
                                         <p class="text-muted small mb-3">
-                                            {{ request('search') ? 'Tidak ada data teman yang cocok dengan kata kunci "' . request('search') . '".' : 'Mulai tambahkan teman untuk mendapatkan pengingat ulang tahun.' }}
+                                            {{ request('search') ? 'No friend matches the keyword "' . request('search') . '".' : 'Start adding friends to get birthday reminders.' }}
                                         </p>
                                         @if(request('search'))
                                             <a href="{{ route('friends.index') }}" class="btn btn-sm btn-outline-secondary rounded-pill px-4">
-                                                Reset Pencarian
+                                                Reset Search
                                             </a>
                                         @else
                                             <a href="{{ route('friends.create') }}" class="btn btn-sm btn-primary rounded-pill px-4" style="background-color: #C55F4E; border-color: #C55F4E;">
@@ -161,4 +177,6 @@
 </div>
 
 <x-delete-confirm-modal />
+
+@include('friends._database-picker-modal', ['mode' => 'redirect', 'modalId' => 'databasePickerIndexModal'])
 @endsection

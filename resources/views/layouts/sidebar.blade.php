@@ -245,6 +245,20 @@
                 <span class="menu-label">Friend</span>
                 <span class="badge-count">{{ $totalFriendsCount ?? 0 }}</span>
             </a>
+            <a href="{{ route('friends.requests') }}"
+                class="{{ Route::currentRouteName() == 'friends.requests' ? 'active' : '' }}">
+                <span class="menu-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z">
+                        </path>
+                    </svg>
+                </span>
+                <span class="menu-label">Requests</span>
+                @if(($pendingFriendRequestsCount ?? 0) > 0)
+                    <span class="badge-count">{{ $pendingFriendRequestsCount }}</span>
+                @endif
+            </a>
             <a href="{{ Route::has('notifications.index') ? route('notifications.index') : '#' }}"
                 class="{{ Route::currentRouteName() == 'notifications.index' ? 'active' : '' }}">
                 <span class="menu-icon">
