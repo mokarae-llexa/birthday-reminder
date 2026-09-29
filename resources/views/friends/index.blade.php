@@ -57,7 +57,7 @@
                 + Add Friend
             </a>
             <button type="button" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#databasePickerIndexModal">
-                🔍 From Database
+                Search Online
             </button>
         </div>
     </div>

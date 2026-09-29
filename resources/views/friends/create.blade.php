@@ -11,7 +11,7 @@
             <p class="text-muted mb-0">Fill out the form below to add a friend to the birthday reminder list.</p>
         </div>
         <button type="button" class="btn btn-outline-secondary rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#databasePickerModal">
-            🔍 Search from Database
+            Search online friend
         </button>
     </div>
 
