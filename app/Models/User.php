@@ -20,6 +20,7 @@ class User extends Authenticatable
         'password',
         'avatar',
         'birth_date',
+        'class_name',
     ];
 
     public function greetings(): HasMany
@@ -35,6 +36,14 @@ class User extends Authenticatable
     public function birthdayNotifications(): HasMany
     {
         return $this->hasMany(BirthdayNotification::class)->latest();
+    }
+    public function setClassNameAttribute($value): void
+    {
+        $value = trim((string) $value);
+
+        $this->attributes['class_name'] = $value === ''
+            ? null
+            : mb_strtoupper(preg_replace('/\s*-\s*/', '-', $value));
     }
 
     public function getAvatarUrlAttribute(): string
@@ -60,6 +69,27 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'birth_date' => 'date',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::updated(function (User $user) {
+            $changes = [];
+
+            if ($user->wasChanged('birth_date')) {
+                $changes['birth_date'] = $user->birth_date;
+            }
+
+            if ($user->wasChanged('class_name')) {
+                $changes['class_name'] = $user->class_name;
+            }
+            if (($changes)) {
+                Friend::where('linked_user_id', $user->id)
+                    ->update($changes);
+                    
+            }
+        });
     }
 }

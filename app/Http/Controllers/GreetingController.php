@@ -12,11 +12,42 @@ class GreetingController extends Controller
 {
     use MessageResponser;
 
+    /** Teman harus milik user yang login (cegah akses lewat ID di URL). */
+    private function authorizeOwner(Friend $friend): void
+    {
+        abort_unless((int) $friend->created_by === (int) auth()->id(), 404);
+    }
+
+    /**
+     * Halaman ucapan masuk: ucapan "Save in App" dari teman yang
+     * terhubung ke akun ini (linked_user_id) dan sudah diterima.
+     */
+    public function inbox()
+    {
+        $greetings = Greeting::with(['user:id,name', 'friend'])
+            ->where('channel', 'inapp')
+            ->whereHas('friend', function ($q) {
+                $q->where('linked_user_id', auth()->id())
+                  ->where('request_status', 'accepted');
+            })
+            ->latest()
+            ->get();
+
+        // simpan dulu mana yang belum dibaca, baru tandai dibaca
+        $unreadIds = $greetings->whereNull('read_at')->pluck('id');
+
+        Greeting::whereIn('id', $unreadIds)->update(['read_at' => now()]);
+
+        return view('greetings.inbox', compact('greetings', 'unreadIds'));
+    }
+
     /**
      * Riwayat ucapan milik user untuk seorang teman (JSON, untuk thread realtime di modal).
      */
     public function index(Friend $friend)
     {
+        $this->authorizeOwner($friend);
+
         $greetings = Greeting::with('user:id,name')
             ->where('user_id', auth()->id())
             ->where('friend_id', $friend->id)
@@ -35,12 +66,11 @@ class GreetingController extends Controller
         return response()->json(['greetings' => $greetings]);
     }
 
-    /**
-     * Kirim ucapan ke teman (in-app tersimpan di DB; whatsapp/email
-     * dibuka via deep-link di browser setelah tersimpan).
-     */
+//kirim ucapan melalui wa, dll
     public function store(Request $request, Friend $friend)
     {
+        $this->authorizeOwner($friend);
+
         $validated = $request->validate([
             'message' => 'required|string|max:1000',
             'channel' => 'required|string|in:'.implode(',', Greeting::CHANNELS),

@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Models\Friend;
 use App\Models\User;
 use App\Traits\MessageResponser;
@@ -11,22 +13,65 @@ class FriendController extends Controller
 {
     use MessageResponser;
 
+    /** Semua baris teman milik user yang login (termasuk yang masih pending). */
+    private function mine()
+    {
+        return Friend::where('created_by', auth()->id());
+    }
+
+    /** Teman milik user yang login yang sudah diterima. */
+    private function myAccepted()
+    {
+        return $this->mine()->where(function ($q) {
+            $q->whereNull('request_status')->orWhere('request_status', 'accepted');
+        });
+    }
+
+    private function authorizeOwner(Friend $friend): void
+    {
+        abort_unless((int) $friend->created_by === (int) auth()->id(), 404);
+    }
+
     public function index(Request $request)
     {
-        $query = Friend::query()->with(['linkedUser', 'requester']);
+        $query = $this->myAccepted()->with(['linkedUser', 'requester']);
 
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%")
-                  ->orWhere('email', 'like', "%{$search}%")
-                  ->orWhere('notes', 'like', "%{$search}%");
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('notes', 'like', "%{$search}%")
+                    ->orWhere('class_name', 'like', "%{$search}%");
             });
+        }
+
+        if ($class = $request->input('class')) {
+            $query->where('class_name', $class);
         }
 
         $friends = $query->latest()->get();
 
-        return view('friends.index', compact('friends', 'search'));
+        if ($sort = $request->input('sort')) {
+            $desc = $request->input('dir') === 'desc';
+
+            $friends = $friends->sortBy(function ($f) use ($sort) {
+                return match ($sort) {
+                    'dob'   => $f->display_birth_date,
+                    'class' => mb_strtolower($f->class_name ?? ''),
+                    default => mb_strtolower($f->display_name ?? ''),
+                };
+            }, SORT_REGULAR, $desc)->values();
+        }
+
+        $classList = $this->myAccepted()
+            ->whereNotNull('class_name')
+            ->where('class_name', '!=', '')
+            ->distinct()
+            ->orderBy('class_name')
+            ->pluck('class_name');
+
+        return view('friends.index', compact('friends', 'search', 'classList'));
     }
 
     public function create(Request $request)
@@ -56,7 +101,10 @@ class FriendController extends Controller
                         ->orWhere('email', 'like', "%{$q}%");
                 });
             }
-            $linkedIds = Friend::whereNotNull('linked_user_id')->pluck('linked_user_id')->all();
+
+            // data tmn yang sda ditambahkan
+            $linkedIds = $this->mine()->whereNotNull('linked_user_id')->pluck('linked_user_id')->all();
+
             foreach ($usersQuery->latest()->limit($limit)->get() as $user) {
                 $data[] = [
                     'source' => 'user',
@@ -65,7 +113,7 @@ class FriendController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'phone' => null,
-                    'birth_date' => $user->birth_date ? (string) $user->birth_date : null,
+                    'birth_date' => $user->birth_date?->format('Y-m-d'),
                     'notes' => null,
                     'avatar' => $user->avatar_url,
                     'is_self' => (int) $request->user()->id === (int) $user->id,
@@ -76,7 +124,8 @@ class FriendController extends Controller
         }
 
         if (in_array($source, ['all', 'friends'])) {
-            $friendsQuery = Friend::query();
+            // hanya teman user inii
+            $friendsQuery = $this->mine();
             if ($q !== '') {
                 $friendsQuery->where(function ($query) use ($q) {
                     $query->where('name', 'like', "%{$q}%")
@@ -92,7 +141,7 @@ class FriendController extends Controller
                     'name' => $friend->name,
                     'email' => $friend->email,
                     'phone' => $friend->phone,
-                    'birth_date' => $friend->birth_date ? (string) $friend->birth_date : null,
+                    'birth_date' => $friend->birth_date?->format('Y-m-d'),
                     'notes' => $friend->notes,
                     'avatar' => $friend->avatar_url,
                     'prefill_url' => route('friends.create', ['source' => 'friend', 'source_id' => $friend->id]),
@@ -124,7 +173,7 @@ class FriendController extends Controller
                 $prefill['linked_user_id'] = $user->id;
                 $prefill['name'] = $user->name;
                 $prefill['email'] = $user->email;
-                $prefill['birth_date'] = $user->birth_date ? (string) $user->birth_date : null;
+                $prefill['birth_date'] = $user->birth_date?->format('Y-m-d');
                 $prefill['avatar'] = $user->avatar_url;
                 $prefill['_source_label'] = 'Registered User: ' . $user->name;
                 $prefill['_is_linked'] = true;
@@ -133,12 +182,12 @@ class FriendController extends Controller
         }
 
         if ($source === 'friend' && $sourceId) {
-            $friend = Friend::find($sourceId);
+            $friend = $this->mine()->find($sourceId);
             if ($friend) {
                 $prefill['name'] = $friend->name;
                 $prefill['email'] = $friend->email;
                 $prefill['phone'] = $friend->phone;
-                $prefill['birth_date'] = $friend->birth_date ? (string) $friend->birth_date : null;
+                $prefill['birth_date'] = $friend->birth_date?->format('Y-m-d');
                 $prefill['notes'] = $friend->notes;
                 $prefill['avatar'] = $friend->avatar_url;
                 $prefill['_source_label'] = 'Friend Data: ' . $friend->name;
@@ -162,19 +211,26 @@ class FriendController extends Controller
 
     public function store(Request $request)
     {
+        $isLinked = $request->filled('linked_user_id');
+
         $validated = $request->validate([
             'linked_user_id' => 'nullable|exists:users,id',
-            'name' => 'required|string|max:255',
+            'name' => $isLinked ? 'nullable|string|max:255' : 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'birth_date' => 'required|date',
+            'birth_date' => $isLinked ? 'nullable|date' : 'required|date',
             'notes' => 'nullable|string',
+            'class_name' => 'nullable|string|max:50',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'avatar_url' => 'nullable|string|max:2048',
         ]);
 
+        // pemilik selalu user yang login, untuk SEMUA teman
+        $validated['created_by'] = $request->user()->id;
+        $validated['request_status'] = 'accepted';
+
         if (!empty($validated['linked_user_id'])) {
-            if (Friend::where('linked_user_id', $validated['linked_user_id'])->exists()) {
+            if ($this->mine()->where('linked_user_id', $validated['linked_user_id'])->exists()) {
                 return back()
                     ->withErrors(['linked_user_id' => 'This account is already in the friends list.'])
                     ->withInput();
@@ -184,9 +240,8 @@ class FriendController extends Controller
             $validated['name'] = $sourceUser->name;
             $validated['email'] = $sourceUser->email;
             $validated['birth_date'] = $sourceUser->birth_date
-                ? (string) $sourceUser->birth_date
-                : $validated['birth_date'];
-            $validated['created_by'] = $request->user()->id;
+                ? $sourceUser->birth_date->format('Y-m-d')
+                : null;
             $validated['request_status'] = (int) $validated['linked_user_id'] === (int) $request->user()->id
                 ? 'accepted'
                 : 'pending';
@@ -218,6 +273,7 @@ class FriendController extends Controller
 
     public function edit(Friend $friend)
     {
+        $this->authorizeOwner($friend);
         $friend->load('linkedUser');
 
         return view('friends.edit', compact('friend'));
@@ -225,12 +281,17 @@ class FriendController extends Controller
 
     public function update(Request $request, Friend $friend)
     {
+        $this->authorizeOwner($friend);
+
+        $isLinked = $friend->linked_user_id && !$request->boolean('unlink');
+
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => $isLinked ? 'nullable|string|max:255' : 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'birth_date' => 'required|date',
+            'birth_date' => $isLinked ? 'nullable|date' : 'required|date',
             'notes' => 'nullable|string',
+            'class_name' => 'nullable|string|max:50',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'avatar_url' => 'nullable|string|max:2048',
             'unlink' => 'nullable|boolean',
@@ -257,9 +318,7 @@ class FriendController extends Controller
                 $validated['linked_user_id'] = $sourceUser->id;
                 $validated['name'] = $sourceUser->name;
                 $validated['email'] = $sourceUser->email;
-                $validated['birth_date'] = $sourceUser->birth_date
-                    ? (string) $sourceUser->birth_date
-                    : $validated['birth_date'];
+                $validated['birth_date'] = $sourceUser->birth_date?->format('Y-m-d');
 
                 if (!$wantsCustomAvatar) {
                     $friend->syncFromUser($sourceUser);
@@ -303,7 +362,7 @@ class FriendController extends Controller
         $friend->update(['request_status' => 'accepted']);
 
         $requesterId = $friend->created_by;
-        if ($requesterId && !Friend::where('linked_user_id', $requesterId)->exists()) {
+        if ($requesterId && !$this->mine()->where('linked_user_id', $requesterId)->exists()) {
             $requester = User::find($requesterId);
             if ($requester) {
                 Friend::create([
@@ -312,7 +371,7 @@ class FriendController extends Controller
                     'request_status' => 'accepted',
                     'name' => $requester->name,
                     'email' => $requester->email,
-                    'birth_date' => $requester->birth_date ? (string) $requester->birth_date : $friend->birth_date,
+                    'birth_date' => $requester->birth_date?->format('Y-m-d'),
                     'avatar' => $requester->getAttributes()['avatar'] ?? null,
                 ]);
             }
@@ -348,6 +407,8 @@ class FriendController extends Controller
 
     public function destroy(Friend $friend)
     {
+        $this->authorizeOwner($friend);
+
         $this->deleteAvatarFile($friend);
         $friend->delete();
         return redirect()
@@ -370,7 +431,7 @@ class FriendController extends Controller
     public function calendar()
     {
         $currentMonth = now()->month;
-        $friends = Friend::whereMonth('birth_date', $currentMonth)->get();
+        $friends = $this->myAccepted()->whereMonth('birth_date', $currentMonth)->get();
         $birthdaysByDay = $friends->groupBy(function ($friend) {
             return \Carbon\Carbon::parse($friend->birth_date)->format('j');
         });

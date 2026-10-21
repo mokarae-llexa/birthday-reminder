@@ -24,10 +24,20 @@ class NotificationController extends Controller
             ->get();
 
         $upcoming = $service->upcoming(
-            \App\Models\Friend::query()->whereNotNull('birth_date')->get(),
-            \Carbon\Carbon::today(),
-            30
+            \App\Models\Friend::where('created_by', $user->id)
+                ->where(function ($q) {
+                    $q->whereNull('request_status')->orWhere('request_status', 'accepted');
+                })
+                ->whereNotNull('birth_date')
+                ->get()
         );
+
+        $unreadGreetings = \App\Models\Greeting::where('channel', 'inapp')
+            ->whereNull('read_at')
+            ->whereHas('friend', fn ($q) => $q 
+                ->where('linked_user_id', auth()->id())
+                ->where('request_status', 'accepted'))
+            ->count();
 
         return view('notifications.index', [
             'notifications' => $notifications,
@@ -50,7 +60,7 @@ class NotificationController extends Controller
             ->orderBy('notify_date')
             ->limit(20)
             ->get()
-            ->map(fn (BirthdayNotification $n) => [
+            ->map(fn(BirthdayNotification $n) => [
                 'id' => $n->id,
                 'type' => $n->type,
                 'title' => $n->title,

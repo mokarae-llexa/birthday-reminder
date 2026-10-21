@@ -96,7 +96,16 @@ class BirthdayReminderService
     public function refreshUserNotifications(User $user, ?Carbon $today = null, int $withinDays = 7): Collection
     {
         $today = ($today ?? Carbon::today())->copy()->startOfDay();
-        $items = $this->upcoming(Friend::query()->whereNotNull('birth_date')->get(), $today, $withinDays);
+        $items = $this->upcoming(
+            Friend::where('created_by', $user->id)
+                ->where(function ($q) {
+                    $q->whereNull('request_status')->orWhere('request_status', 'accepted');
+                })
+                ->whereNotNull('birth_date')
+                ->get(),
+            $today,
+            $withinDays
+        );
 
         foreach ($items as $item) {
             /** @var Friend $friend */

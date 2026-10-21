@@ -20,10 +20,18 @@ class Friend extends Model
         'email',
         'birth_date',
         'notes',
+        'class_name',
         'avatar',
     ];
 
     protected $appends = ['avatar_url', 'is_linked'];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_date' => 'date',
+        ];
+    }
 
     public function linkedUser(): BelongsTo
     {
@@ -72,9 +80,9 @@ class Friend extends Model
 
     public function getDisplayBirthDateAttribute(): ?string
     {
-        $birthDate = $this->linkedUser?->birth_date ?? $this->getAttribute('birth_date');
+        $birthDate = $this->linkedUser?->birth_date ?? $this->birth_date;
 
-        return $birthDate ? (string) $birthDate : null;
+        return $birthDate?->format('Y-m-d');
     }
 
     public function getDisplayAvatarUrlAttribute(): string
@@ -91,7 +99,8 @@ class Friend extends Model
         $this->linked_user_id = $user->id;
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->birth_date = $user->birth_date ? (string) $user->birth_date : $this->birth_date;
+        $this->birth_date = $user->birth_date ?? $this->birth_date;
+        $this->class_name = $user->class_name ?? $this->class_name;
 
         $currentAvatar = $this->getAttributes()['avatar'] ?? null;
         $newUserAvatar = $user->getAttributes()['avatar'] ?? null;

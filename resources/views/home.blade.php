@@ -30,13 +30,13 @@
             --muted: #A0707A;
             --accent: #E8637D;
             --line: #F3DDD8;
-            --pink-bg: #FFEBEC;
+            --pink-bg: #FFD6DA;
             --pink-fg: #E8637D;
             --pink-av: #FFD3D9;
-            --lav-bg: #E3F2FD;
+            --lav-bg: #CFE8FC;
             --lav-fg: #2196F3;
             --lav-av: #90CAF9;
-            --yel-bg: #FFF7D6;
+            --yel-bg: #FFEFB0;
             --yel-fg: #E39B0B;
             --yel-av: #FFE9A3;
             --mint-av: #B9F3E4;
@@ -124,7 +124,7 @@
         .kartu {
             border-radius: 16px;
             padding: 22px 26px;
-            border: 1px solid rgba(0, 0, 0, .04);
+            border: 2px solid var(--fg);
             display: grid;
             gap: 10px;
         }
@@ -251,7 +251,7 @@
 
         .panel {
             background: #fff;
-            border: 1px solid var(--line);
+            border: 2px solid #F0C9C9;
             border-radius: 18px;
             padding: 24px 32px 20px;
         }
@@ -358,7 +358,7 @@
             transform: translateY(-3px);
         }
 
-        .av.x1{
+        .av.x1 {
             width: 64px;
             height: 64px;
             font-size: 18px;
@@ -483,31 +483,31 @@
             <section class="panel">
                 <div class="panel-head">
                     <h2 class="panel-judul">Friends Who Have Joined</h2>
-                    <a href="{{route('friends.index')}}" class="panel-link">See all</a>
+                    <a href="{{ route('friends.index') }}" class="panel-link">See all</a>
                 </div>
 
                 @if ($semuaTeman->isEmpty())
-                <p class="kosong">
-                    No Friend's yet.
-                    <a href="{{route('friends.create')}}">Add Friend</a>
-                </p>
+                    <p class="kosong">
+                        No Friend's yet.
+                        <a href="{{ route('friends.create') }}">Add Friend</a>
+                    </p>
                 @else
-                @php $maks = 14; @endphp
-                <div class="avatar-grid">
-                    @foreach ($semuaTeman->take($maks) as $t)
-                        <a href="{{route('friends.edit' , $t->id) }}" class="avatar-item"
-                            title="{{ $t->name}}">
-                            <img class="av x1"
-                            src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
-                            alt="{{$t->name}}">
-                    @endforeach
+                    @php $maks = 14; @endphp
+                    <div class="avatar-grid">
+                        @foreach ($semuaTeman->take($maks) as $t)
+                            <a href="{{ route('friends.edit', $t->id) }}" class="avatar-item" title="{{ $t->name }}">
+                                <img class="av x1"
+                                    src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
+                                    alt="{{ $t->name }}">
+                            </a>
+                        @endforeach
 
-                    @if ($semuaTeman->count() > $maks)
-                    <a href="{{route('friends.index')}}" class="avatar-item avatar-lebih">
-                        +{{ $semuaTeman->count() -$maks}}
-                    </a>
-                    @endif
-                </div>
+                        @if ($semuaTeman->count() > $maks)
+                            <a href="{{ route('friends.index') }}" class="avatar-item avatar-lebih">
+                                +{{ $semuaTeman->count() - $maks }}
+                            </a>
+                        @endif
+                    </div>
                 @endif
             </section>
 

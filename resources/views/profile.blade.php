@@ -211,12 +211,22 @@
           <span class="info-val">{{ $user->email }}</span>
         </div>
         <div class="info-item">
+          <span class="info-key">Phone</span>
+          <span class="info-sep">:</span>
+          <span class="info-val">{{ $user->phone}}</span>
+        </div>
+        <div class="info-item">
           <span class="info-key">Birth Date</span>
           <span class="info-sep">:</span>
           <span class="info-val">
             {{ $user->birth_date ? \Carbon\Carbon::parse($user->birth_date)->translatedFormat('d F Y') : '-' }}
           </span>
         </div>
+      </div>
+      <div class="info-item">
+        <span class="info-key">Class</span>
+        <span class="info-sep">:</span>
+        <span class="info-val">{{ $user->class ?? '-' }}</span>
       </div>
 
       <div class="action-container">

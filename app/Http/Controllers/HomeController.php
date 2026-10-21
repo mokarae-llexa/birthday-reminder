@@ -10,9 +10,13 @@ class HomeController extends Controller
     public function index()
     {
         $today = Carbon::today();
-        $awalMinggu = $today->copy()->startOfWeek(); 
-        $akhirMinggu = $today->copy()->endOfWeek();    
+        $awalMinggu = $today->copy()->startOfWeek();
+        $akhirMinggu = $today->copy()->endOfWeek();
         $friends = Friend::query()
+            ->where('created_by', auth()->id())
+            ->where(function ($q) {
+                $q->whereNull('request_status')->orWhere('request_status', 'accepted');
+            })
             ->whereNotNull('birth_date')
             ->get()
             ->map(function ($f) use ($today) {
@@ -29,13 +33,17 @@ class HomeController extends Controller
                 return $f;
             });
 
-            $semuaTeman = Friend::latest()->get();
+        $semuaTeman = Friend::where('created_by', auth()->id())
+            ->where(function ($q) {
+                $q->whereNull('request_status')->orWhere('request_status', 'accepted');
+            })
+            ->latest()->get();
 
         return view('home', [
             'hariIni'    => $friends->where('sisa_hari', 0)->values(),
-            'mingguIni'  => $friends->filter(fn ($f) => $f->ulang_tahun_ini->between($awalMinggu, $akhirMinggu))->values(),
-            'bulanIni'   => $friends->filter(fn ($f) => $f->ulang_tahun_ini->month === $today->month)->values(),
-            'berikutnya' => $friends->filter(fn ($f) => $f->sisa_hari > 0)->sortBy('sisa_hari')->take(6)->values(),
+            'mingguIni'  => $friends->filter(fn($f) => $f->ulang_tahun_ini->between($awalMinggu, $akhirMinggu))->values(),
+            'bulanIni'   => $friends->filter(fn($f) => $f->ulang_tahun_ini->month === $today->month)->values(),
+            'berikutnya' => $friends->filter(fn($f) => $f->sisa_hari > 0)->sortBy('sisa_hari')->take(6)->values(),
             'totalFriendsCount' => $friends->count(),
             'semuaTeman' => $semuaTeman,
         ]);

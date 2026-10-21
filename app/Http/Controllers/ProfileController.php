@@ -39,13 +39,15 @@ class ProfileController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'birth_date' => 'nullable|date',
+            'birth_date' => 'nullable|date|before_or_equal:today',
+            'class_name' => 'nullable|string|max:50', 
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
         $validated['avatar'] = $this->handleAvatarUpload($request, $user->avatar);
 
         $user->update($validated);
+        // dd($validated, $user->fresh()->class_name);
 
         return redirect()
             ->route('profile.edit')

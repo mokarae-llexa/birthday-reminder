@@ -22,7 +22,10 @@ class CalendarController extends Controller
         $bulanIni = collect();
 
         $friends = Friend::query()
-            ->whereNotNull('birth_date')
+            ->where('created_by', auth()->id())
+            ->where(function ($q) {
+                $q->whereNull('request_status')->orWhere('request_status', 'accepted');
+            })
             ->get();
 
         foreach ($friends as $f) {

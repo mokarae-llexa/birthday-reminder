@@ -84,10 +84,11 @@
         }
 
         .sec-head {
+            background: #fff;
+            border: 1.5px solid #F3DDD8;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, .92);
             padding: 12px 18px;
             border-radius: 14px;
             margin-bottom: 14px;
@@ -329,6 +330,18 @@
             color: var(--accent);
         }
 
+        .sticker {
+            color: #2B1F22;
+            paint-order: stroke fill;
+            -webkit-text-stroke: 0.28em #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, .9);
+        }
+
+        .kal .kal-sub {
+            color: #6B3F49;
+            font-weight: 500;
+        }
+
         @media (max-width: 900px) {
             .kal {
                 padding: 32px 20px 40px;
@@ -355,8 +368,8 @@
         <div class="kal-inner">
 
             <header>
-                <h2 class="fw-bold mb-1" style="color: #1F1F1F;">Calendar Of Friends</h2>
-                <p class="kal-sub">Your friends' birthdays, by month.</p>
+                <h2 class="fw-bold mb-1 sticker">Calendar Of Friends</h2>
+                <p class="kal-sub sticker">Your friends' birthdays, by month.</p>
             </header>
 
             <div class="kal-layout">

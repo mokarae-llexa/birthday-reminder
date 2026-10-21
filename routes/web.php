@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/friends/{friend}/greetings', [GreetingController::class, 'index'])->name('greetings.index');
     Route::post('/friends/{friend}/greetings', [GreetingController::class, 'store'])->name('greetings.store');
+    Route::get('/ucapan', [GreetingController::class, 'inbox'])->name('greetings.inbox');
     Route::get('/profil', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
