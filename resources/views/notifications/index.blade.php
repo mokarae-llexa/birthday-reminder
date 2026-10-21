@@ -77,7 +77,7 @@
         }
 
         .search-box input::placeholder {
-           color: #8A6A72;
+            color: #8A6A72;
         }
 
         .search-box i {
@@ -305,7 +305,7 @@
     <div class="notif-container">
         <div class="notif-toolbar">
             <div class="d-flex align-items-center gap-2 flex-wrap">
-                <span class="unread-text"><span id="unreadCount">{{ $unreadCount }}</span> belum dibaca</span>
+                <span class="sticker sticker-soft"><span id="unreadCount">{{ $unreadCount }}</span> belum dibaca</span>
                 @if (($unreadGreetings ?? 0) > 0)
                     <a href="{{ route('greetings.inbox') }}" class="unread-text" style="text-decoration:none">
                         💌 {{ $unreadGreetings }} ucapan baru
@@ -319,7 +319,7 @@
                 </div>
                 <form action="{{ route('notifications.read-all') }}" method="POST" class="m-0">
                     @csrf
-                    <button type="submit" class="btn btn-sm btn-outline-secondary rounded-pill">Tandai semua dibaca</button>
+                    <button type="submit" class="btn btn-sm btn-chip rounded-pill">Tandai semua dibaca</button>
                 </form>
             </div>
         </div>
@@ -350,7 +350,8 @@
 
         <div class="notif-list" id="notifList">
             @forelse($notifications as $notif)
-                <div class="notif-item {{ $notif->read_at ? 'is-read' : '' }}" data-id="{{ $notif->id }}"
+                <div class="notif-item anim-up {{ $notif->read_at ? 'is-read' : '' }}"
+                    style="animation-delay: {{ min($loop->index, 10) * 0.06 }}s" data-id="{{ $notif->id }}"
                     data-search="{{ strtolower($notif->title . ' ' . $notif->message . ' ' . $notif->friend->name) }}">
                     <div class="notif-left">
                         <img class="notif-avatar" src="{{ $notif->friend->avatar_url }}" alt="{{ $notif->friend->name }}">
@@ -582,8 +583,7 @@
                     .then(data => updateBadge(data.unread_count || 0))
                     .catch(() => {});
             }
-
-            // ---- Modal kirim ucapan ----
+            
             let wishModal = null;
             let currentFriendId = null;
             const wishModalEl = document.getElementById('wishModal');

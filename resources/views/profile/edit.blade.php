@@ -56,7 +56,7 @@
                                 <label for="class_name" class="form-label fw-semibold">Class Name</label>
                                 <input type="text" name="class_name" id="class_name"
                                     class="form-control rounded-3 @error('class_name') is-invalid @enderror"
-                                    value="{{ old('class_name', $user->class_name) }}" max="{{ now()->format('Y-m-d') }}">
+                                    value="{{ old('class_name', $user->class_name) }}">
                                 @error('class_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -86,7 +86,7 @@
             </div>
 
             <div class="col-lg-6 mb-4">
-                <div class="card border-0 shadow-sm rounded-4 h-100" style="background: #FFFFFF;">
+                <div class="card card-flat rounded-4 h-100">
                     <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
                         <h5 class="fw-bold mb-0" style="color: #C55F4E;">
                             <i class="bi bi-key-fill me-2"></i>Change Password
@@ -129,7 +129,7 @@
             </div>
 
             <div class="col-12">
-                <div class="card border-0 shadow-sm rounded-4" style="background: #FFFFFF;">
+                <div class="card card-flat rounded-4">
                     <div class="card-body p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
                         <div>
                             <h6 class="fw-bold mb-1 text-danger">Logout</h6>

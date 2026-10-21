@@ -9,11 +9,6 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-/**
- * Disiarkan setiap ada ucapan baru yang dikirim ke teman, sehingga
- * riwayat ucapan di browser bisa diperbarui realtime (polling +
- * websocket bila driver broadcast mendukungnya).
- */
 class GreetingSent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;

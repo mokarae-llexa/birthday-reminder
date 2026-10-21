@@ -12,16 +12,11 @@ class GreetingController extends Controller
 {
     use MessageResponser;
 
-    /** Teman harus milik user yang login (cegah akses lewat ID di URL). */
     private function authorizeOwner(Friend $friend): void
     {
         abort_unless((int) $friend->created_by === (int) auth()->id(), 404);
     }
 
-    /**
-     * Halaman ucapan masuk: ucapan "Save in App" dari teman yang
-     * terhubung ke akun ini (linked_user_id) dan sudah diterima.
-     */
     public function inbox()
     {
         $greetings = Greeting::with(['user:id,name', 'friend'])
@@ -41,9 +36,6 @@ class GreetingController extends Controller
         return view('greetings.inbox', compact('greetings', 'unreadIds'));
     }
 
-    /**
-     * Riwayat ucapan milik user untuk seorang teman (JSON, untuk thread realtime di modal).
-     */
     public function index(Friend $friend)
     {
         $this->authorizeOwner($friend);

@@ -83,16 +83,16 @@
             padding: 48px 40px 56px;
         }
 
-        .sec-head {
-            background: #fff;
-            border: 1.5px solid #F3DDD8;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 18px;
-            border-radius: 14px;
-            margin-bottom: 14px;
-        }
+      .sec-head {
+    background: #fff;
+    border: 1.5px solid #F3DDD8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 18px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+}
 
         .sec-judul {
             font-family: 'Roboto', Georgia, serif;
