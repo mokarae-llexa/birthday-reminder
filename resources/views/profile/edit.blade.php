@@ -13,8 +13,36 @@
             color: #6B3F49;
             font-weight: 500;
         }
+
+        .profile-page {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            overflow-x: hidden;
+        }
+
+        .profile-page .row {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .profile-page .card {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .profile-page .form-control {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            box-sizing: border-box;
+        }
+
+        .profile-page .card-body {
+            min-width: 0;
+        }
     </style>
-    <div class="container-fluid py-2">
+    <div class="container-fluid py-2 profile-page">
         <div class="mb-4">
             <h2 class="fw-bold mb-1 sticker">Manage My Profile</h2>
             <p class="mb-0 sticker sticker-soft">Manage your profile picture, name, email, and password.</p>
