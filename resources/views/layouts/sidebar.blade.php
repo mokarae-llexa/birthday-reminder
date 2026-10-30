@@ -128,6 +128,23 @@
         .sidebar-user:hover {
             background: #FFDADA;
         }
+        .sidebar-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
+
+#sidebar-birthday-animation {
+    width: 220px;
+    height: 190px;
+}
+
+.sidebar-user {
+    margin-top: 0;
+}
 
         .sidebar-user img {
             width: 36px;
@@ -228,7 +245,9 @@
             .sidebar-toggle.sidebar-open {
                 left: 280px;
             }
+            
         }
+
     </style>
     <div class="sidebar">
         <div class="brand">
@@ -306,6 +325,9 @@
                 <span class="menu-label">Profile</span>
             </a>
         </div>
+        <div class="sidebar-animation">
+    <div id="sidebar-birthday-animation"></div>
+</div>
         <a href="{{ route('profile.edit') }}" class="sidebar-user text-decoration-none" style="cursor: pointer;">
             @if (Auth::check())
                 <img src="{{ Auth::user()->avatar_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"

@@ -1,6 +1,7 @@
+
 .landing-page {
     min-height: 100vh;
-    color: #6f2945;
+    color: #5D688A;
     font-family: 'DM Sans', sans-serif;
 }
 
@@ -15,10 +16,10 @@
 
 .landing-page.page-shell {
     min-height: 100vh !important;
-    background-color: #fffaf6 !important;
+    background-color: #FFF2EF !important;
     background-image:
-        linear-gradient(rgba(255, 250, 246, 0.75),
-            rgba(255, 250, 246, 0.75)),
+        linear-gradient(rgba(255, 242, 239, 0.75),
+            rgba(255, 242, 239, 0.75)),
         url('/assets/bg-pattern.jpeg') !important;
     background-size: cover !important;
     background-position: center !important;
@@ -27,9 +28,9 @@
 
 .landing-page .site-header {
     height: 76px;
-    border-bottom: 2px solid #6f2945;
-    background: #5D688A;
-    box-shadow: 0 3px 0 rgba(111, 41, 69, 0.12);
+    border-bottom: 2px solid #5D688A;
+    background: #FFFFFF;
+    box-shadow: 0 3px 0 rgba(93, 104, 138, 0.12);
 }
 
 .landing-page .nav-wrap {
@@ -46,7 +47,7 @@
     display: flex;
     align-items: center;
     gap: clamp(22px, 3vw, 48px);
-    color: #6f2945;
+    color: #5D688A;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.13em;
@@ -64,7 +65,7 @@
     bottom: 3px;
     left: 0;
     height: 2px;
-    background: #ef6179;
+    background: #F7A5A5;
     content: '';
     transform: scaleX(0);
     transition: transform 170ms ease;
@@ -80,7 +81,7 @@
 }
 
 .landing-page .logo {
-    color: #6f2945;
+    color: #5D688A;
     font-family: 'Fraunces', serif;
     font-size: clamp(22px, 2.3vw, 31px);
     font-weight: 900;
@@ -89,11 +90,10 @@
 }
 
 .landing-page .logo span {
-    color: #ef6179;
+    color: #F7A5A5;
 }
 
-
-/* ===== HERO LAYOUT FIX ===== */
+/* ===== HERO LAYOUT ===== */
 
 .landing-page {
     overflow-x: hidden;
@@ -115,10 +115,10 @@
     align-items: center;
     justify-content: center;
     padding: 65px 100px;
-    background: #fff8ef;
-    border: 2px solid #6f2945;
+    background: #FFFFFF;
+    border: 2px solid #5D688A;
     border-radius: 24px;
-    box-shadow: 0 5px 0 rgba(111, 41, 69, 0.12);
+    box-shadow: 0 5px 0 rgba(93, 104, 138, 0.12);
     overflow: hidden;
 }
 
@@ -132,7 +132,7 @@
 
 .landing-page .eyebrow {
     margin-bottom: 18px;
-    color: #ef6179;
+    color: #F7A5A5;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -141,7 +141,7 @@
 
 .landing-page .hero-copy h1 {
     margin: 0 0 20px;
-    color: #6f2945;
+    color: #5D688A;
     font-family: 'Fraunces', serif;
     font-size: clamp(38px, 5vw, 64px);
     line-height: 1.12;
@@ -149,14 +149,14 @@
 }
 
 .landing-page .hero-copy h1 em {
-    color: #ef6179;
+    color: #F7A5A5;
     font-style: normal;
 }
 
 .landing-page .hero-copy p {
     max-width: 530px;
     margin: 0 auto 28px;
-    color: #80616b;
+    color: #333333;
     font-size: 16px;
     line-height: 1.8;
 }
@@ -173,8 +173,8 @@
     align-items: center;
     gap: 12px;
     padding: 15px 28px;
-    background: #ef6179;
-    color: white;
+    background: #F7A5A5;
+    color: #FFFFFF;
     border-radius: 5px;
     font-size: 13px;
     font-weight: 700;
@@ -183,12 +183,12 @@
 }
 
 .landing-page .primary-button:hover {
-    background: #d94d68;
+    background: #5D688A;
     transform: translateY(-2px);
 }
 
 .landing-page .login-link {
-    color: #6f2945;
+    color: #5D688A;
     font-size: 14px;
     font-weight: 700;
 }
@@ -251,7 +251,7 @@
 }
 
 .landing-page .star {
-    color: #f4bd3f;
+    color: #FFDBB6;
     font-size: 27px;
 }
 
@@ -266,7 +266,7 @@
 }
 
 .landing-page .heart {
-    color: #ef6179;
+    color: #F7A5A5;
     font-size: 25px;
 }
 
@@ -284,7 +284,7 @@
     width: 7px;
     height: 18px;
     border-radius: 5px;
-    background: #f59bb0;
+    background: #F7A5A5;
 }
 
 .landing-page .confetti-one {
@@ -302,7 +302,7 @@
 .landing-page .confetti-three {
     bottom: 25%;
     left: 42%;
-    background: #f4bd3f;
+    background: #FFDBB6;
 }
 
 .landing-page .confetti-four {
@@ -402,5 +402,4 @@
     .landing-page .hero-actions {
         gap: 16px;
     }
-
 }

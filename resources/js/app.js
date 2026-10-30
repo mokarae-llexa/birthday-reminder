@@ -5,14 +5,13 @@ import '../css/app.css';
 import '../css/landing.css';
 
 import { gsap } from 'gsap';
+import lottie from 'lottie-web';
 
 function initLandingAnimations() {
-    // Jangan jalankan animasi di halaman selain landing page
     const landingPage = document.querySelector('.landing-page');
 
     if (!landingPage) return;
 
-    // 1. Animasi teks muncul perlahan
     gsap.from('.landing-page .hero-copy > *', {
         opacity: 0,
         y: 24,
@@ -21,7 +20,6 @@ function initLandingAnimations() {
         ease: 'power3.out'
     });
 
-    // 2. Animasi stiker muncul
     gsap.from('.landing-page .sticker', {
         opacity: 0,
         scale: 0.75,
@@ -31,7 +29,6 @@ function initLandingAnimations() {
         ease: 'back.out(1.7)'
     });
 
-    // 3. Kue bergerak naik turun
     gsap.to('.landing-page .sticker-cake', {
         y: -10,
         rotation: -3,
@@ -41,7 +38,6 @@ function initLandingAnimations() {
         ease: 'sine.inOut'
     });
 
-    // 4. Hadiah bergerak
     gsap.to('.landing-page .sticker-gift', {
         y: -8,
         rotation: 8,
@@ -51,7 +47,6 @@ function initLandingAnimations() {
         ease: 'sine.inOut'
     });
 
-    // 5. Balon melayang
     gsap.to('.landing-page .sticker-balloon', {
         y: -13,
         duration: 3,
@@ -60,7 +55,6 @@ function initLandingAnimations() {
         ease: 'sine.inOut'
     });
 
-    // 6. Bintang berdenyut
     gsap.to('.landing-page .star', {
         scale: 1.2,
         rotation: 12,
@@ -73,8 +67,38 @@ function initLandingAnimations() {
     });
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initLandingAnimations);
-} else {
+function initSidebarAnimation() {
+    const sidebarAnimation = document.getElementById('sidebar-birthday-animation');
+
+    console.log('1. Elemen sidebar:', sidebarAnimation);
+    console.log('2. Lottie:', lottie);
+
+    if (!sidebarAnimation) return;
+
+    const animation = lottie.loadAnimation({
+        container: sidebarAnimation,
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: '/animations/birthday-cake.json'
+    });
+
+    animation.addEventListener('DOMLoaded', () => {
+        console.log('3. ANIMASI BERHASIL DIMUAT');
+    });
+
+    animation.addEventListener('data_failed', () => {
+        console.log('3. ANIMASI GAGAL DIMUAT');
+    });
+}
+
+function initAnimations() {
     initLandingAnimations();
+    initSidebarAnimation();
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimations);
+} else {
+    initAnimations();
 }
