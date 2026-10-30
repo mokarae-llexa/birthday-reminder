@@ -1,0 +1,406 @@
+.landing-page {
+    min-height: 100vh;
+    color: #6f2945;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.landing-page * {
+    box-sizing: border-box;
+}
+
+.landing-page a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.landing-page.page-shell {
+    min-height: 100vh !important;
+    background-color: #fffaf6 !important;
+    background-image:
+        linear-gradient(rgba(255, 250, 246, 0.75),
+            rgba(255, 250, 246, 0.75)),
+        url('/assets/bg-pattern.jpeg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: repeat !important;
+}
+
+.landing-page .site-header {
+    height: 76px;
+    border-bottom: 2px solid #6f2945;
+    background: #5D688A;
+    box-shadow: 0 3px 0 rgba(111, 41, 69, 0.12);
+}
+
+.landing-page .nav-wrap {
+    position: relative;
+    display: grid;
+    width: min(calc(100% - 64px), 1240px);
+    height: 100%;
+    margin-inline: auto;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.landing-page .nav-group {
+    display: flex;
+    align-items: center;
+    gap: clamp(22px, 3vw, 48px);
+    color: #6f2945;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.landing-page .nav-group a {
+    position: relative;
+    padding: 8px 0;
+}
+
+.landing-page .nav-group a::after {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    height: 2px;
+    background: #ef6179;
+    content: '';
+    transform: scaleX(0);
+    transition: transform 170ms ease;
+}
+
+.landing-page .nav-group a:hover::after,
+.landing-page .nav-group a[aria-current='page']::after {
+    transform: scaleX(1);
+}
+
+.landing-page .nav-right {
+    justify-content: flex-end;
+}
+
+.landing-page .logo {
+    color: #6f2945;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.3vw, 31px);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    line-height: 1;
+}
+
+.landing-page .logo span {
+    color: #ef6179;
+}
+
+
+/* ===== HERO LAYOUT FIX ===== */
+
+.landing-page {
+    overflow-x: hidden;
+}
+
+.landing-page .hero {
+    min-height: calc(100vh - 76px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 55px 24px;
+}
+
+.landing-page .hero-card {
+    position: relative;
+    width: min(100%, 1100px);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 65px 100px;
+    background: #fff8ef;
+    border: 2px solid #6f2945;
+    border-radius: 24px;
+    box-shadow: 0 5px 0 rgba(111, 41, 69, 0.12);
+    overflow: hidden;
+}
+
+.landing-page .hero-copy {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+}
+
+.landing-page .eyebrow {
+    margin-bottom: 18px;
+    color: #ef6179;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.landing-page .hero-copy h1 {
+    margin: 0 0 20px;
+    color: #6f2945;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.12;
+    letter-spacing: -0.045em;
+}
+
+.landing-page .hero-copy h1 em {
+    color: #ef6179;
+    font-style: normal;
+}
+
+.landing-page .hero-copy p {
+    max-width: 530px;
+    margin: 0 auto 28px;
+    color: #80616b;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.landing-page .hero-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.landing-page .primary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 28px;
+    background: #ef6179;
+    color: white;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.landing-page .primary-button:hover {
+    background: #d94d68;
+    transform: translateY(-2px);
+}
+
+.landing-page .login-link {
+    color: #6f2945;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.landing-page .stickers {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.landing-page .sticker {
+    position: absolute;
+    display: block;
+    height: auto;
+    object-fit: contain;
+}
+
+.landing-page .sticker-cake {
+    width: 100px;
+    top: 35px;
+    left: 45px;
+}
+
+.landing-page .sticker-gift {
+    width: 75px;
+    top: 45px;
+    right: 55px;
+}
+
+.landing-page .sticker-hat {
+    width: 75px;
+    bottom: 35px;
+    left: 85px;
+}
+
+.landing-page .sticker-balloon {
+    width: 65px;
+    top: 50%;
+    right: 55px;
+}
+
+.landing-page .sticker-calendar {
+    width: 75px;
+    bottom: 35px;
+    right: 110px;
+}
+
+.landing-page .sticker-candle {
+    width: 38px;
+    top: 45%;
+    left: 22px;
+}
+
+/* ===== DECORATIONS ===== */
+
+.landing-page .mini-shape,
+.landing-page .confetti {
+    position: absolute;
+}
+
+.landing-page .star {
+    color: #f4bd3f;
+    font-size: 27px;
+}
+
+.landing-page .star-one {
+    top: 25%;
+    left: 18%;
+}
+
+.landing-page .star-two {
+    right: 19%;
+    bottom: 23%;
+}
+
+.landing-page .heart {
+    color: #ef6179;
+    font-size: 25px;
+}
+
+.landing-page .heart-one {
+    top: 22%;
+    right: 25%;
+}
+
+.landing-page .heart-two {
+    bottom: 20%;
+    left: 24%;
+}
+
+.landing-page .confetti {
+    width: 7px;
+    height: 18px;
+    border-radius: 5px;
+    background: #f59bb0;
+}
+
+.landing-page .confetti-one {
+    top: 35%;
+    left: 13%;
+    transform: rotate(35deg);
+}
+
+.landing-page .confetti-two {
+    top: 25%;
+    right: 13%;
+    transform: rotate(-30deg);
+}
+
+.landing-page .confetti-three {
+    bottom: 25%;
+    left: 42%;
+    background: #f4bd3f;
+}
+
+.landing-page .confetti-four {
+    bottom: 35%;
+    right: 35%;
+    transform: rotate(40deg);
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    .landing-page .nav-wrap {
+        width: calc(100% - 32px);
+    }
+
+    .landing-page .nav-group {
+        gap: 12px;
+        font-size: 9px;
+    }
+
+    .landing-page .logo {
+        font-size: 19px;
+    }
+
+    .landing-page .hero {
+        padding: 35px 16px;
+    }
+
+    .landing-page .hero-card {
+        min-height: 480px;
+        padding: 65px 25px;
+    }
+
+    .landing-page .hero-copy h1 {
+        font-size: clamp(34px, 8vw, 48px);
+    }
+
+    .landing-page .hero-copy p {
+        font-size: 14px;
+    }
+
+    .landing-page .sticker-cake {
+        width: 65px;
+        top: 12px;
+        left: 12px;
+    }
+
+    .landing-page .sticker-gift {
+        width: 55px;
+        top: 15px;
+        right: 12px;
+    }
+
+    .landing-page .sticker-hat,
+    .landing-page .sticker-calendar {
+        width: 50px;
+        bottom: 12px;
+    }
+
+    .landing-page .sticker-balloon {
+        width: 42px;
+        right: 12px;
+    }
+
+    .landing-page .sticker-candle {
+        width: 28px;
+        left: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .landing-page .nav-wrap {
+        grid-template-columns: 1fr auto;
+    }
+
+    .landing-page .nav-left {
+        display: none;
+    }
+
+    .landing-page .logo {
+        justify-self: start;
+    }
+
+    .landing-page .tiny-cake {
+        display: none;
+    }
+
+    .landing-page .hero-card {
+        min-height: 460px;
+        padding: 70px 18px;
+    }
+
+    .landing-page .hero-copy h1 {
+        font-size: 35px;
+    }
+
+    .landing-page .hero-actions {
+        gap: 16px;
+    }
+
+}

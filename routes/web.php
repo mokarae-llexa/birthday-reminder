@@ -17,8 +17,8 @@ Route::get('/health', static function (): JsonResponse {
 });
 
 Route::get('/', function () {
-    return redirect()->route('login');
-});
+    return view('landing');
+})->name('landing');
 
 Auth::routes();
 
@@ -32,10 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/friends/{friend}/decline', [FriendController::class, 'decline'])->name('friends.decline');
 
     Route::resource('friends', FriendController::class)->except(['show']);
-    
+
     Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 
-    Route::get('/notifications', [NotificationController::class, 'index']) ->name('notifications.index');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::get('/api/notifications/feed', [NotificationController::class, 'feed'])->name('api.notifications.feed');
     Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead'])->name('notifications.read-all');
@@ -47,5 +47,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
-
 });

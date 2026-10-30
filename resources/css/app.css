@@ -409,6 +409,9 @@ body {
     text-overflow: ellipsis;
 }
 
+
+/* RESPONSIVE HALAMAN YANG SUDAH ADA */
+
 @media (max-width: 768px) {
     .auth-card {
         flex-direction: column;
@@ -439,4 +442,255 @@ body {
     .calendar-week {
         display: none;
     }
+}
+
+/* =================================
+   BIRTHDAY REMINDER LANDING PAGE
+================================= */
+
+.landing-page {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(120deg,
+            #FFF2EF,
+            #FFFFFF,
+            #FFDBD6);
+    color: #5D688A;
+}
+
+.landing-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+}
+
+.landing-navbar a {
+    text-decoration: none;
+    color: #5D688A;
+    font-weight: 600;
+}
+
+.brand {
+    font-size: 21px;
+}
+
+.landing-navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-button,
+.primary-button {
+    background: #F7A5A5;
+    color: white !important;
+    padding: 13px 25px;
+    border-radius: 30px;
+}
+
+.hero-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px 10%;
+}
+
+.hero-content {
+    max-width: 570px;
+}
+
+.eyebrow {
+    color: #E68F9C;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.hero-content h1 {
+    font-size: clamp(42px, 5vw, 65px);
+    line-height: 1.15;
+    margin: 20px 0;
+    font-weight: 700;
+}
+
+.hero-content h1 span {
+    color: #F7A5A5;
+}
+
+.hero-content p {
+    color: #85859A;
+    line-height: 1.8;
+    font-size: 16px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.hero-actions a {
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 14px 25px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.primary-button:hover {
+    background: #5D688A;
+    transform: translateY(-3px);
+}
+
+.secondary-button {
+    border: 1px solid #F7A5A5;
+    color: #5D688A;
+}
+
+.secondary-button:hover {
+    background: #FFF2EF;
+}
+
+.hero-art {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 520px;
+    min-height: 520px;
+    flex-shrink: 0;
+}
+
+#birthday-animation {
+    width: 520px;
+    height: 520px;
+}
+
+.cake-placeholder {
+    font-size: 180px;
+}
+
+/* LANDING PAGE RESPONSIVE */
+
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        padding: 50px 25px;
+    }
+
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .landing-navbar {
+        padding: 20px;
+    }
+
+    .hero-art {
+        width: 100%;
+    }
+
+    .hero-content h1 {
+        font-size: 42px;
+    }
+    /* Landing page Birthday Reminder - converted from Figma Make design */
+
+.landing-page {
+    min-height: 100vh;
+    color: #6f2945;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.landing-page * {
+    box-sizing: border-box;
+}
+
+.landing-page a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.landing-page.page-shell {
+    min-height: 100vh;
+    background-color: #f68ca5;
+    background-image:
+        linear-gradient(90deg, rgba(255, 217, 222, 0.44) 50%, transparent 50%),
+        linear-gradient(rgba(255, 217, 222, 0.44) 50%, transparent 50%),
+        linear-gradient(90deg, rgba(221, 67, 100, 0.3) 50%, transparent 50%),
+        linear-gradient(rgba(221, 67, 100, 0.3) 50%, transparent 50%);
+    background-position: 0 0, 0 0, 34px 34px, 34px 34px;
+    background-size: 68px 68px;
+}
+
+.landing-page .site-header {
+    height: 76px;
+    border-bottom: 2px solid #6f2945;
+    background: #ffe8dc;
+    box-shadow: 0 3px 0 rgba(111, 41, 69, 0.12);
+}
+
+.landing-page .nav-wrap {
+    position: relative;
+    display: grid;
+    width: min(calc(100% - 64px), 1240px);
+    height: 100%;
+    margin-inline: auto;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.landing-page .nav-group {
+    display: flex;
+    align-items: center;
+    gap: clamp(22px, 3vw, 48px);
+    color: #6f2945;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.landing-page .nav-group a {
+    position: relative;
+    padding: 8px 0;
+}
+
+.landing-page .nav-group a::after {
+    position: absolute;
+    right: 0;
+    bottom: 3px;
+    left: 0;
+    height: 2px;
+    background: #ef6179;
+    content: '';
+    transform: scaleX(0);
+    transition: transform 170ms ease;
+}
+
+.landing-page .nav-group a:hover::after,
+.landing-page .nav-group a[aria-current='page']::after {
+    transform: scaleX(1);
+}
+
+.landing-page .nav-right {
+    justify-content: flex-end;
+}
+
+.landing-page .logo {
+    color: #6f2945;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 2.3vw, 31px);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    line-height: 1;
+}
+
+.landing-page .logo span {
+    color: #ef6179;
+}
+
 }
