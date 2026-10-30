@@ -1,4 +1,3 @@
-
 .landing-page {
     min-height: 100vh;
     color: #5D688A;
@@ -102,6 +101,7 @@
 .landing-page .hero {
     min-height: calc(100vh - 76px);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 55px 24px;
@@ -203,8 +203,10 @@
 .landing-page .sticker {
     position: absolute;
     display: block;
+    width: 85px;
     height: auto;
     object-fit: contain;
+    z-index: 3;
 }
 
 .landing-page .sticker-cake {
@@ -311,8 +313,6 @@
     transform: rotate(40deg);
 }
 
-/* ===== RESPONSIVE ===== */
-
 @media (max-width: 768px) {
     .landing-page .nav-wrap {
         width: calc(100% - 32px);
@@ -402,4 +402,102 @@
     .landing-page .hero-actions {
         gap: 16px;
     }
+
+    .landing-page .hero-actions {
+        gap: 16px;
+    }
+}
+
+.landing-page .birthday-decorations {
+    position: relative;
+    width: 100%;
+    min-height: 280px;
+    margin-top: 40px;
+    overflow: hidden;
+    background: #F7A5A5;
+}
+
+
+.landing-page .birthday-marquee {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    white-space: nowrap;
+    font-family: 'Fraunces', serif;
+    font-size: clamp(70px, 12vw, 170px);
+    font-weight: 900;
+    color: #5D688A;
+    opacity: 0.12;
+    letter-spacing: 5px;
+    z-index: 1;
+}
+
+.landing-page .birthday-stickers {
+    position: relative;
+    min-height: 280px;
+    z-index: 2;
+}
+
+.landing-page .birthday-stickers .sticker {
+    position: absolute;
+    width: 85px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Posisi dekorasi gambar */
+.landing-page .sticker-1 {
+    width: 85px;
+    top: 25px;
+    left: 8%;
+}
+
+.landing-page .sticker-2 {
+    width: 75px;
+    top: 110px;
+    left: 22%;
+}
+
+.landing-page .sticker-3 {
+    width: 95px;
+    top: 20px;
+    left: 38%;
+}
+
+.landing-page .sticker-4 {
+    width: 80px;
+    top: 120px;
+    left: 52%;
+}
+
+.landing-page .sticker-5 {
+    width: 90px;
+    top: 25px;
+    left: 67%;
+}
+
+.landing-page .sticker-6 {
+    width: 75px;
+    top: 115px;
+    right: 12%;
+}
+
+.landing-page .sticker-7 {
+    width: 85px;
+    top: 35px;
+    right: 2%;
+}
+
+.landing-page .sticker-8 {
+    width: 70px;
+    top: 185px;
+    left: 35%;
+}
+
+.landing-page .sticker-9 {
+    width: 85px;
+    top: 180px;
+    right: 30%;
 }

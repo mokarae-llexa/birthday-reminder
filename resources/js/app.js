@@ -65,6 +65,17 @@ function initLandingAnimations() {
         transformOrigin: 'center center',
         ease: 'sine.inOut'
     });
+    
+    gsap.utils.toArray('.birthday-stickers .sticker').forEach((sticker, index) => {
+        gsap.to(sticker, {
+            y: index % 2 === 0 ? -12 : 12,
+            rotation: index % 2 === 0 ? 6 : -6,
+            duration: 2 + (index * 0.2),
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut'
+        });
+    });
 }
 
 function initSidebarAnimation() {

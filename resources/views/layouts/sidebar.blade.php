@@ -138,8 +138,8 @@
 }
 
 #sidebar-birthday-animation {
-    width: 220px;
-    height: 190px;
+    width: 250px;
+    height: 210px;
 }
 
 .sidebar-user {
