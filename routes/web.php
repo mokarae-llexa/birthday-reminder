@@ -20,9 +20,9 @@ Route::get('/', function () {
     return view('landing');
 })->name('landing');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
