@@ -140,22 +140,4 @@
                     </div>
                 </div>
             </section>
-
-            <section class="birthday-decorations" aria-hidden="true">
-                <div class="birthday-marquee">
-                    BIRTHDAY REMINDER
-                </div>
-
-                <div class="birthday-stickers">
-                    <img src="{{ asset('assets/birthday/icon1.png') }}" class="sticker sticker-1" alt="">
-                    <img src="{{ asset('assets/birthday/icon2.png') }}" class="sticker sticker-2" alt="">
-                    <img src="{{ asset('assets/birthday/icon3.png') }}" class="sticker sticker-3" alt="">
-                    <img src="{{ asset('assets/birthday/icon4.png') }}" class="sticker sticker-4" alt="">
-                    <img src="{{ asset('assets/birthday/icon5.png') }}" class="sticker sticker-5" alt="">
-                    <img src="{{ asset('assets/birthday/icon6.png') }}" class="sticker sticker-6" alt="">
-                    <img src="{{ asset('assets/birthday/icon7.png') }}" class="sticker sticker-7" alt="">
-                    <img src="{{ asset('assets/birthday/icon8.png') }}" class="sticker sticker-8" alt="">
-                    <img src="{{ asset('assets/birthday/icon9.png') }}" class="sticker sticker-9" alt="">
-                </div>
-            </section>
         </main>
