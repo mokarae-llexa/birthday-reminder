@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('friend_id')->constrained()->cascadeOnDelete();
-            $table->string('type', 20)->default('upcoming'); // today|tomorrow|upcoming|greeting
+            $table->string('type', 20)->default('upcoming');  // today|tomorrow|upcoming|greeting
             $table->string('title');
             $table->text('message');
             $table->date('notify_date');
