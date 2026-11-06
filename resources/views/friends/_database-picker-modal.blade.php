@@ -50,7 +50,14 @@
                 </div>
 
                 <div id="{{ $modalId }}Empty" class="text-center py-4 d-none">
-                    <div class="fs-1 mb-2">🔍</div>
+                    <div class="d-flex justify-content-center mb-2" style="color: var(--primary, #5D688A);" aria-hidden="true">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="7" />
+                            <path d="M21 21l-4.3-4.3" />
+                            <path d="M8.5 11h5" />
+                        </svg>
+                    </div>
                     <p class="fw-semibold mb-1">No data found</p>
                     <p class="text-muted small mb-0">Try another keyword or a different source filter.</p>
                 </div>
@@ -88,6 +95,32 @@
                     } [c];
                 });
             }
+
+            function icon(paths, size) {
+                return '<svg width="' + size + '" height="' + size +
+                    '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:-2px;color:var(--primary, #5D688A);">' +
+                    paths + '</svg>';
+            }
+
+            const ICON = {
+                check: function(s) {
+                    return icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>', s);
+                },
+                link: function(s) {
+                    return icon(
+                        '<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>',
+                        s);
+                },
+                cake: function(s) {
+                    return '<svg width="' + s + '" height="' + s +
+                        '" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:-3px;">' +
+                        '<path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" style="fill:#F7A5A5;stroke:#F7A5A5;stroke-width:1"/>' +
+                        '<path d="M12 7v3.5" style="stroke:var(--primary, #5D688A)"/>' +
+                        '<rect x="4" y="10.5" width="16" height="9" rx="2" style="stroke:var(--primary, #5D688A)"/>' +
+                        '<path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" style="stroke:#F7A5A5"/>' +
+                        '<path d="M2.5 21.5h19" style="stroke:var(--primary, #5D688A)"/></svg>';
+                }
+            };
 
             function currentSource() {
                 const checked = document.querySelector('input[name="' + modalId + 'Source"]:checked');
@@ -139,10 +172,12 @@
                                 '<span class="badge rounded-pill" style="font-size:10px;background:#F3F4F6;color:#4B5563;border:1px solid #E5E7EB;">It\'s you</span>' :
                                 '') +
                             (item.is_added ?
-                                '<span class="badge rounded-pill" style="font-size:10px;background:#E6F4EA;color:#137333;border:1px solid #B7E0C0;">✓ Already added</span>' :
+                                '<span class="badge rounded-pill d-inline-flex align-items-center gap-1" style="font-size:10px;background:#E6F4EA;color:#137333;border:1px solid #B7E0C0;">' +
+                                ICON.check(11) + 'Already added</span>' :
                                 '');
                         const pickBtn = item.is_added ?
-                            '<button type="button" class="btn btn-sm rounded-pill px-3" disabled title="Already in the friends list">Added ✓</button>' :
+                            '<button type="button" class="btn btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1" disabled title="Already in the friends list">Added ' +
+                            ICON.check(13) + '</button>' :
                             '<button type="button" class="btn btn-sm rounded-pill px-3 text-white pick-btn" style="background-color:#C55F4E;border-color:#C55F4E;">Select</button>';
                         row.innerHTML =
                             '<img src="' + escapeHtml(item.avatar || '') +
@@ -157,8 +192,8 @@
                             extraBadges +
                             '</div>' +
                             '<div class="text-muted small text-truncate">' + escapeHtml(item.email ||
-                                'No email yet') + (item.birth_date ? ' • 🎂 ' + escapeHtml(item
-                                .birth_date) : '') + '</div>' +
+                                'No email yet') + (item.birth_date ? ' &bull; ' + ICON.cake(14) + ' ' +
+                                escapeHtml(item.birth_date) : '') + '</div>' +
                             (item.source === 'user' ? '<div class="small" style="color:#1A56DB;"></div>' :
                                 '') +
                             '</div>' +
@@ -253,7 +288,8 @@
                     const label = document.getElementById('prefillNoticeLabel');
                     if (label) label.textContent = (item.source_label || 'Database') + ': ' + (item.name || '');
                     const title = document.getElementById('prefillNoticeTitle');
-                    if (title) title.textContent = isUserLink ? '🔗 Linked to user account' : 'Auto-filled data';
+                    if (title) title.innerHTML = isUserLink ? ICON.link(15) + 'Linked to user account' :
+                        'Auto-filled data';
                     const hint = document.getElementById('prefillNoticeHint');
                     if (hint) hint.textContent = isUserLink ?
                         'Name, Email & Birth Date sync automatically from their profile. Just complete Phone & Notes.' :

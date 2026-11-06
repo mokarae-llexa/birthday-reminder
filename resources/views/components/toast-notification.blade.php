@@ -1,40 +1,64 @@
 <div id="toastContainer" class="toast-container-custom">
     @if (session('success'))
         <div class="toast-card toast-success" role="alert">
-            <div class="toast-icon">🎉</div>
+            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#1F9D61;" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M8 12.5l2.7 2.7L16 9.5"/>
+                </svg>
+            </div>
             <div class="toast-content">
                 <div class="toast-title">Berhasil!</div>
                 <div class="toast-message">{{ session('success') }}</div>
             </div>
-            <button type="button" class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            <button type="button" class="toast-close" aria-label="Tutup" onclick="this.parentElement.remove()">&times;</button>
         </div>
     @endif
 
     @if (session('status'))
         <div class="toast-card toast-success" role="alert">
-            <div class="toast-icon">✨</div>
+            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#5F6A8B;" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M12 16v-5M12 8h.01"/>
+                </svg>
+            </div>
             <div class="toast-content">
                 <div class="toast-title">Info</div>
                 <div class="toast-message">{{ session('status') }}</div>
             </div>
-            <button type="button" class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            <button type="button" class="toast-close" aria-label="Tutup" onclick="this.parentElement.remove()">&times;</button>
         </div>
     @endif
 
     @if (session('error'))
         <div class="toast-card toast-error" role="alert">
-            <div class="toast-icon">⚠️</div>
+            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#E5484D;" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.3 3.9L2.4 17.5a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
+                    <path d="M12 9.5v4M12 17h.01"/>
+                </svg>
+            </div>
             <div class="toast-content">
                 <div class="toast-title">Kesalahan</div>
                 <div class="toast-message">{{ session('error') }}</div>
             </div>
-            <button type="button" class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            <button type="button" class="toast-close" aria-label="Tutup" onclick="this.parentElement.remove()">&times;</button>
         </div>
     @endif
 
     @if ($errors->any())
         <div class="toast-card toast-error" role="alert">
-            <div class="toast-icon">⚠️</div>
+            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#E5484D;" aria-hidden="true">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.3 3.9L2.4 17.5a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
+                    <path d="M12 9.5v4M12 17h.01"/>
+                </svg>
+            </div>
             <div class="toast-content">
                 <div class="toast-title">Terjadi Kesalahan</div>
                 <div class="toast-message">
@@ -49,7 +73,7 @@
                     @endif
                 </div>
             </div>
-            <button type="button" class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+            <button type="button" class="toast-close" aria-label="Tutup" onclick="this.parentElement.remove()">&times;</button>
         </div>
     @endif
 </div>

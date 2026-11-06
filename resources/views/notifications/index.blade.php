@@ -379,7 +379,12 @@
                 </div>
             @empty
                 <div class="end-text" id="notifEmpty">
-                    <h5>Belum ada notifikasi 🎈</h5>
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                        style="display:block;margin:0 auto 12px;color:#C55F4E">
+                        <path d="M6 9a6 6 0 0112 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9M10 20a2 2 0 004 0" />
+                    </svg>
+                    <h5>Belum ada notifikasi</h5>
                     <p>Tambahkan teman beserta tanggal lahirnya untuk mulai menerima pengingat.</p>
                 </div>
             @endforelse
@@ -390,7 +395,19 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow">
                 <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold">Kirim Ucapan 🎂</h5>
+                    <h5 class="modal-title fw-bold d-flex align-items-center gap-2">
+                        Kirim Ucapan
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                            style="color:#C55F4E">
+                            <path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" fill="currentColor"
+                                stroke-width="1" />
+                            <path d="M12 7v3.5" />
+                            <rect x="4" y="10.5" width="16" height="9" rx="2" />
+                            <path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" />
+                            <path d="M2.5 21.5h19" />
+                        </svg>
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -533,13 +550,12 @@
                         '<div class="end-text"><h5>Belum ada notifikasi 🎈</h5><p>Tambahkan teman beserta tanggal lahirnya.</p></div>';
                     applySearch();
                 } catch (e) {
-                    /* polling gagal diam-diam, coba lagi periode berikut */
+
                 }
             }
 
             setInterval(pollFeed, 30000);
 
-            // ---- Tandai dibaca (event delegation, berlaku juga untuk hasil polling) ----
             notifList.addEventListener('click', function(e) {
                 const wishBtn = e.target.closest('[data-action="wish"]');
                 if (wishBtn) {
@@ -583,7 +599,7 @@
                     .then(data => updateBadge(data.unread_count || 0))
                     .catch(() => {});
             }
-            
+
             let wishModal = null;
             let currentFriendId = null;
             const wishModalEl = document.getElementById('wishModal');
@@ -682,7 +698,6 @@
                 });
             });
 
-            // ---- Kirim cepat ----
             document.getElementById('quickSendBtn').addEventListener('click', function() {
                 const friendId = document.getElementById('quickFriend').value;
                 const message = document.getElementById('quickMessage').value.trim();

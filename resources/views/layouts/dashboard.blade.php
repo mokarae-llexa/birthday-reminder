@@ -21,15 +21,18 @@
             --white: #FFFFFF;
         }
 
-        body {
-            margin: 0;
-            font-family: "Poppins", sans-serif;
-            color: var(--text);
-            background-image: url("{{ asset('assets/bg-pattern.jpeg') }}");
-            background-repeat: repeat;
-            background-size: 350px auto;
-            background-attachment: fixed;
-        }
+    body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    color: var(--text);
+    background-color: #FFF2EF;
+    background-image:
+        linear-gradient(rgba(255, 242, 239, 0.75), rgba(255, 242, 239, 0.75)),
+        url("{{ asset('assets/bg-pattern.jpeg') }}");
+    background-repeat: no-repeat, repeat;
+    background-size: cover, 350px auto;
+    background-attachment: fixed;
+}
 
         .dashboard-container {
             display: flex;

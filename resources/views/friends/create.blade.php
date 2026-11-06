@@ -35,6 +35,8 @@
     @php
         $isLinked =
             !empty($prefillIsLinked ?? false) || !empty(old('linked_user_id', $prefill['linked_user_id'] ?? null));
+
+        $linkIcon = fn($size = 13) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--primary, #5D688A);"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>';
     @endphp
     <div class="container py-2" style="max-width: 800px;">
         <div class="mb-4 d-flex justify-content-between align-items-start gap-3 flex-wrap">
@@ -49,9 +51,16 @@
             </button>
         </div>
 
-        <div id="prefillNotice" class="alert alert-dismissible fade show rounded-4 mb-3 ..."
-            style="background: #ffffff; color: #7A3A30; border: 1.5px solid #F3DDD8;" <strong id="prefillNoticeTitle">
-            {{ $isLinked ? '🔗 Linked to user account' : 'Auto-filled data' }}</strong>
+        <div id="prefillNotice" class="alert alert-dismissible fade show rounded-4 mb-3"
+            style="background: #ffffff; color: #7A3A30; border: 1.5px solid #F3DDD8;">
+            <strong id="prefillNoticeTitle" class="d-inline-flex align-items-center gap-1">
+                @if ($isLinked)
+                    {!! $linkIcon(15) !!}
+                    Linked to user account
+                @else
+                    Auto-filled data
+                @endif
+            </strong>
             from <span id="prefillNoticeLabel">{{ $prefillSourceLabel ?? 'Database' }}</span>.
             <span
                 id="prefillNoticeHint">{{ $isLinked ? 'Name, Email & Birth Date sync automatically from their profile. Just complete Phone & Notes.' : 'Please complete the remaining fields before saving.' }}</span>
@@ -73,8 +82,8 @@
 
                     <div class="mb-3">
                         <label for="name" class="form-label fw-semibold">Friend's Name @if ($isLinked)
-                                <span class="badge rounded-pill ms-1"
-                                    style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                                <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="text" name="name" id="name"
@@ -98,8 +107,8 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label fw-semibold">Email @if ($isLinked)
-                                    <span class="badge rounded-pill ms-1"
-                                        style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                                    <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                        style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                                 @endif
                             </label>
                             <input type="email" name="email" id="email"
@@ -114,8 +123,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="birth_date" class="form-label fw-semibold">Birth Date @if ($isLinked)
-                                <span class="badge rounded-pill ms-1"
-                                    style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                                <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="date" name="birth_date" id="birth_date"

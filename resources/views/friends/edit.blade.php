@@ -3,6 +3,8 @@
 @section('content')
     @php
         $isLinked = !empty($friend->linked_user_id) && $friend->linkedUser;
+
+        $linkIcon = fn($size = 13) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--primary, #5D688A);"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>';
     @endphp
    <div class="container-fluid px-4 py-2" style="max-width: 1500px;">
         <div class="mb-4">
@@ -12,7 +14,10 @@
 
         @if ($isLinked)
             <div class="alert border-0 shadow-sm rounded-4 mb-3" style="background: #EAF1FE; color: #1A3A7A;" role="alert">
-                <strong>🔗 Linked to {{ $friend->linkedUser->name }}'s account</strong><br>
+                <strong class="d-inline-flex align-items-center gap-2">
+                    {!! $linkIcon(16) !!}
+                    Linked to {{ $friend->linkedUser->name }}'s account
+                </strong><br>
                 <span class="small">Name, Email & Birth Date sync automatically from their profile and cannot be edited
                     manually.
                     Phone, Notes & Photo can still be managed by you. Check the option below to unlink.</span>
@@ -28,8 +33,8 @@
 
                     <div class="mb-3">
                         <label for="name" class="form-label fw-semibold">Friend's Name @if ($isLinked)
-                                <span class="badge rounded-pill ms-1"
-                                    style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                                <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="text" name="name" id="name" class="form-control rounded-3"
@@ -44,8 +49,8 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label fw-semibold">Email @if ($isLinked)
-                                    <span class="badge rounded-pill ms-1"
-                                        style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                                    <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                        style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                                 @endif
                             </label>
                             <input type="email" name="email" id="email" class="form-control rounded-3"
@@ -54,9 +59,9 @@
                                 @if ($isLinked) readonly @endif>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="class_name" class="eform-label fw-semibold">Class @if ($isLinked)
-                                    <span class="badge rounded-pill ms-1"
-                                        style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                            <label for="class_name" class="form-label fw-semibold">Class @if ($isLinked)
+                                    <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                        style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                                 @endif
                             </label>
                             <input type="text" name="class_name" id="class_name" class="form-control rounded-3"
@@ -67,8 +72,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="birth_date" class="form-label fw-semibold">Birth Date @if ($isLinked)
-                                <span class="badge rounded-pill ms-1"
-                                    style="background:#E8F0FE;color:#1A56DB;font-size:10px;">🔗 synced</span>
+                                <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
+                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control rounded-3"

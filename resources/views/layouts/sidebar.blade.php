@@ -1,4 +1,5 @@
-<style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800&display=swap">
+    <style>
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -14,7 +15,7 @@
             background: #FFFFFF;
             border-right: 1.5px solid #FFD6D2;
             z-index: 1000;
-            transition: transform 0.25s ease, margin-left 0.25s ease, width 0.25s ease;
+            transition: width 0.3s ease, padding 0.3s ease, transform 0.3s ease, margin-left 0.3s ease;
         }
 
         /* Mobile: sidebar tertutup = geser keluar layar */
@@ -58,7 +59,17 @@
             .sidebar.closed .brand h1,
             .sidebar.closed .menu-label,
             .sidebar.closed .user-info,
-            .sidebar.closed .user-actions,
+            .sidebar.closed .user-actions {
+                max-width: 0;
+                opacity: 0;
+            }
+
+            .sidebar.closed .brand,
+            .sidebar.closed .menu a,
+            .sidebar.closed .sidebar-user {
+                gap: 0;
+            }
+
             .sidebar.closed .sidebar-animation {
                 display: none;
             }
@@ -90,6 +101,7 @@
             }
 
             .sidebar.closed .sidebar-cake-mini {
+                animation: cakeIn 0.35s ease 0.15s backwards;
                 display: flex;
                 justify-content: center;
                 margin-top: auto;
@@ -103,6 +115,7 @@
             gap: 8px;
             margin-bottom: 32px;
             padding-left: 4px;
+            transition: gap 0.3s ease, padding 0.3s ease;
         }
 
         .brand img {
@@ -111,17 +124,19 @@
             object-fit: contain;
         }
 
+        
         .brand h1 {
             margin: 0;
-            color: #1F1F1F;
-            font-size: 15px;
-            font-weight: 500;
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--primary, #5D688A);
+            font-size: 18px;
+            font-weight: 800;
             white-space: nowrap;
-            letter-spacing: -0.2px;
+            letter-spacing: -0.4px;
         }
 
-        .brand h1 strong {
-            font-weight: 800;
+        .brand h1 span {
+            color: var(--secondary, #F7A5A5);
         }
 
         .menu {
@@ -140,7 +155,8 @@
             font-weight: 500;
             text-decoration: none;
             border-radius: 10px;
-            transition: all 0.2s ease;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
 
         .menu a:hover {
@@ -193,7 +209,21 @@
             background: #FFDADA;
         }
 
-        /* Animasi kue di sidebar */
+
+        .brand h1,
+        .menu-label,
+        .user-info,
+        .user-actions {
+            overflow: hidden;
+            transition: opacity 0.2s ease, max-width 0.3s ease;
+        }
+
+        .brand h1 { max-width: 200px; }
+        .menu-label { max-width: 160px; white-space: nowrap; }
+        .user-info { max-width: 160px; }
+        .user-actions { max-width: 24px; }
+
+        
         .sidebar-animation {
             display: flex;
             justify-content: center;
@@ -203,7 +233,12 @@
             margin-bottom: 10px;
         }
 
-        /* Ikon kue statis, hanya tampil saat sidebar tertutup */
+        @keyframes cakeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: none; }
+        }
+
+        
         .sidebar-cake-mini {
             display: none;
         }
@@ -212,10 +247,8 @@
             width: 100%;
             max-width: 228px;
             height: 260px;
-            /* Perbesar kue: naikkan angka scale (1.5 = 150%) */
             transform: scale(1.5);
             transform-origin: center bottom;
-            /* Supaya bagian yang membesar tidak menutupi menu di atasnya */
             pointer-events: none;
         }
 
@@ -286,10 +319,6 @@
             }
         }
 
-        .sidebar {
-            transition: transform 0.25s ease;
-        }
-
         .sidebar-backdrop {
             display: none;
         }
@@ -329,7 +358,7 @@
     <div class="sidebar">
         <div class="brand">
             <img src="{{ asset('assets/icon-kue.webp') }}" alt="Cake Icon">
-            <h1><strong>BIRTHDAY</strong> Reminder</h1>
+            <h1><span>Birthday</span> Reminder</h1>
         </div>
 
         <div class="menu">

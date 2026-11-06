@@ -5,12 +5,22 @@
             $dir = request('sort') === $key && request('dir', 'asc') === 'asc' ? 'desc' : 'asc';
             return request()->fullUrlWithQuery(['sort' => $key, 'dir' => $dir]);
         };
-        $sortIcon = function ($key) {
+
+        $ic = fn($paths, $size = 13, $style = '') => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;' . $style . '">' . $paths . '</svg>';
+
+        $sortIcon = function ($key) use ($ic) {
+            $s = 'vertical-align:-2px;margin-left:4px;color:var(--primary, #5D688A);';
             if (request('sort') !== $key) {
-                return '⇅';
+                return $ic('<path d="M8 4v16M8 4L4.5 7.5M8 4l3.5 3.5M16 20V4M16 20l-3.5-3.5M16 20l3.5-3.5"/>', 13, $s);
             }
-            return request('dir') === 'desc' ? '▼' : '▲';
+            return request('dir') === 'desc'
+                ? $ic('<path d="M12 18l-7-11h14z" fill="currentColor"/>', 13, $s)
+                : $ic('<path d="M12 6l7 11H5z" fill="currentColor"/>', 13, $s);
         };
+
+        $blue = 'color: var(--primary, #5D688A);';
+
+        $cakeIcon = fn($size = 16) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" style="fill:#F7A5A5;stroke:#F7A5A5;stroke-width:1"/><path d="M12 7v3.5" style="stroke:var(--primary, #5D688A)"/><rect x="4" y="10.5" width="16" height="9" rx="2" style="stroke:var(--primary, #5D688A)"/><path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" style="stroke:#F7A5A5"/><path d="M2.5 21.5h19" style="stroke:var(--primary, #5D688A)"/></svg>';
     @endphp
     <style>
         .sticker {
@@ -37,7 +47,7 @@
 
         .search-box span {
             margin-right: 8px;
-            color: #B58F86;
+            color: var(--primary, #5D688A);
             display: flex;
             align-items: center;
         }
@@ -109,8 +119,10 @@
                         <input type="text" name="search" placeholder="Search" value="{{ request('search') }}">
                         @if (request('search'))
                             <a href="{{ route('friends.index') }}"
-                                style="color: #B58F86; text-decoration: none; font-size: 14px; margin-left: 6px;"
-                                title="Reset">✕</a>
+                                style="color: var(--primary, #5D688A); text-decoration: none; margin-left: 6px; display: inline-flex; align-items: center;"
+                                title="Reset" aria-label="Reset">
+                                {!! $ic('<path d="M6 6l12 12M18 6L6 18"/>', 14) !!}
+                            </a>
                         @endif
                     </div>
                 </form>
@@ -147,17 +159,17 @@
                                 <th class="py-3 px-3">Avatar</th>
                                 <th class="py-3 px-3">
                                     <a href="{{ $sortUrl('name') }}" class="text-decoration-none"
-                                        style="color: inherit;">Friend's Name {{ $sortIcon('name') }}</a>
+                                        style="color: inherit;">Friend's Name {!! $sortIcon('name') !!}</a>
                                 </th>
                                 <th class="py-3 px-3">Phone Number</th>
                                 <th class="py-3 px-3">Email</th>
                                 <th class="py-3 px-3">
                                     <a href="{{ $sortUrl('dob') }}" class="text-decoration-none"
-                                        style="color: inherit;">Date Of Birth {{ $sortIcon('dob') }}</a>
+                                        style="color: inherit;">Date Of Birth {!! $sortIcon('dob') !!}</a>
                                 </th>
                                 <th class="py-3 px-3">
                                     <a href="{{ $sortUrl('class') }}" class="text-decoration-none"
-                                        style="color: inherit;">Class {{ $sortIcon('class') }}</a>
+                                        style="color: inherit;">Class {!! $sortIcon('class') !!}</a>
                                 </th>
                                 <th class="py-3 px-3">Notes</th>
                                 <th class="py-3 px-4 text-center" style="width: 150px;">action</th>
@@ -176,22 +188,25 @@
                                         <span class="fw-bold d-block text-dark"
                                             style="font-size: 15px;">{{ $friend->display_name }}</span>
                                         @if ($friend->is_linked)
-                                            <span class="badge rounded-pill mt-1"
+                                            <span class="badge rounded-pill mt-1 d-inline-flex align-items-center gap-1"
                                                 style="font-size:10px;background:#E8F0FE;color:#1A56DB;border:1px solid #C7DBFF;"
-                                                title="Auto-synced from {{ $friend->linkedUser?->name }}'s profile">🔗
+                                                title="Auto-synced from {{ $friend->linkedUser?->name }}'s profile">
+                                                {!! $ic('<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>', 11, $blue) !!}
                                                 Linked</span>
                                         @endif
                                         @if ($friend->isPending())
-                                            <span class="badge rounded-pill mt-1"
-                                                style="font-size:10px;background:#FFF7E6;color:#B7791F;border:1px solid #F5D67B;">⏳
+                                            <span class="badge rounded-pill mt-1 d-inline-flex align-items-center gap-1"
+                                                style="font-size:10px;background:#FFF7E6;color:#B7791F;border:1px solid #F5D67B;">
+                                                {!! $ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', 11, $blue) !!}
                                                 Pending confirmation</span>
                                         @endif
                                     </td>
                                     <td class="py-3 px-3">
                                         @if ($friend->phone)
-                                            <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fw-normal"
+                                            <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fw-normal d-inline-flex align-items-center gap-2"
                                                 style="font-size: 12px;">
-                                                📞 {{ $friend->phone }}
+                                                {!! $ic('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/>', 13, $blue) !!}
+                                                {{ $friend->phone }}
                                             </span>
                                         @else
                                             <span class="text-muted small">-</span>
@@ -199,16 +214,17 @@
                                     </td>
                                     <td class="py-3 px-3">
                                         @if ($friend->display_email)
-                                            <span class="text-secondary small d-block" style="font-size: 12.5px;">
-                                                ✉️ {{ $friend->display_email }}
+                                            <span class="text-secondary small d-flex align-items-center gap-2" style="font-size: 12.5px;">
+                                                {!! $ic('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>', 14, $blue) !!}
+                                                {{ $friend->display_email }}
                                             </span>
                                         @else
                                             <span class="text-muted small">-</span>
                                         @endif
                                     </td>
                                     <td class="py-3 px-3">
-                                        <span class="fw-semibold text-secondary" style="font-size: 14px;">
-                                            🎂
+                                        <span class="fw-semibold text-secondary d-inline-flex align-items-center gap-2" style="font-size: 14px;">
+                                            {!! $cakeIcon(16) !!}
                                             {{ \Carbon\Carbon::parse($friend->display_birth_date)->translatedFormat('d F Y') }}
                                         </span>
                                     </td>
@@ -257,8 +273,31 @@
                                 <tr>
                                     <td colspan="9" class="text-center py-5">
                                         <div class="my-3">
-                                            <div class="fs-1 mb-2">
-                                                {{ request('search') || request('class') ? '🔍' : '🎈' }}</div>
+                                            <div class="d-flex justify-content-center mb-3"
+                                                style="color: var(--primary, #5D688A);" aria-hidden="true">
+                                                @if (request('search') || request('class'))
+                                                    {{-- Ikon kaca pembesar: hasil pencarian kosong --}}
+                                                    <svg width="56" height="56" viewBox="0 0 24 24"
+                                                        fill="none" stroke="currentColor" stroke-width="1.6"
+                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                        <circle cx="11" cy="11" r="7" />
+                                                        <path d="M21 21l-4.3-4.3" />
+                                                        <path d="M8.5 11h5" />
+                                                    </svg>
+                                                @else
+                                                    {{-- Ikon balon: belum ada teman --}}
+                                                    <svg width="56" height="56" viewBox="0 0 24 24"
+                                                        fill="none" stroke="currentColor" stroke-width="1.6"
+                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                        <path
+                                                            d="M12 2a6 6 0 00-6 6c0 4 3 7.5 6 8 3-.5 6-4 6-8a6 6 0 00-6-6z" />
+                                                        <path d="M12 16l-1.3 2h2.6L12 16z" />
+                                                        <path d="M12 18c0 1.6-1.4 1.9-1.4 3.5" />
+                                                        <path d="M9 6.5a3 3 0 011.5-1.3" />
+                                                    </svg>
+                                                @endif
+                                            </div>
+
                                             <h5 class="fw-bold text-dark mb-1">
                                                 {{ request('search') || request('class') ? 'No Results Found' : 'No Friends Yet' }}
                                             </h5>
