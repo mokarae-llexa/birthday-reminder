@@ -14,9 +14,9 @@
         $tanggalHariIni = \Carbon\Carbon::now()->locale('en')->isoFormat('dddd, MMMM D, Y');
 
         $kartu = [
-            ['judul' => 'Today', 'kelas' => 'pink', 'ikon' => '🎂', 'daftar' => $hariIni],
-            ['judul' => 'This week', 'kelas' => 'lavender', 'ikon' => '🎉', 'daftar' => $mingguIni],
-            ['judul' => 'This Month', 'kelas' => 'yellow', 'ikon' => '📅', 'daftar' => $bulanIni],
+            ['judul' => 'Today', 'kelas' => 'pink', 'ikon' => 'cake', 'daftar' => $hariIni],
+            ['judul' => 'This week', 'kelas' => 'lavender', 'ikon' => 'week', 'daftar' => $mingguIni],
+            ['judul' => 'This Month', 'kelas' => 'yellow', 'ikon' => 'month', 'daftar' => $bulanIni],
         ];
     @endphp
 
@@ -156,9 +156,22 @@
             color: var(--fg);
         }
 
+        /* Ikon SVG di dalam lingkaran putih transparan */
         .kartu-ikon {
-            font-size: 16px;
-            line-height: 1;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .7);
+            color: var(--fg);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .kartu-ikon svg {
+            width: 18px;
+            height: 18px;
         }
 
         .kartu-tengah {
@@ -418,7 +431,37 @@
                     <article class="kartu {{ $k['kelas'] }}">
                         <div class="kartu-top">
                             <span class="kartu-judul">{{ $k['judul'] }}</span>
-                            <span class="kartu-ikon" aria-hidden="true">{{ $k['ikon'] }}</span>
+                            <span class="kartu-ikon" aria-hidden="true">
+                                @switch($k['ikon'])
+                                    @case('cake')
+                                        {{-- Kue --}}
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 2.5c.8.7 1 1.4.5 2a1 1 0 0 1-1.7-.1c-.2-.6 0-1.2 1.2-1.9Z" fill="currentColor" stroke-width="1"/>
+                                            <path d="M12 7v3"/>
+                                            <rect x="4" y="10" width="16" height="9" rx="2"/>
+                                            <path d="M4 14c1.3 1.3 2.7 1.3 4 0s2.7-1.3 4 0 2.7 1.3 4 0 2.7-1.3 4 0"/>
+                                            <path d="M3 21.5h18"/>
+                                        </svg>
+                                    @break
+
+                                    @case('week')
+                                        {{-- Kalender dengan satu baris terpilih (minggu ini) --}}
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="5" width="18" height="16" rx="2"/>
+                                            <path d="M16 3v4M8 3v4M3 10h18"/>
+                                            <path d="M7 15h10"/>
+                                        </svg>
+                                    @break
+
+                                    @default
+                                        {{-- Kalender dengan grid tanggal (bulan ini) --}}
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="5" width="18" height="16" rx="2"/>
+                                            <path d="M16 3v4M8 3v4M3 10h18"/>
+                                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" stroke-width="2.4"/>
+                                        </svg>
+                                @endswitch
+                            </span>
                         </div>
 
                         <div class="kartu-tengah">

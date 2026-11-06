@@ -1,4 +1,4 @@
-    <style>
+<style>
         .sidebar {
             width: 260px;
             height: 100vh;
@@ -17,8 +17,11 @@
             transition: transform 0.25s ease, margin-left 0.25s ease, width 0.25s ease;
         }
 
-        .sidebar.closed {
-            transform: translateX(-100%);
+        /* Mobile: sidebar tertutup = geser keluar layar */
+        @media (max-width: 768px) {
+            .sidebar.closed {
+                transform: translateX(-100%);
+            }
         }
 
         .main-content {
@@ -31,6 +34,67 @@
 
         .sidebar.closed~.main-content {
             margin-left: 0;
+        }
+
+        /* Desktop: sidebar tertutup = rail kecil yang masih menampilkan ikon */
+        @media (min-width: 769px) {
+            .sidebar.closed {
+                width: 76px;
+                padding: 24px 12px;
+                /* Batalkan aturan di layouts/app.blade.php yang menggeser sidebar keluar layar */
+                transform: none;
+                margin-left: 0;
+            }
+
+            .sidebar.closed~.main-content {
+                margin-left: 76px;
+            }
+
+            .sidebar.closed .brand {
+                justify-content: center;
+                padding-left: 0;
+            }
+
+            .sidebar.closed .brand h1,
+            .sidebar.closed .menu-label,
+            .sidebar.closed .user-info,
+            .sidebar.closed .user-actions,
+            .sidebar.closed .sidebar-animation {
+                display: none;
+            }
+
+            .sidebar.closed .menu a {
+                justify-content: center;
+                padding: 12px 0;
+                position: relative;
+            }
+
+            .sidebar.closed .menu-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Badge jadi titik kecil di pojok ikon */
+            .sidebar.closed .badge-count {
+                position: absolute;
+                top: 2px;
+                right: 6px;
+                margin: 0;
+                padding: 1px 6px;
+                font-size: 10px;
+            }
+
+            .sidebar.closed .sidebar-user {
+                justify-content: center;
+                padding: 10px 0;
+            }
+
+            .sidebar.closed .sidebar-cake-mini {
+                display: flex;
+                justify-content: center;
+                margin-top: auto;
+                margin-bottom: 14px;
+            }
         }
 
         .brand {
@@ -128,23 +192,36 @@
         .sidebar-user:hover {
             background: #FFDADA;
         }
+
+        /* Animasi kue di sidebar */
         .sidebar-animation {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: auto;
-    margin-bottom: 10px;
-}
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: auto;
+            margin-bottom: 10px;
+        }
 
-#sidebar-birthday-animation {
-    width: 250px;
-    height: 210px;
-}
+        /* Ikon kue statis, hanya tampil saat sidebar tertutup */
+        .sidebar-cake-mini {
+            display: none;
+        }
 
-.sidebar-user {
-    margin-top: 0;
-}
+        #sidebar-birthday-animation {
+            width: 100%;
+            max-width: 228px;
+            height: 260px;
+            /* Perbesar kue: naikkan angka scale (1.5 = 150%) */
+            transform: scale(1.5);
+            transform-origin: center bottom;
+            /* Supaya bagian yang membesar tidak menutupi menu di atasnya */
+            pointer-events: none;
+        }
+
+        .sidebar-user {
+            margin-top: 0;
+        }
 
         .sidebar-user img {
             width: 36px;
@@ -245,7 +322,7 @@
             .sidebar-toggle.sidebar-open {
                 left: 280px;
             }
-            
+
         }
 
     </style>
@@ -256,7 +333,7 @@
         </div>
 
         <div class="menu">
-            <a href="{{ route('home') }}" class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}">
+            <a href="{{ route('home') }}" class="{{ Route::currentRouteName() == 'home' ? 'active' : '' }}" title="Dashboard">
                 <span class="menu-icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -267,7 +344,7 @@
                 <span class="menu-label">Dashboard</span>
             </a>
             <a href="{{ route('friends.index') }}"
-                class="{{ Route::currentRouteName() == 'friends.index' ? 'active' : '' }}">
+                class="{{ Route::currentRouteName() == 'friends.index' ? 'active' : '' }}" title="Friend">
                 <span class="menu-icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -279,7 +356,7 @@
                 <span class="badge-count">{{ $totalFriendsCount ?? 0 }}</span>
             </a>
             <a href="{{ route('friends.requests') }}"
-                class="{{ Route::currentRouteName() == 'friends.requests' ? 'active' : '' }}">
+                class="{{ Route::currentRouteName() == 'friends.requests' ? 'active' : '' }}" title="Requests">
                 <span class="menu-icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -293,7 +370,7 @@
                 @endif
             </a>
             <a href="{{ Route::has('notifications.index') ? route('notifications.index') : '#' }}"
-                class="{{ Route::currentRouteName() == 'notifications.index' ? 'active' : '' }}">
+                class="{{ Route::currentRouteName() == 'notifications.index' ? 'active' : '' }}" title="Notification">
                 <span class="menu-icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -304,7 +381,7 @@
                 <span class="menu-label">Notification</span>
                 <span class="badge-count" id="notifBadge" style="{{ ($unreadNotificationsCount ?? 0) > 0 ? '' : 'display:none;' }}">{{ $unreadNotificationsCount ?? 0 }}</span>
             </a>
-            <a href="{{ route('calendar') }}" class="{{ Route::currentRouteName() == 'calendar' ? 'active' : '' }}">
+            <a href="{{ route('calendar') }}" class="{{ Route::currentRouteName() == 'calendar' ? 'active' : '' }}" title="Calendar">
                 <span class="menu-icon">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -314,24 +391,24 @@
                 </span>
                 <span class="menu-label">Calendar</span>
             </a>
-            <a href="{{ route('profile.edit') }}"
-                class="{{ Route::currentRouteName() == 'profile.edit' ? 'active' : '' }}">
-                <span class="menu-icon">
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                    </svg>
-                </span>
-                <span class="menu-label">Profile</span>
-            </a>
         </div>
         <div class="sidebar-animation">
-    <div id="sidebar-birthday-animation"></div>
-</div>
-        <a href="{{ route('profile.edit') }}" class="sidebar-user text-decoration-none" style="cursor: pointer;">
+            <div id="sidebar-birthday-animation"></div>
+        </div>
+        <div class="sidebar-cake-mini" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="34" width="44" height="20" rx="5" fill="#FF8E9E"/>
+                <path d="M10 40c4 5 8 5 11 0s7 5 11 0 7 5 11 0 7 5 11 0v-3a5 5 0 00-5-5H15a5 5 0 00-5 5z" fill="#FFD3D9"/>
+                <rect x="18" y="20" width="28" height="14" rx="4" fill="#FFB3BF"/>
+                <path d="M32 8v12" stroke="#7B61D9" stroke-width="3" stroke-linecap="round"/>
+                <path d="M32 2c3 3 3 5 0 6-3-1-3-3 0-6z" fill="#FFB020"/>
+                <rect x="6" y="54" width="52" height="4" rx="2" fill="#E6DAD6"/>
+            </svg>
+        </div>
+        <a href="{{ route('profile.edit') }}" class="sidebar-user text-decoration-none" title="Profile" style="cursor: pointer;">
             @if (Auth::check())
                 <img src="{{ Auth::user()->avatar_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
-                    ...>
+                    alt="{{ Auth::user()->name }}">
             @endif
             <div class="user-info">
                 @auth
