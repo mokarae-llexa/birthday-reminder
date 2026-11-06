@@ -1,56 +1,59 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="forgot-page">
-    <div class="forgot-card">
-        <div class="forgot-content">
+<div class="login-content">
+    <div class="auth-page forgot-page">
+        <div class="forgot-card">
+            <div class="forgot-content">
 
-            <img src="{{ asset('assets/icon-kue.webp') }}" alt="Cake" class="forgot-icon">
+                <img src="{{ asset('assets/icon-kue.webp') }}" alt="Cake" class="forgot-icon">
 
-            <h2 class="forgot-title">{{ __('Forgot your password?') }}</h2>
-            <p class="forgot-subtitle">
-                {{ __('Enter your email so that we can send you password reset link') }}
-            </p>
+                <h2 class="forgot-title">{{ __('Forgot your password?') }}</h2>
+                <p class="forgot-subtitle">
+                    {{ __('Enter your email so that we can send you password reset link') }}
+                </p>
 
-            @if (session('status'))
-                <div class="alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
-            @endif
+                @if (session('status'))
+                    <div class="alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
 
-            <form method="POST" action="{{ route('password.email') }}">
-                @csrf
+                <form method="POST" action="{{ route('password.email') }}">
+                    @csrf
 
-                <label for="email">{{ __('Email') }}</label>
-                <input id="email" type="email" name="email"
-                       class="@error('email') is-invalid @enderror"
-                       value="{{ old('email') }}"
-                       placeholder="e.g. username@gmail.com"
-                       required autocomplete="email" autofocus>
+                    <label for="email">{{ __('Email') }}</label>
+                    <input id="email" type="email" name="email"
+                           class="@error('email') is-invalid @enderror"
+                           value="{{ old('email') }}"
+                           placeholder="e.g. username@gmail.com"
+                           required autocomplete="email" autofocus>
 
-                @error('email')
-                    <div class="error-text">{{ $message }}</div>
-                @enderror
+                    @error('email')
+                        <div class="error-text">{{ $message }}</div>
+                    @enderror
 
-                <button type="submit" class="btn-submit">{{ __('Send Email') }}</button>
-            </form>
+                    <button type="submit" class="btn-submit">{{ __('Send Email') }}</button>
+                </form>
 
-            <a href="{{ route('login') }}" class="forgot-back">
-                &#8592; {{ __('Back to Login') }}
-            </a>
+                <a href="{{ route('login') }}" class="forgot-back">
+                    &#8592; {{ __('Back to Login') }}
+                </a>
 
+            </div>
         </div>
     </div>
 </div>
 
 <style>
+    /* Background dihapus supaya confetti dari layout guest tetap terlihat */
     .forgot-page {
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        background: #fff0ee;
-        font-family: Arial, Helvetica, sans-serif;
+        background: transparent;
+        font-family: inherit;
         padding: 20px;
     }
     .forgot-page * { box-sizing: border-box; }
@@ -81,6 +84,7 @@
         margin-bottom: 16px;
     }
     .forgot-title {
+        font-family: var(--font-heading, 'Fraunces', Georgia, serif);
         font-weight: 700;
         font-size: 1.8rem;
         color: #5f6a8d;
@@ -162,4 +166,4 @@
     }
     .forgot-back:hover { text-decoration: underline; }
 </style>
-@endsection     
+@endsection
