@@ -53,7 +53,6 @@
     margin: 0;
   }
 
-  /* Upload Avatar */
   .avatar-upload-section {
     display: flex;
     flex-direction: column;
@@ -107,7 +106,6 @@
     color: #64748B;
   }
 
-  /* Form Groups */
   .form-group-custom {
     margin-bottom: 20px;
   }
@@ -159,7 +157,6 @@
     margin-top: 5px;
   }
 
-  /* Buttons */
   .action-buttons {
     display: flex;
     justify-content: flex-end;

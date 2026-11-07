@@ -156,7 +156,6 @@
             color: var(--fg);
         }
 
-        /* Ikon SVG di dalam lingkaran putih transparan */
         .kartu-ikon {
             width: 34px;
             height: 34px;

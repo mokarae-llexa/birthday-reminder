@@ -2,61 +2,463 @@
 
 @section('content')
     <style>
-        .notif-container { width: 100%; max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; display: flex; flex-direction: column; }
-        .notif-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+        .notif-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+            display: flex;
+            flex-direction: column;
+        }
 
-        .search-box { position: relative; width: 260px; }
-        .search-box input { width: 100%; padding: 10px 16px 10px 40px; background: #fff; border: 2px solid var(--secondary); border-radius: 20px; font-size: 13px; color: #333; outline: none; transition: all .2s ease; }
-        .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93,104,138,.2); }
-        .search-box input::placeholder { color: #8A8FA8; }
-        .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--primary); }
+        .notif-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
 
-        .notif-list { display: flex; flex-direction: column; }
-        .notif-item { border-radius: 14px; background: #fff; border: 2px solid var(--secondary); padding: 20px 8px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: background-color .2s ease; }
-        .notif-item:hover { background: var(--background); }
-        .notif-item.is-read { background: #fff; border-color: #EADFE0; }
-        .notif-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
-        .notif-avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; margin: 10px; flex-shrink: 0; border: 2px solid var(--secondary); background: var(--background); }
-        .notif-text h4 { font-size: 15px; font-weight: 600; color: #3F4766; margin: 0 0 3px; }
-        .notif-text p { font-size: 14px; color: var(--primary); margin: 0; font-weight: 500; }
-        .notif-date { display: inline-block; font-size: 11px; font-weight: 700; color: #3F4766; background: var(--accent); border-radius: 12px; padding: 2px 10px; margin-top: 6px; }
-        .notif-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .search-box {
+            position: relative;
+            width: 260px;
+        }
 
-        .btn-wish { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--primary) !important; font-size: 13px; font-weight: 700; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; transition: all .2s ease; }
-        .btn-wish:hover { background: var(--accent); color: #3F4766 !important; }
-        .btn-read { font-size: 12px; color: #888; background: none; border: none; cursor: pointer; text-decoration: underline; padding: 8px 6px; }
-        .btn-read:hover { color: var(--primary); }
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            background: #fff;
+            border: 1px solid #F0C9C9;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #333;
+            outline: none;
+            transition: all .2s ease;
+        }
 
-        .quick-send { background: #fff; border: 2px solid var(--secondary); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 104, 138, .2);
+        }
 
-        .template-chip { cursor: pointer; font-size: 12px; background: var(--accent); border: 1.5px solid #E8A765; color: #3F4766; font-weight: 600; border-radius: 20px; padding: 4px 12px; margin: 0 6px 6px 0; display: inline-block; }
-        .template-chip:hover { background: var(--secondary); border-color: #E27D7D; }
+        .search-box input::placeholder {
+            color: #8A8FA8;
+        }
 
-        .greet-thread { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-        .greet-bubble { background: #fff; border: 1.5px solid var(--secondary); border-radius: 12px; padding: 8px 12px; font-size: 13px; }
-        .greet-bubble small { display: block; color: var(--primary); font-size: 11px; margin-top: 4px; }
+        .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 15px;
+            color: var(--primary);
+        }
 
-        .end-text { background: #fff; border: 2px solid var(--secondary); border-radius: 18px; text-align: center; padding: 32px 24px; }
-        .end-text h5 { color: #3F4766; font-weight: 700; }
-        .end-text p { font-size: 13px; color: var(--primary); }
+        .notif-list {
+            display: flex;
+            flex-direction: column;
+        }
 
-        .sticker { color: #2B1F22; paint-order: stroke fill; -webkit-text-stroke: .28em #fff; text-shadow: 0 0 10px rgba(255,255,255,.9); }
-        .sticker-soft { color: var(--primary); font-weight: 600; }
-        .unread-text { font-size: 14px; font-weight: 600; color: #3F4766; paint-order: stroke fill; -webkit-text-stroke: 4px #fff; }
+        .notif-item {
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid #F0C9C9;
+            padding: 20px 8px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            transition: background-color .2s ease;
+        }
 
-        .btn-modal { font-weight: 700; font-size: 14px; padding: 10px 24px; border-radius: 999px; cursor: pointer; box-shadow: none; transition: background .15s ease; }
-        .btn-modal-sm { padding: 6px 18px; font-size: 13px; border-radius: 0 10px 10px 0; }
-        .btn-modal-send { background: var(--secondary); color: #3F4766; border: 2px solid #E27D7D; }
-        .btn-modal-send:hover { background: #E27D7D; }
-        .btn-modal-cancel { background: var(--background); color: var(--primary); border: 2px solid var(--primary); }
-        .btn-modal-cancel:hover { background: var(--accent); }
+        .notif-item:hover {
+            background: var(--background);
+        }
 
-        #wishModal .modal-content { background: var(--background); border: 2px solid var(--secondary) !important; box-shadow: none !important; }
-        #wishModal .modal-title { font-weight: 700; color: #3F4766; }
-        #wishModal .modal-title svg { color: var(--secondary) !important; }
-        #wishModal input[type="radio"] { accent-color: var(--primary); }
-        #wishModal .form-control:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(247,165,165,.25); }
-        #wishAvatar { border-color: var(--secondary) !important; }
+        .notif-item.is-read {
+            border-color: #EEE6E6;
+        }
+
+        .notif-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .notif-avatar {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 10px;
+            flex-shrink: 0;
+            border: 1px solid var(--secondary);
+            background: var(--background);
+        }
+
+        .notif-text h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #3F4766;
+            margin: 0 0 3px;
+        }
+
+        .notif-text p {
+            font-size: 14px;
+            color: var(--primary);
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .notif-date {
+            display: inline-block;
+            margin-top: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .notif-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-wish {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            color: var(--primary) !important;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+
+        .btn-wish:hover {
+            background: var(--accent);
+            color: #3F4766 !important;
+        }
+
+        .btn-read {
+            font-size: 12px;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 8px 6px;
+        }
+
+        .btn-read:hover {
+            color: var(--primary);
+        }
+
+        .quick-send {
+            background: #fff;
+            border: 1px solid #F0C9C9;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        #quickMessage {
+            border: 1px solid #F0C9C9;
+            border-right: none;
+        }
+
+        #quickMessage:focus {
+            border-color: var(--primary);
+            box-shadow: none;
+        }
+
+        .template-chip {
+            cursor: pointer;
+            font-size: 12px;
+            background: var(--accent);
+            border: 1.5px solid #E8A765;
+            color: #3F4766;
+            font-weight: 600;
+            border-radius: 20px;
+            padding: 4px 12px;
+            margin: 0 6px 6px 0;
+            display: inline-block;
+        }
+
+        .template-chip:hover {
+            background: var(--secondary);
+            border-color: #E27D7D;
+        }
+
+        .greet-thread {
+            max-height: 180px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .greet-bubble {
+            background: #fff;
+            border: 1px solid #F0C9C9;
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .greet-bubble small {
+            display: block;
+            color: var(--primary);
+            font-size: 11px;
+            margin-top: 4px;
+        }
+
+        .end-text {
+            background: #fff;
+            border: 1px solid #F0C9C9;
+            border-radius: 18px;
+            text-align: center;
+            padding: 32px 24px;
+        }
+
+        .end-text h5 {
+            color: #3F4766;
+            font-weight: 700;
+        }
+
+        .end-text p {
+            font-size: 13px;
+            color: var(--primary);
+        }
+
+        .sticker {
+            color: #2B1F22;
+            paint-order: stroke fill;
+            -webkit-text-stroke: .28em #fff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, .9);
+        }
+
+        .sticker-soft {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .unread-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #3F4766;
+            paint-order: stroke fill;
+            -webkit-text-stroke: 4px #fff;
+        }
+
+        .btn-modal {
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: 999px;
+            cursor: pointer;
+            box-shadow: none;
+            transition: background .15s ease;
+        }
+
+        .btn-modal-sm {
+            padding: 6px 18px;
+            font-size: 13px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .btn-modal-send {
+            background: var(--secondary);
+            color: #3F4766;
+            border: 1px solid #E27D7D;
+        }
+
+        .btn-modal-send:hover {
+            background: #E27D7D;
+        }
+
+        .btn-modal-cancel {
+            background: var(--background);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-modal-cancel:hover {
+            background: var(--accent);
+        }
+
+        #wishModal .modal-content {
+            background: var(--background);
+            border: 1px solid #F0C9C9 !important;
+            box-shadow: none !important;
+        }
+
+        #wishModal .modal-title {
+            font-weight: 700;
+            color: #3F4766;
+        }
+
+        #wishModal .modal-title svg {
+            color: var(--secondary) !important;
+        }
+
+        #wishModal input[type="radio"] {
+            accent-color: var(--primary);
+        }
+
+        #wishModal .form-control:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(247, 165, 165, .25);
+        }
+
+        #wishAvatar {
+            border-color: var(--secondary) !important;
+        }
+
+        .pick {
+            position: relative;
+        }
+
+        .pick-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: #fff;
+            color: #3F4766;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border: 1px solid #F0C9C9;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .pick-btn:hover {
+            background: var(--background);
+        }
+
+        .pick.open .pick-btn {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 104, 138, .2);
+        }
+
+        .pick-btn svg {
+            color: var(--primary);
+            transition: transform .2s ease;
+            flex-shrink: 0;
+        }
+
+        .pick.open .pick-btn svg {
+            transform: rotate(180deg);
+        }
+
+        .pick-placeholder {
+            color: #8A8FA8;
+            font-weight: 500;
+        }
+
+        .pick-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: #fff;
+            border: 1px solid #F0C9C9;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .pick.open .pick-panel {
+            display: block;
+        }
+
+        .pick-list {
+            margin: 0;
+            padding: 6px;
+            list-style: none;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .pick-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #3F4766;
+            cursor: pointer;
+        }
+
+        .pick-item:hover {
+            background: var(--background);
+        }
+
+        .pick-item.active {
+            background: var(--background);
+            font-weight: 700;
+        }
+
+        .pick-name {
+            flex: 1;
+        }
+
+        .pick-check {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+            border: 2px solid #C9CCDA;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .pick-item.active .pick-check {
+            background: var(--primary) url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' d='m3.5 8.5 3 3 6-6.5'/%3e%3c/svg%3e") center/12px no-repeat;
+            border-color: var(--primary);
+        }
+
+        .pick-tag {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .pick-foot {
+            display: flex;
+            justify-content: flex-end;
+            padding: 8px 10px;
+            border-top: 1px solid var(--background);
+        }
+
+        .pick-clear {
+            background: var(--background);
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid var(--primary);
+            border-radius: 999px;
+            padding: 5px 14px;
+            cursor: pointer;
+        }
+
+        .pick-clear:hover {
+            background: var(--accent);
+        }
     </style>
 
     <div class="notif-container">
@@ -85,15 +487,36 @@
             <h6 class="fw-bold mb-2">Kirim ucapan</h6>
             <div class="row g-2">
                 <div class="col-md-4">
-                    <select id="quickFriend" class="form-select form-select-sm rounded-3">
-                        <option value="">— Pilih teman —</option>
-                        @foreach ($upcomingFriends as $item)
-                            <option value="{{ $item['friend']->id }}">{{ $item['friend']->name }}
-                                ({{ $item['days_until'] === 0 ? 'hari ini' : 'H-' . $item['days_until'] }})
-                            </option>
-                        @endforeach
-                    </select>
+                    <div class="pick" id="pick">
+                        <input type="hidden" id="quickFriend" value="">
+                        <button type="button" class="pick-btn" id="pickBtn" aria-haspopup="listbox"
+                            aria-expanded="false">
+                            <span id="pickLabel" class="pick-placeholder">Pilih teman</span>
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m2 5 6 6 6-6" />
+                            </svg>
+                        </button>
+
+                        <div class="pick-panel">
+                            <ul class="pick-list" id="pickList" role="listbox">
+                                @foreach ($upcomingFriends as $item)
+                                    <li class="pick-item" role="option" data-value="{{ $item['friend']->id }}"
+                                        data-name="{{ $item['friend']->name }}">
+                                        <span class="pick-check"></span>
+                                        <span class="pick-name">{{ $item['friend']->name }}</span>
+                                        <span
+                                            class="pick-tag">{{ $item['days_until'] === 0 ? 'hari ini' : 'H-' . $item['days_until'] }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div class="pick-foot">
+                                <button type="button" class="pick-clear" id="pickClear">Hapus pilihan</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="col-md-8">
                     <div class="input-group input-group-sm">
                         <input type="text" id="quickMessage" class="form-control rounded-start-3"
@@ -129,7 +552,8 @@
                             <i class="bi bi-arrow-right"></i>
                         </button>
                         @if (!$notif->read_at)
-                            <button type="button" class="btn-read" data-action="read" data-id="{{ $notif->id }}">Tandai
+                            <button type="button" class="btn-read" data-action="read"
+                                data-id="{{ $notif->id }}">Tandai
                                 dibaca</button>
                         @endif
                     </div>
@@ -192,11 +616,13 @@
                         placeholder="Tulis ucapanmu di sini..."></textarea>
 
                     <div class="d-flex gap-3 mt-2 mb-3">
-                        <label class="small"><input type="radio" name="wishChannel" value="inapp" checked> Save in
+                        <label class="small"><input type="radio" name="wishChannel" value="inapp" checked> Save
+                            in
                             App</label>
                         <label class="small"><input type="radio" name="wishChannel" value="whatsapp"> Via
                             WhatsApp</label>
-                        <label class="small"><input type="radio" name="wishChannel" value="email"> Via Email</label>
+                        <label class="small"><input type="radio" name="wishChannel" value="email"> Via
+                            Email</label>
                     </div>
 
                     <h6 class="fw-bold small text-muted">Riwayat ucapan</h6>
@@ -451,6 +877,39 @@
                         message: msg
                     });
                 });
+            });
+            const pick = document.getElementById('pick');
+            const pickBtn = document.getElementById('pickBtn');
+            const pickLabel = document.getElementById('pickLabel');
+            const quickFriend = document.getElementById('quickFriend');
+
+            function setPick(value, name) {
+                quickFriend.value = value;
+                pickLabel.textContent = name || 'Pilih teman';
+                pickLabel.classList.toggle('pick-placeholder', !value);
+                document.querySelectorAll('.pick-item').forEach(i =>
+                    i.classList.toggle('active', value && i.dataset.value === value));
+            }
+
+            pickBtn.addEventListener('click', () => {
+                const open = pick.classList.toggle('open');
+                pickBtn.setAttribute('aria-expanded', open);
+            });
+
+            document.getElementById('pickList').addEventListener('click', e => {
+                const item = e.target.closest('.pick-item');
+                if (!item) return;
+                setPick(item.dataset.value, item.dataset.name);
+                pick.classList.remove('open');
+            });
+
+            document.getElementById('pickClear').addEventListener('click', () => {
+                setPick('', '');
+                pick.classList.remove('open');
+            });
+
+            document.addEventListener('click', e => {
+                if (!pick.contains(e.target)) pick.classList.remove('open');
             });
 
             document.getElementById('quickSendBtn').addEventListener('click', function() {

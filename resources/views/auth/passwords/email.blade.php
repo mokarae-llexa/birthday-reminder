@@ -46,7 +46,6 @@
 </div>
 
 <style>
-    /* Background dihapus supaya confetti dari layout guest tetap terlihat */
     .forgot-page {
         min-height: 100vh;
         display: flex;
