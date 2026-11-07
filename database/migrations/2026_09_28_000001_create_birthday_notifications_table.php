@@ -19,7 +19,6 @@ return new class extends Migration
             $table->timestamp('read_at')->nullable();
             $table->json('meta')->nullable();
             $table->timestamps();
-
             $table->unique(['user_id', 'friend_id', 'type', 'notify_date'], 'birthday_notif_unique');
             $table->index(['user_id', 'read_at']);
         });

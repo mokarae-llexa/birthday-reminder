@@ -1,7 +1,7 @@
 <div id="toastContainer" class="toast-container-custom">
     @if (session('success'))
         <div class="toast-card toast-success" role="alert">
-            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#1F9D61;" aria-hidden="true">
+            <div class="toast-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
@@ -17,8 +17,8 @@
     @endif
 
     @if (session('status'))
-        <div class="toast-card toast-success" role="alert">
-            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#5F6A8B;" aria-hidden="true">
+        <div class="toast-card toast-info" role="alert">
+            <div class="toast-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"/>
@@ -35,7 +35,7 @@
 
     @if (session('error'))
         <div class="toast-card toast-error" role="alert">
-            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#E5484D;" aria-hidden="true">
+            <div class="toast-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M10.3 3.9L2.4 17.5a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
@@ -52,7 +52,7 @@
 
     @if ($errors->any())
         <div class="toast-card toast-error" role="alert">
-            <div class="toast-icon" style="display:flex;align-items:center;justify-content:center;color:#E5484D;" aria-hidden="true">
+            <div class="toast-icon" aria-hidden="true">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M10.3 3.9L2.4 17.5a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/>
@@ -79,6 +79,16 @@
 </div>
 
 <style>
+    :root {
+        --slate: #5D688A;
+        --slate-dark: #3F4766;
+        --pink: #F7A5A5;
+        --pink-deep: #E27D7D;
+        --cream: #FFF2EF;
+        --peach: #FFDBB6;
+        --peach-deep: #E8A765;
+    }
+
     .toast-container-custom {
         position: fixed;
         top: 24px;
@@ -86,7 +96,7 @@
         z-index: 99999;
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 14px;
         max-width: 400px;
         width: calc(100% - 48px);
         pointer-events: none;
@@ -98,23 +108,19 @@
         align-items: flex-start;
         gap: 12px;
         padding: 14px 16px;
-        background: #FFFFFF;
+        background: var(--cream);
         border-radius: 16px;
-        box-shadow: none;
-        border: 2px solid #C55F4E;
+        border: 2.5px solid var(--slate);
+        box-shadow: 4px 4px 0 var(--pink);
         animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
     }
 
-    .toast-success {
-        border-color: #C55F4E;
-    }
-
-    .toast-error {
-        border-color: #E53E3E;
-    }
+    .toast-success { border-color: var(--slate);     box-shadow: 4px 4px 0 var(--pink); }
+    .toast-info    { border-color: var(--peach-deep); box-shadow: 4px 4px 0 var(--peach); }
+    .toast-error   { border-color: var(--pink-deep);  box-shadow: 4px 4px 0 var(--slate); }
 
     .toast-icon {
         width: 36px;
@@ -128,13 +134,21 @@
     }
 
     .toast-success .toast-icon {
-        background-color: #FFE6E3;
-        border: 1.5px solid #C55F4E;
+        background-color: #E4E8F5;
+        border: 2px solid var(--slate);
+        color: var(--slate);
+    }
+
+    .toast-info .toast-icon {
+        background-color: var(--peach);
+        border: 2px solid var(--peach-deep);
+        color: #B8742B;
     }
 
     .toast-error .toast-icon {
-        background-color: #FED7D7;
-        border: 1.5px solid #E53E3E;
+        background-color: var(--pink);
+        border: 2px solid var(--pink-deep);
+        color: #B83F3F;
     }
 
     .toast-content {
@@ -144,56 +158,45 @@
     }
 
     .toast-title {
-        font-size: 13.5px;
-        font-weight: 700;
-        color: #1F1F1F;
+        font-size: 14.5px;
+        font-weight: 800;
+        color: var(--slate-dark);
         margin-bottom: 2px;
     }
 
     .toast-message {
         font-size: 12.5px;
-        color: #2B1F22;
-        line-height: 1.4;
+        font-weight: 500;
+        color: var(--slate);
+        line-height: 1.45;
     }
 
     .toast-close {
         background: none;
         border: none;
         font-size: 20px;
-         color: #7A4F58;
+        color: var(--slate);
+        opacity: 0.6;
         cursor: pointer;
         padding: 0 4px;
         line-height: 1;
-        transition: color 0.2s ease;
+        transition: all 0.2s ease;
         margin-left: 4px;
     }
 
     .toast-close:hover {
-        color: #1F1F1F;
+        color: var(--pink-deep);
+        opacity: 1;
     }
 
     @keyframes toastSlideIn {
-        from {
-            opacity: 0;
-            transform: translateX(100%) translateY(-10px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateX(0) translateY(0);
-        }
+        from { opacity: 0; transform: translateX(100%) translateY(-10px); }
+        to   { opacity: 1; transform: translateX(0) translateY(0); }
     }
 
     @keyframes toastFadeOut {
-        from {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        to {
-            opacity: 0;
-            transform: scale(0.9) translateY(-10px);
-        }
+        from { opacity: 1; transform: scale(1); }
+        to   { opacity: 0; transform: scale(0.9) translateY(-10px); }
     }
 </style>
 

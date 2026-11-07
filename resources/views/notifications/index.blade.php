@@ -2,304 +2,61 @@
 
 @section('content')
     <style>
-        .notif-container {
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px 60px 20px;
-            display: flex;
-            flex-direction: column;
-        }
+        .notif-container { width: 100%; max-width: 900px; margin: 0 auto; padding: 40px 20px 60px; display: flex; flex-direction: column; }
+        .notif-toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
 
-        .notif-toolbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
+        .search-box { position: relative; width: 260px; }
+        .search-box input { width: 100%; padding: 10px 16px 10px 40px; background: #fff; border: 2px solid var(--secondary); border-radius: 20px; font-size: 13px; color: #333; outline: none; transition: all .2s ease; }
+        .search-box input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(93,104,138,.2); }
+        .search-box input::placeholder { color: #8A8FA8; }
+        .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 15px; color: var(--primary); }
 
-        .live-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #0E8A70;
-            background: #D9F5EC;
-            border-radius: 20px;
-            padding: 6px 12px;
-        }
+        .notif-list { display: flex; flex-direction: column; }
+        .notif-item { border-radius: 14px; background: #fff; border: 2px solid var(--secondary); padding: 20px 8px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; gap: 12px; transition: background-color .2s ease; }
+        .notif-item:hover { background: var(--background); }
+        .notif-item.is-read { background: #fff; border-color: #EADFE0; }
+        .notif-left { display: flex; align-items: center; gap: 16px; min-width: 0; }
+        .notif-avatar { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; margin: 10px; flex-shrink: 0; border: 2px solid var(--secondary); background: var(--background); }
+        .notif-text h4 { font-size: 15px; font-weight: 600; color: #3F4766; margin: 0 0 3px; }
+        .notif-text p { font-size: 14px; color: var(--primary); margin: 0; font-weight: 500; }
+        .notif-date { display: inline-block; font-size: 11px; font-weight: 700; color: #3F4766; background: var(--accent); border-radius: 12px; padding: 2px 10px; margin-top: 6px; }
+        .notif-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 
-        .live-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #0E8A70;
-            animation: livePulse 1.6s ease-in-out infinite;
-        }
+        .btn-wish { display: inline-flex; align-items: center; gap: 6px; background: transparent; color: var(--primary) !important; font-size: 13px; font-weight: 700; padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer; transition: all .2s ease; }
+        .btn-wish:hover { background: var(--accent); color: #3F4766 !important; }
+        .btn-read { font-size: 12px; color: #888; background: none; border: none; cursor: pointer; text-decoration: underline; padding: 8px 6px; }
+        .btn-read:hover { color: var(--primary); }
 
-        @keyframes livePulse {
+        .quick-send { background: #fff; border: 2px solid var(--secondary); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
 
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+        .template-chip { cursor: pointer; font-size: 12px; background: var(--accent); border: 1.5px solid #E8A765; color: #3F4766; font-weight: 600; border-radius: 20px; padding: 4px 12px; margin: 0 6px 6px 0; display: inline-block; }
+        .template-chip:hover { background: var(--secondary); border-color: #E27D7D; }
 
-            50% {
-                opacity: 0.4;
-                transform: scale(0.75);
-            }
-        }
+        .greet-thread { max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+        .greet-bubble { background: #fff; border: 1.5px solid var(--secondary); border-radius: 12px; padding: 8px 12px; font-size: 13px; }
+        .greet-bubble small { display: block; color: var(--primary); font-size: 11px; margin-top: 4px; }
 
-        .search-box {
-            position: relative;
-            width: 260px;
-        }
+        .end-text { background: #fff; border: 2px solid var(--secondary); border-radius: 18px; text-align: center; padding: 32px 24px; }
+        .end-text h5 { color: #3F4766; font-weight: 700; }
+        .end-text p { font-size: 13px; color: var(--primary); }
 
-        .search-box input {
-            width: 100%;
-            padding: 10px 16px 10px 40px;
-            background-color: #FFFFFF;
-            border: 1.5px solid #F3DDD8;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #333333;
-            outline: none;
-            transition: all 0.2s ease;
-        }
+        .sticker { color: #2B1F22; paint-order: stroke fill; -webkit-text-stroke: .28em #fff; text-shadow: 0 0 10px rgba(255,255,255,.9); }
+        .sticker-soft { color: var(--primary); font-weight: 600; }
+        .unread-text { font-size: 14px; font-weight: 600; color: #3F4766; paint-order: stroke fill; -webkit-text-stroke: 4px #fff; }
 
-        .search-box input:focus {
-            border-color: #FFB6C1;
-            box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
-        }
+        .btn-modal { font-weight: 700; font-size: 14px; padding: 10px 24px; border-radius: 999px; cursor: pointer; box-shadow: none; transition: background .15s ease; }
+        .btn-modal-sm { padding: 6px 18px; font-size: 13px; border-radius: 0 10px 10px 0; }
+        .btn-modal-send { background: var(--secondary); color: #3F4766; border: 2px solid #E27D7D; }
+        .btn-modal-send:hover { background: #E27D7D; }
+        .btn-modal-cancel { background: var(--background); color: var(--primary); border: 2px solid var(--primary); }
+        .btn-modal-cancel:hover { background: var(--accent); }
 
-        .search-box input::placeholder {
-            color: #8A6A72;
-        }
-
-        .search-box i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 15px;
-            color: #6B3F49;
-        }
-
-        .notif-list {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .notif-item {
-            border-radius: 12px;
-            background-color: #F9F6C4;
-            border: 4px solid #FFB6C1;
-            padding: 20px 8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            transition: background-color 0.2s ease;
-        }
-
-        .notif-item:hover {
-            background-color: #FFFDE0;
-        }
-
-        .notif-item.is-read {
-            opacity: 1;
-            background-color: #fff;
-            border-color: #F3DDD8;
-        }
-
-        .notif-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            min-width: 0;
-        }
-
-        .notif-avatar {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 10px;
-            flex-shrink: 0;
-            border: 1px solid #FFB6C1;
-            background-color: #FFEAEB;
-        }
-
-        .notif-text h4 {
-            font-size: 15px;
-            font-weight: 600;
-            color: #222222;
-            margin: 0 0 3px 0;
-        }
-
-        .notif-text p {
-            font-size: 14px;
-            color: #666666;
-            margin: 0;
-            font-weight: 500;
-        }
-
-        .notif-date {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #C55F4E;
-            background: #FFE6E3;
-            border-radius: 12px;
-            padding: 2px 10px;
-            margin-top: 6px;
-        }
-
-        .notif-actions {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-shrink: 0;
-        }
-
-        .btn-wish {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background-color: transparent;
-            color: #BB8760 !important;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 8px 14px;
-            border: none;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-wish:hover {
-            background-color: #FFF2EB;
-            color: #9A6843 !important;
-        }
-
-        .btn-read {
-            font-size: 12px;
-            color: #888;
-            background: none;
-            border: none;
-            cursor: pointer;
-            text-decoration: underline;
-            padding: 8px 6px;
-        }
-
-        .btn-read:hover {
-            color: #333;
-        }
-
-        .quick-send {
-            background: #FFFFFF;
-            border: 1.5px solid #F3DDD8;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .template-chip {
-            cursor: pointer;
-            font-size: 12px;
-            background: #FFF2EB;
-            border: 1px solid #FFD6D2;
-            border-radius: 20px;
-            padding: 4px 12px;
-            margin: 0 6px 6px 0;
-            display: inline-block;
-        }
-
-        .template-chip:hover {
-            background: #FFE6E3;
-        }
-
-        .greet-thread {
-            max-height: 180px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .greet-bubble {
-            background: #FFF7F6;
-            border: 1px solid #FFE6E3;
-            border-radius: 12px;
-            padding: 8px 12px;
-            font-size: 13px;
-        }
-
-        .greet-bubble small {
-            display: block;
-            color: #A0707A;
-            font-size: 11px;
-            margin-top: 4px;
-        }
-
-        .end-text {
-            background: #fff;
-            border: 1.5px solid #F3DDD8;
-            border-radius: 18px;
-            text-align: center;
-            margin-top: 0;
-            padding: 32px 24px;
-        }
-
-        .end-text h5 {
-            color: #2B1F22;
-            font-weight: 700;
-        }
-
-        .end-text p {
-            font-size: 13px;
-            color: #7A4F58;
-
-        }
-
-        .sticker {
-            color: #2B1F22;
-            paint-order: stroke fill;
-            -webkit-text-stroke: 0.28em #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, .9);
-        }
-
-        .sticker-soft {
-            color: #6B3F49;
-            font-weight: 500;
-        }
-
-        .unread-text {
-            font-size: 14px;
-            font-weight: 600;
-            color: #4A2A32;
-            paint-order: stroke fill;
-            -webkit-text-stroke: 4px #fff;
-        }
-
-        .btn-markall {
-            background: #fff;
-            border: 1.5px solid #C55F4E;
-            color: #C55F4E;
-            font-weight: 600;
-        }
-
-        .btn-markall:hover {
-            background: #C55F4E;
-            color: #fff;
-        }
+        #wishModal .modal-content { background: var(--background); border: 2px solid var(--secondary) !important; box-shadow: none !important; }
+        #wishModal .modal-title { font-weight: 700; color: #3F4766; }
+        #wishModal .modal-title svg { color: var(--secondary) !important; }
+        #wishModal input[type="radio"] { accent-color: var(--primary); }
+        #wishModal .form-control:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(247,165,165,.25); }
+        #wishAvatar { border-color: var(--secondary) !important; }
     </style>
 
     <div class="notif-container">
@@ -341,8 +98,8 @@
                     <div class="input-group input-group-sm">
                         <input type="text" id="quickMessage" class="form-control rounded-start-3"
                             placeholder="Tulis ucapan... 🎂" maxlength="1000">
-                        <button type="button" id="quickSendBtn" class="btn btn-sm px-3 text-white"
-                            style="background-color:#C55F4E;">Kirim</button>
+                        <button type="button" id="quickSendBtn"
+                            class="btn-modal btn-modal-send btn-modal-sm">Kirim</button>
                     </div>
                 </div>
             </div>
@@ -448,10 +205,8 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4"
-                        data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn rounded-pill px-4 text-white" id="wishSendBtn"
-                        style="background-color:#C55F4E;">Kirim Ucapan</button>
+                    <button type="button" class="btn-modal btn-modal-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn-modal btn-modal-send" id="wishSendBtn">Kirim Ucapan</button>
                 </div>
             </div>
         </div>

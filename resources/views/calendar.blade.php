@@ -17,352 +17,202 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-    <style>
-        .kal *,
-        .kal *::before,
-        .kal *::after {
-            box-sizing: border-box;
-        }
+<style>
+    .kal *,
+    .kal *::before,
+    .kal *::after { box-sizing: border-box; }
 
-        .kal h1,
-        .kal h2,
-        .kal p {
-            margin: 0;
-        }
+    .kal h1, .kal h2, .kal p { margin: 0; }
+    .kal a { text-decoration: none; color: inherit; }
+    .kal a:focus-visible,
+    .kal button:focus-visible { outline: 2px solid var(--slate); outline-offset: 2px; }
 
-        .kal a {
-            text-decoration: none;
-            color: inherit;
-        }
+    .kal {
+        --ink: #3F4766;
+        --muted: #5D688A;
+        --slate: #5D688A;
+        --pink: #F7A5A5;
+        --pink-deep: #E27D7D;
+        --peach: #FFDBB6;
+        --cream: #FFF2EF;
 
-        .kal a:focus-visible,
-        .kal button:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 2px;
-        }
+        color: var(--ink);
+        min-height: 100vh;
+        flex: 1;
+        min-width: 0;
+        width: 100%;
+        padding: 48px 40px 56px;
+    }
 
-        .kal-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: 40px;
-        }
+    .kal-inner { max-width: 1200px; margin: 0 auto; padding-left: 40px; }
+    .kal-title { font-family: 'Roboto', Georgia, serif; font-size: 36px; font-weight: 700; line-height: 1.15; }
+    .kal-sub { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-        .kal-title {
-            font-family: 'Roboto', Georgia, serif;
-            font-size: 36px;
-            font-weight: 700;
-            line-height: 1.15;
-        }
+    .kal-layout {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 420px;
+        gap: 32px;
+        align-items: start;
+    }
 
-        .kal-sub {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 6px;
-        }
+    .sec-head {
+        background: #fff;
+        border: 2px solid var(--pink);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 18px;
+        border-radius: 14px;
+        margin-bottom: 14px;
+    }
+    .sec-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .sec-reset { font-size: 12px; font-weight: 600; color: var(--slate); }
+    .sec-reset:hover { color: var(--pink-deep); }
 
-        .kal-layout {
-            margin-top: 32px;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 420px;
-            gap: 32px;
-            align-items: start;
-        }
+    .bday-list { display: grid; gap: 12px; }
 
-        .kal {
-            --ink: #2B1F22;
-            --muted: #A0707A;
-            --accent: #E8637D;
-            --accent-soft: #FFE6E3;
-            --line: #F3DDD8;
+    .bday-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        background: #fff;
+        border: 2px solid var(--pink);
+        border-radius: 14px;
+        padding: 18px 20px;
+        transition: background-color .2s ease;
+    }
+    .bday-item:hover { background: var(--cream); }
+    .bday-item.lewat { background: #fff; border-color: #EADFE0; }
 
-            color: var(--ink);
-            min-height: 100vh;
-            flex: 1;
-            min-width: 0;
-            width: 100%;
-            padding: 48px 40px 56px;
-        }
+    .bday-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
 
-      .sec-head {
-    background: #fff;
-    border: 1.5px solid #F3DDD8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 18px;
-    border-radius: 14px;
-    margin-bottom: 14px;
-}
+    .bday-avatar {
+        width: 56px; height: 56px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: var(--cream);
+        border: 2px solid var(--pink);
+        flex-shrink: 0;
+    }
 
-        .sec-judul {
-            font-family: 'Roboto', Georgia, serif;
-            font-size: 18px;
-            font-weight: 700;
-        }
+    .bday-nama { font-size: 17px; font-weight: 600; color: var(--ink); }
+    .bday-info { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-        .sec-sub {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 2px;
-        }
+    .bday-label {
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--peach);
+        color: var(--ink);
+    }
+    .bday-item.hari-ini .bday-label { background: var(--slate); color: #fff; }
 
-        .sec-reset {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-        }
+    .kosong {
+        font-size: 13px;
+        color: var(--muted);
+        background: #fff;
+        border: 2px dashed var(--pink);
+        border-radius: 12px;
+        padding: 28px 20px;
+        text-align: center;
+    }
 
-        .bday-list {
-            display: grid;
-            gap: 12px;
-        }
+    .mini-cal {
+        background: #fff;
+        border: 2px solid var(--pink);
+        border-radius: 18px;
+        padding: 26px 20px 22px;
+        position: sticky;
+        top: 24px;
+    }
 
-        .bday-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            background: #F9F6C4;
-            border: 4px solid #FFB6C1;
-            border-radius: 12px;
-            padding: 18px 20px;
-            transition: background-color .2s ease;
-        }
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .cal-bulan { font-family: 'Roboto', Georgia, serif; font-size: 15px; font-weight: 700; color: var(--ink); }
 
-        .bday-item:hover {
-            background: #FCFAD9;
-        }
+    .cal-panah {
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--slate);
+        font-size: 16px;
+        transition: background .15s;
+    }
+    .cal-panah:hover { background: var(--peach); color: var(--ink); }
 
-        .bday-item.lewat {
-            background: #F9F6C4;
-        }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 2px; text-align: center; }
+    .cal-head { font-size: 14px; font-weight: 600; color: var(--muted); padding-bottom: 6px; }
+    .cal-sel { display: flex; justify-content: center; }
 
-        .bday-left {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 0;
-        }
+    .tgl {
+        position: relative;
+        width: 44px; height: 44px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--ink);
+        transition: background .15s;
+    }
+    .tgl.luar { color: #C9CCDA; }
+    a.tgl:hover { background: var(--peach); }
 
-        .bday-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #FFEAEB;
-            border: 1px solid #FFB6C1;
-            flex-shrink: 0;
-        }
+    .tgl.ada::after {
+        content: '';
+        position: absolute;
+        bottom: 3px; left: 50%;
+        width: 5px; height: 5px;
+        margin-left: -2.5px;
+        border-radius: 50%;
+        background: var(--pink-deep);
+    }
 
-        .bday-nama {
-            font-size: 17px;
-            font-weight: 600;
-            color: #222;
-        }
+    .tgl.hari-ini { background: var(--slate); color: #fff; font-weight: 700; }
+    .tgl.hari-ini.ada::after { background: #fff; }~
+    .tgl.dipilih { background: var(--pink); color: var(--ink); font-weight: 700; }
+    .tgl.dipilih.hari-ini { background: var(--slate); color: #fff; }
 
-        .bday-info {
-            font-size: 12px;
-            color: #666;
-            margin-top: 2px;
-        }
+    .cal-aksi { margin-top: 18px; display: grid; gap: 10px; }
 
-        .bday-label {
-            font-size: 12px;
-            font-weight: 600;
-            white-space: nowrap;
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: #fff;
-            color: #BB8760;
-            border: 1px solid #F0DDB8;
-        }
+    .btn-tambah {
+        display: block;
+        text-align: center;
+        background: var(--pink);
+        color: var(--ink) !important;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 11px 20px;
+        border-radius: 999px;
+        border: 2px solid var(--pink-deep);
+        transition: background .15s;
+    }
+    .btn-tambah:hover { background: var(--pink-deep); }
 
-        .bday-item.hari-ini .bday-label {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-        }
+    .btn-hari-ini { text-align: center; font-size: 12px; font-weight: 600; color: var(--slate); }
+    .btn-hari-ini:hover { color: var(--pink-deep); }
 
-        .kosong {
-            font-size: 13px;
-            color: var(--muted);
-            background: #fff;
-            border: 1px dashed var(--line);
-            border-radius: 12px;
-            padding: 28px 20px;
-            text-align: center;
-        }
+    .sticker {
+        color: #2B1F22;
+        paint-order: stroke fill;
+        -webkit-text-stroke: 0.28em #fff;
+        text-shadow: 0 0 10px rgba(255, 255, 255, .9);
+    }
+    .kal .kal-sub { color: var(--slate); font-weight: 500; }
 
-        .mini-cal {
-            background: #fff;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            padding: 26px 20px 22px;
-            position: sticky;
-            top: 24px;
-            border: 4px solid #FFB6C1;
-        }
-
-        .cal-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .cal-bulan {
-            font-family: 'Roboto', Georgia, serif;
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .cal-panah {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted);
-            font-size: 16px;
-            transition: background .15s;
-        }
-
-        .cal-panah:hover {
-            background: var(--accent-soft);
-            color: var(--accent);
-        }
-
-        .cal-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            row-gap: 2px;
-            text-align: center;
-        }
-
-        .cal-head {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--muted);
-            padding-bottom: 6px;
-        }
-
-        .cal-sel {
-            display: flex;
-            justify-content: center;
-        }
-
-        .tgl {
-            position: relative;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--ink);
-            transition: background .15s;
-        }
-
-        .tgl.luar {
-            color: #D9C6C3;
-        }
-
-        a.tgl:hover {
-            background: var(--accent-soft);
-        }
-
-        .tgl.ada::after {
-            content: '';
-            position: absolute;
-            bottom: 3px;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            margin-left: -2.5px;
-            border-radius: 50%;
-            background: var(--accent);
-        }
-
-        .tgl.hari-ini {
-            background: var(--accent);
-            color: #fff;
-            font-weight: 700;
-        }
-
-        .tgl.hari-ini.ada::after {
-            background: #fff;
-        }
-
-        .tgl.dipilih {
-            box-shadow: 0 0 0 2px var(--accent);
-        }
-
-        .cal-aksi {
-            margin-top: 18px;
-            display: grid;
-            gap: 10px;
-        }
-
-        .btn-tambah {
-            display: block;
-            text-align: center;
-            background: var(--accent);
-            color: #fff !important;
-            font-weight: 600;
-            font-size: 14px;
-            padding: 11px 20px;
-            border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(232, 99, 125, .25);
-            transition: background .15s;
-        }
-
-        .btn-tambah:hover {
-            background: #D9506B;
-        }
-
-        .btn-hari-ini {
-            text-align: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--accent);
-        }
-
-        .sticker {
-            color: #2B1F22;
-            paint-order: stroke fill;
-            -webkit-text-stroke: 0.28em #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, .9);
-        }
-
-        .kal .kal-sub {
-            color: #6B3F49;
-            font-weight: 500;
-        }
-
-        @media (max-width: 900px) {
-            .kal {
-                padding: 32px 20px 40px;
-            }
-
-            .kal-inner {
-                padding-left: 0;
-                padding-top: 36px;
-            }
-
-            .kal-layout {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-
-            .mini-cal {
-                order: -1;
-                position: static;
-            }
-        }
-    </style>
+    @media (max-width: 900px) {
+        .kal { padding: 32px 20px 40px; }
+        .kal-inner { padding-left: 0; padding-top: 36px; }
+        .kal-layout { grid-template-columns: 1fr; gap: 24px; }
+        .mini-cal { order: -1; position: static; }
+    }
+</style>
 
     <div class="kal">
         <div class="kal-inner">
