@@ -13,13 +13,11 @@ class FriendController extends Controller
 {
     use MessageResponser;
 
-    /** Semua baris teman milik user yang login (termasuk yang masih pending). */
     private function mine()
     {
         return Friend::where('created_by', auth()->id());
     }
 
-    /** Teman milik user yang login yang sudah diterima. */
     private function myAccepted()
     {
         return $this->mine()->where(function ($q) {

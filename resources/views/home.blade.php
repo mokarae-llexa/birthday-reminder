@@ -3,10 +3,7 @@
 @section('content')
     @php
         $inisial = fn($nama) => strtoupper(
-            collect(explode(' ', trim($nama)))
-                ->map(fn($k) => mb_substr($k, 0, 1))
-                ->take(2)
-                ->implode(''),
+            collect(explode(' ', trim($nama)))->map(fn($k) => mb_substr($k, 0, 1))->take(2)->implode(''),
         );
         $namaDepan = fn($nama) => explode(' ', trim($nama))[0];
         $warna = fn($nama) => ['pink', 'lavender', 'yellow', 'mint', 'blue'][crc32($nama) % 5];
@@ -414,6 +411,192 @@
                 padding: 8px 16px 32px;
                 gap: 32px;
             }
+
+            .beranda-body {
+                grid-template-columns: minmax(0, 1fr) 340px;
+                align-items: start;
+            }
+
+            .kolom-utama {
+                display: grid;
+                gap: 32px;
+                min-width: 0;
+            }
+
+            .rencana {
+                position: sticky;
+                top: 24px;
+                height: calc(100vh - 48px);
+                min-height: 420px;
+                display: flex;
+                flex-direction: column;
+                padding: 20px 20px 12px;
+            }
+
+            .rencana-head {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-bottom: 12px;
+            }
+
+            .rencana-badge {
+                background: var(--pink-bg);
+                color: var(--pink-fg);
+                font-size: 11px;
+                font-weight: 700;
+                padding: 2px 10px;
+                border-radius: 999px;
+            }
+
+            .rencana-err {
+                font-size: 12px;
+                color: #D6336C;
+                margin-bottom: 8px;
+            }
+
+            .rencana-form {
+                display: grid;
+                gap: 8px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid #F8ECE8;
+            }
+
+            .rencana-form select,
+            .rencana-form input {
+                width: 100%;
+                border: 1.5px solid var(--line);
+                border-radius: 10px;
+                padding: 8px 12px;
+                font-size: 13px;
+                background: #fff;
+                color: var(--ink);
+            }
+
+            .rencana-form .baris2 {
+                display: grid;
+                grid-template-columns: 1fr auto;
+                gap: 8px;
+            }
+
+            .rencana-form button {
+                background: var(--accent);
+                color: #fff;
+                border: 0;
+                border-radius: 10px;
+                padding: 8px 16px;
+                font-weight: 600;
+                font-size: 13px;
+                cursor: pointer;
+            }
+
+            .rencana-form button:hover {
+                background: #d4506b;
+            }
+
+            .rencana-list {
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                padding-top: 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .plan {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                background: #FFF7F5;
+                border: 1.5px solid var(--line);
+                border-radius: 14px;
+                padding: 10px 12px;
+            }
+
+            .plan.done {
+                opacity: .55;
+            }
+
+            .plan.done .plan-judul {
+                text-decoration: line-through;
+            }
+
+            .plan-cek {
+                width: 22px;
+                height: 22px;
+                border-radius: 50%;
+                border: 2px solid var(--accent);
+                background: #fff;
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                cursor: pointer;
+                flex-shrink: 0;
+            }
+
+            .plan-cek svg {
+                opacity: 0;
+            }
+
+            .plan.done .plan-cek {
+                background: var(--accent);
+            }
+
+            .plan.done .plan-cek svg {
+                opacity: 1;
+            }
+
+            .plan-isi {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .plan-judul {
+                font-size: 13.5px;
+                font-weight: 600;
+                word-break: break-word;
+            }
+
+            .plan-sub {
+                font-size: 11.5px;
+                color: var(--muted);
+            }
+
+            .plan-sub .telat {
+                color: #D6336C;
+                font-weight: 600;
+            }
+
+            .plan-hapus {
+                border: 0;
+                background: transparent;
+                color: var(--muted);
+                cursor: pointer;
+                padding: 0 2px;
+                font-size: 18px;
+                line-height: 1;
+            }
+
+            @media (max-width: 1200px) {
+                .daftar {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 1100px) {
+                .beranda-body {
+                    grid-template-columns: 1fr;
+                }
+
+                .rencana {
+                    position: static;
+                    height: auto;
+                    max-height: 560px;
+                }
+            }
         }
     </style>
 
@@ -434,30 +617,35 @@
                                 @switch($k['ikon'])
                                     @case('cake')
                                         {{-- Kue --}}
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M12 2.5c.8.7 1 1.4.5 2a1 1 0 0 1-1.7-.1c-.2-.6 0-1.2 1.2-1.9Z" fill="currentColor" stroke-width="1"/>
-                                            <path d="M12 7v3"/>
-                                            <rect x="4" y="10" width="16" height="9" rx="2"/>
-                                            <path d="M4 14c1.3 1.3 2.7 1.3 4 0s2.7-1.3 4 0 2.7 1.3 4 0 2.7-1.3 4 0"/>
-                                            <path d="M3 21.5h18"/>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M12 2.5c.8.7 1 1.4.5 2a1 1 0 0 1-1.7-.1c-.2-.6 0-1.2 1.2-1.9Z"
+                                                fill="currentColor" stroke-width="1" />
+                                            <path d="M12 7v3" />
+                                            <rect x="4" y="10" width="16" height="9" rx="2" />
+                                            <path d="M4 14c1.3 1.3 2.7 1.3 4 0s2.7-1.3 4 0 2.7 1.3 4 0 2.7-1.3 4 0" />
+                                            <path d="M3 21.5h18" />
                                         </svg>
                                     @break
 
                                     @case('week')
                                         {{-- Kalender dengan satu baris terpilih (minggu ini) --}}
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="5" width="18" height="16" rx="2"/>
-                                            <path d="M16 3v4M8 3v4M3 10h18"/>
-                                            <path d="M7 15h10"/>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="5" width="18" height="16" rx="2" />
+                                            <path d="M16 3v4M8 3v4M3 10h18" />
+                                            <path d="M7 15h10" />
                                         </svg>
                                     @break
 
                                     @default
                                         {{-- Kalender dengan grid tanggal (bulan ini) --}}
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="5" width="18" height="16" rx="2"/>
-                                            <path d="M16 3v4M8 3v4M3 10h18"/>
-                                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01" stroke-width="2.4"/>
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="5" width="18" height="16" rx="2" />
+                                            <path d="M16 3v4M8 3v4M3 10h18" />
+                                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"
+                                                stroke-width="2.4" />
                                         </svg>
                                 @endswitch
                             </span>
@@ -552,7 +740,89 @@
                     </div>
                 @endif
             </section>
+            <aside class="panel rencana" aria-label="Preparations">
+                <div class="rencana-head">
+                    <h2 class="panel-judul">Preparations</h2>
+                    <span class="rencana-badge">{{ $rencana->where('is_done', false)->count() }} left</span>
+                </div>
 
+                @if ($errors->any())
+                    <p class="rencana-err">{{ $errors->first() }}</p>
+                @endif
+
+                @if ($semuaTeman->isEmpty())
+                    <p class="kosong">Add a friend first to start planning.
+                        <a href="{{ route('friends.create') }}">Add Friend</a>
+                    </p>
+                @else
+                    <form class="rencana-form" action="{{ route('plans.store') }}" method="POST">
+                        @csrf
+                        <select name="friend_id" required>
+                            <option value="" disabled selected>Choose a friend</option>
+                            @foreach ($semuaTeman as $t)
+                                <option value="{{ $t->id }}" @selected(old('friend_id') == $t->id)>{{ $t->display_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <input type="text" name="title" value="{{ old('title') }}" maxlength="150"
+                            placeholder="e.g. Buy a gift" required>
+                        <div class="baris2">
+                            <input type="date" name="due_date" value="{{ old('due_date') }}">
+                            <button type="submit">Add</button>
+                        </div>
+                    </form>
+                @endif
+
+                <div class="rencana-list">
+                    @forelse ($rencana as $p)
+                        @php
+                            $sisaHari = $p->due_date
+                                ? (int) now()
+                                    ->startOfDay()
+                                    ->diffInDays($p->due_date->copy()->startOfDay(), false)
+                                : null;
+                        @endphp
+                        <div class="plan {{ $p->is_done ? 'done' : '' }}">
+                            <form action="{{ route('plans.toggle', $p) }}" method="POST">
+                                @csrf @method('PATCH')
+                                <button type="submit" class="plan-cek" aria-label="Toggle done">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                        stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M5 12.5l4.5 4.5L19 7.5" />
+                                    </svg>
+                                </button>
+                            </form>
+                            <div class="plan-isi">
+                                <p class="plan-judul">{{ $p->title }}</p>
+                                <p class="plan-sub">
+                                    for {{ $namaDepan($p->friend->display_name ?? '') }} &middot;
+                                    @if (is_null($sisaHari))
+                                        No due date
+                                    @elseif ($p->is_done)
+                                        Done
+                                    @elseif ($sisaHari < 0)
+                                        <span class="telat">{{ abs($sisaHari) }} days overdue</span>
+                                    @elseif ($sisaHari === 0)
+                                        Today
+                                    @elseif ($sisaHari === 1)
+                                        Tomorrow
+                                    @else
+                                        {{ $sisaHari }} days left
+                                    @endif
+                                </p>
+                            </div>
+                            <form action="{{ route('plans.destroy', $p) }}" method="POST"
+                                onsubmit="return confirm('Delete this preparation?')">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="plan-hapus" aria-label="Delete">&times;</button>
+                            </form>
+                        </div>
+                    @empty
+                        <p class="kosong">No preparations yet.</p>
+                    @endforelse
+                </div>
+            </aside>
         </div>
     </div>
 @endsection

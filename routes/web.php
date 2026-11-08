@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\BirthdayPlanController;
 
 use Illuminate\Http\JsonResponse;
 
@@ -47,4 +48,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
+    Route::post('/plans', [BirthdayPlanController::class, 'store'])->name('plans.store');
+    Route::patch('/plans/{plan}/toggle', [BirthdayPlanController::class, 'toggle'])->name('plans.toggle');
+    Route::delete('/plans/{plan}', [BirthdayPlanController::class, 'destroy'])->name('plans.destroy');
 });
