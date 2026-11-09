@@ -139,6 +139,6 @@ class Friend extends Model
                 return asset('storage/' . $this->avatar);
             }
         }
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=FFE1DD&color=C55F4E&size=160&bold=true';
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&background=FCE4E6&color=B95569&size=160&bold=true';
     }
 }

@@ -1,7 +1,7 @@
 @props(['currentAvatar' => null, 'defaultName' => 'Teman'])
 
 @php
-    $initialAvatar = $currentAvatar ?: 'https://ui-avatars.com/api/?name=' . urlencode($defaultName) . '&background=FFE1DD&color=C55F4E&size=160&bold=true';
+    $initialAvatar = $currentAvatar ?: 'https://ui-avatars.com/api/?name=' . urlencode($defaultName) . '&background=FCE4E6&color=B95569&size=160&bold=true';
 @endphp
 
 <div class="avatar-picker-container mb-4">
@@ -10,7 +10,7 @@
     <div class="d-flex align-items-center gap-3">
         <div class="position-relative">
             <div class="avatar-preview-box" id="avatarPreviewContainer">
-                <img id="avatarPreview" src="{{ $initialAvatar }}" alt="Avatar Preview" class="rounded-circle shadow-sm" style="width: 96px; height: 96px; object-fit: cover; border: 3px solid #FFE6E3;">
+                <img id="avatarPreview" src="{{ $initialAvatar }}" alt="Avatar Preview" class="rounded-circle shadow-sm" style="width: 96px; height: 96px; object-fit: cover; border: 3px solid var(--primary, #E88F9B);">
             </div>
             <button type="button" class="btn btn-sm btn-light rounded-circle position-absolute bottom-0 end-0 shadow-sm border" id="btnTriggerUpload" title="Ubah Foto">
                 📷
@@ -29,7 +29,7 @@
             <div class="form-text text-muted" style="font-size: 12px;">
                 Format: JPG, PNG, WEBP. Max <strong>2MB</strong>.
             </div>
-            <button type="button" class="btn btn-link text-danger text-decoration-none btn-sm p-0 align-self-start {{ $currentAvatar ? '' : 'd-none' }}" id="btnRemoveAvatar">
+            <button type="button" class="btn btn-link text-decoration-none btn-sm p-0 align-self-start {{ $currentAvatar ? '' : 'd-none' }}" id="btnRemoveAvatar" style="color: var(--primary-dark, #B95569);">
                 Delete Photo
             </button>
         </div>
@@ -119,7 +119,7 @@
                     <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">
                         Cancel
                     </button>
-                    <button type="button" class="btn btn-danger rounded-pill px-4" id="btnApplyCrop" style="background-color: #C55F4E; border-color: #C55F4E;">
+                    <button type="button" class="btn rounded-pill px-4 text-white" id="btnApplyCrop" style="background-color: var(--primary, #E88F9B); border-color: var(--primary, #E88F9B);">
                         Save Photo
                     </button>
                 </div>
@@ -141,13 +141,13 @@
     display: none !important;
 }
 .preset-emoji-btn:hover {
-    background-color: #FFE6E3 !important;
-    border-color: #C55F4E !important;
+    background-color: var(--primary-soft, #FCE4E6) !important;
+    border-color: var(--primary, #E88F9B) !important;
     transform: scale(1.1);
     transition: transform 0.2s ease;
 }
 .custom-zoom-slider {
-    accent-color: #C55F4E;
+    accent-color: var(--primary, #E88F9B);
 }
 </style>
 
@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
             canvas.height = 200;
             const ctx = canvas.getContext('2d');
             
-            ctx.fillStyle = '#FFE6E3';
+            ctx.fillStyle = '#FCE4E6';
             ctx.beginPath();
             ctx.arc(100, 100, 100, 0, Math.PI * 2);
             ctx.fill();
@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (btnRemoveAvatar) {
         btnRemoveAvatar.addEventListener('click', function () {
-            avatarPreview.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('{{ $defaultName }}') + '&background=FFE1DD&color=C55F4E&size=160&bold=true';
+            avatarPreview.src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent('{{ $defaultName }}') + '&background=FCE4E6&color=B95569&size=160&bold=true';
             avatarBase64Input.value = '';
             avatarRemoveInput.value = "1";
             fileInput.value = '';

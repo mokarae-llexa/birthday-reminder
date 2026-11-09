@@ -3,14 +3,14 @@
 @section('content')
     <style>
         .sticker {
-            color: #2B1F22;
+            color: var(--text, #333333);
             paint-order: stroke fill;
             -webkit-text-stroke: 0.28em #fff;
             text-shadow: 0 0 10px rgba(255, 255, 255, .9);
         }
 
         .sticker-soft {
-            color: #6B3F49;
+            color: var(--primary-dark, #B95569);
             font-weight: 500;
         }
 
@@ -49,9 +49,9 @@
         </div>
         <div class="row">
             <div class="col-lg-6 mb-4">
-                <div class="card border-0 shadow-sm rounded-4 h-100" style="background: #FFFFFF;">
+                <div class="card card-flat rounded-4 h-100">
                     <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
-                        <h5 class="fw-bold mb-0" style="color: #C55F4E;">
+                        <h5 class="fw-bold mb-0" style="color: var(--primary-dark, #B95569);">
                             <i class="bi bi-person-circle me-2"></i>Profile Information & Avatar
                         </h5>
                     </div>
@@ -104,7 +104,7 @@
 
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-primary rounded-pill px-4"
-                                    style="background-color: #C55F4E; border-color: #C55F4E;">
+                                    style="background-color: var(--primary, #E88F9B); border-color: var(--primary, #E88F9B); color: var(--white, #fff);">
                                     Save Profile Changes
                                 </button>
                             </div>
@@ -116,7 +116,7 @@
             <div class="col-lg-6 mb-4">
                 <div class="card card-flat rounded-4 h-100">
                     <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
-                        <h5 class="fw-bold mb-0" style="color: #C55F4E;">
+                        <h5 class="fw-bold mb-0" style="color: var(--secondary, #5D688A);">
                             <i class="bi bi-key-fill me-2"></i>Change Password
                         </h5>
                     </div>
@@ -147,7 +147,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
+                                <button type="submit" class="btn btn-chip rounded-pill px-4">
                                     Change Password
                                 </button>
                             </div>
@@ -160,12 +160,13 @@
                 <div class="card card-flat rounded-4">
                     <div class="card-body p-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
                         <div>
-                            <h6 class="fw-bold mb-1 text-danger">Logout</h6>
+                            <h6 class="fw-bold mb-1" style="color: var(--primary-dark, #B95569);">Logout</h6>
                             <p class="text-muted small mb-0">Logout from your Birthday Reminder account</p>
                         </div>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-danger rounded-pill px-4">
+                            <button type="submit" class="btn rounded-pill px-4 text-white"
+                                style="background-color: var(--primary-dark, #B95569); border-color: var(--primary-dark, #B95569);">
                                 Logout
                             </button>
                         </form>

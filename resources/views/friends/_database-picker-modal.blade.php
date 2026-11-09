@@ -43,14 +43,14 @@
                 </div>
 
                 <div id="{{ $modalId }}Loading" class="text-center py-4 d-none">
-                    <div class="spinner-border text-secondary" role="status" style="color: #C55F4E !important;">
+                    <div class="spinner-border text-secondary" role="status" style="color: var(--primary, #E88F9B) !important;">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                     <p class="text-muted small mt-2 mb-0">Searching...</p>
                 </div>
 
                 <div id="{{ $modalId }}Empty" class="text-center py-4 d-none">
-                    <div class="d-flex justify-content-center mb-2" style="color: var(--primary, #5D688A);" aria-hidden="true">
+                    <div class="d-flex justify-content-center mb-2" style="color: var(--primary, #E88F9B);" aria-hidden="true">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="7" />
@@ -98,7 +98,7 @@
 
             function icon(paths, size) {
                 return '<svg width="' + size + '" height="' + size +
-                    '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:-2px;color:var(--primary, #5D688A);">' +
+                    '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:-2px;color:var(--secondary, #5D688A);">' +
                     paths + '</svg>';
             }
 
@@ -114,11 +114,11 @@
                 cake: function(s) {
                     return '<svg width="' + s + '" height="' + s +
                         '" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;vertical-align:-3px;">' +
-                        '<path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" style="fill:#F7A5A5;stroke:#F7A5A5;stroke-width:1"/>' +
-                        '<path d="M12 7v3.5" style="stroke:var(--primary, #5D688A)"/>' +
-                        '<rect x="4" y="10.5" width="16" height="9" rx="2" style="stroke:var(--primary, #5D688A)"/>' +
-                        '<path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" style="stroke:#F7A5A5"/>' +
-                        '<path d="M2.5 21.5h19" style="stroke:var(--primary, #5D688A)"/></svg>';
+                        '<path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" style="fill:var(--primary, #E88F9B);stroke:var(--primary, #E88F9B);stroke-width:1"/>' +
+                        '<path d="M12 7v3.5" style="stroke:var(--secondary, #5D688A)"/>' +
+                        '<rect x="4" y="10.5" width="16" height="9" rx="2" style="stroke:var(--secondary, #5D688A)"/>' +
+                        '<path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" style="stroke:var(--primary, #E88F9B)"/>' +
+                        '<path d="M2.5 21.5h19" style="stroke:var(--secondary, #5D688A)"/></svg>';
                 }
             };
 
@@ -165,28 +165,28 @@
                         const row = document.createElement('div');
                         row.className = 'list-group-item d-flex align-items-center gap-3 py-3';
                         const badgeColor = item.source === 'user' ?
-                            'background:#E8F0FE;color:#1A56DB;border:1px solid #C7DBFF;' :
-                            'background:#FFE6E3;color:#C55F4E;border:1px solid #FFD0CB;';
+                            'background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);border:1px solid var(--secondary, #5D688A);' :
+                            'background:var(--primary-soft, #FCE4E6);color:var(--primary-dark, #B95569);border:1px solid var(--border, #F0C9C9);';
                         const extraBadges =
                             (item.is_self ?
-                                '<span class="badge rounded-pill" style="font-size:10px;background:#F3F4F6;color:#4B5563;border:1px solid #E5E7EB;">It\'s you</span>' :
+                                '<span class="badge rounded-pill" style="font-size:10px;background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);border:1px solid var(--secondary, #5D688A);">It\'s you</span>' :
                                 '') +
                             (item.is_added ?
-                                '<span class="badge rounded-pill d-inline-flex align-items-center gap-1" style="font-size:10px;background:#E6F4EA;color:#137333;border:1px solid #B7E0C0;">' +
+                                '<span class="badge rounded-pill d-inline-flex align-items-center gap-1" style="font-size:10px;background:var(--primary-soft, #FCE4E6);color:var(--primary-dark, #B95569);border:1px solid var(--border, #F0C9C9);">' +
                                 ICON.check(11) + 'Already added</span>' :
                                 '');
                         const pickBtn = item.is_added ?
                             '<button type="button" class="btn btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1" disabled title="Already in the friends list">Added ' +
                             ICON.check(13) + '</button>' :
-                            '<button type="button" class="btn btn-sm rounded-pill px-3 text-white pick-btn" style="background-color:#C55F4E;border-color:#C55F4E;">Select</button>';
+                            '<button type="button" class="btn btn-sm rounded-pill px-3 text-white pick-btn" style="background-color:var(--primary, #E88F9B);border-color:var(--primary, #E88F9B);">Select</button>';
                         row.innerHTML =
                             '<img src="' + escapeHtml(item.avatar || '') +
-                            '" alt="" class="rounded-circle border" style="width:48px;height:48px;object-fit:cover;" onerror="this.src=\'https://ui-avatars.com/api/?name=' +
+                            '" alt="" class="rounded-circle border" style="width:48px;height:48px;object-fit:cover;border-color:var(--border, #F0C9C9) !important;" onerror="this.src=\'https://ui-avatars.com/api/?name=' +
                             encodeURIComponent(item.name || '?') +
-                            '&background=FFE1DD&color=C55F4E&bold=true\';">' +
+                            '&background=FCE4E6&color=B95569&bold=true\';">' +
                             '<div class="flex-grow-1" style="min-width:0;">' +
                             '<div class="d-flex align-items-center gap-2 flex-wrap">' +
-                            '<span class="fw-bold text-dark">' + escapeHtml(item.name || '-') + '</span>' +
+                            '<span class="fw-bold" style="color:var(--text, #333333);">' + escapeHtml(item.name || '-') + '</span>' +
                             '<span class="badge rounded-pill" style="font-size:10px;' + badgeColor + '">' +
                             escapeHtml(item.source_label || item.source) + '</span>' +
                             extraBadges +
@@ -194,7 +194,7 @@
                             '<div class="text-muted small text-truncate">' + escapeHtml(item.email ||
                                 'No email yet') + (item.birth_date ? ' &bull; ' + ICON.cake(14) + ' ' +
                                 escapeHtml(item.birth_date) : '') + '</div>' +
-                            (item.source === 'user' ? '<div class="small" style="color:#1A56DB;"></div>' :
+                            (item.source === 'user' ? '<div class="small" style="color:var(--secondary, #5D688A);"></div>' :
                                 '') +
                             '</div>' +
                             pickBtn;

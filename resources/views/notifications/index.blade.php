@@ -28,22 +28,23 @@
         .search-box input {
             width: 100%;
             padding: 10px 16px 10px 40px;
-            background: #fff;
-            border: 1px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 1px solid var(--border, #F0C9C9);
             border-radius: 20px;
             font-size: 13px;
-            color: #333;
+            color: var(--text, #333333);
             outline: none;
             transition: all .2s ease;
         }
 
         .search-box input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(93, 104, 138, .2);
+            box-shadow: 0 0 0 3px rgba(232, 143, 155, .22);
         }
 
         .search-box input::placeholder {
-            color: #8A8FA8;
+            color: var(--secondary, #5D688A);
+            opacity: 0.65;
         }
 
         .search-box i {
@@ -52,7 +53,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 15px;
-            color: var(--primary);
+            color: var(--secondary);
         }
 
         .notif-list {
@@ -62,8 +63,8 @@
 
         .notif-item {
             border-radius: 14px;
-            background: #fff;
-            border: 1px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 1px solid var(--border, #F0C9C9);
             padding: 20px 8px;
             margin-bottom: 14px;
             display: flex;
@@ -74,11 +75,12 @@
         }
 
         .notif-item:hover {
-            background: var(--background);
+            background: var(--primary-soft);
         }
 
         .notif-item.is-read {
-            border-color: #EEE6E6;
+            border-color: var(--border, #F0C9C9);
+            opacity: 0.85;
         }
 
         .notif-left {
@@ -95,20 +97,20 @@
             object-fit: cover;
             margin: 10px;
             flex-shrink: 0;
-            border: 1px solid var(--secondary);
-            background: var(--background);
+            border: 1.5px solid var(--primary);
+            background: var(--primary-soft);
         }
 
         .notif-text h4 {
             font-size: 15px;
             font-weight: 600;
-            color: #3F4766;
+            color: var(--text, #333333);
             margin: 0 0 3px;
         }
 
         .notif-text p {
             font-size: 14px;
-            color: var(--primary);
+            color: var(--secondary);
             margin: 0;
             font-weight: 500;
         }
@@ -118,7 +120,7 @@
             margin-top: 4px;
             font-size: 12px;
             font-weight: 500;
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         .notif-actions {
@@ -132,25 +134,26 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: transparent;
-            color: var(--primary) !important;
+            background: var(--primary-soft);
+            color: var(--primary-dark) !important;
             font-size: 13px;
             font-weight: 700;
             padding: 8px 14px;
-            border: none;
+            border: 1px solid var(--border);
             border-radius: 8px;
             cursor: pointer;
             transition: all .2s ease;
         }
 
         .btn-wish:hover {
-            background: var(--accent);
-            color: #3F4766 !important;
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white, #FFFFFF) !important;
         }
 
         .btn-read {
             font-size: 12px;
-            color: #888;
+            color: var(--secondary);
             background: none;
             border: none;
             cursor: pointer;
@@ -159,19 +162,19 @@
         }
 
         .btn-read:hover {
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         .quick-send {
-            background: #fff;
-            border: 1px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 1px solid var(--border, #F0C9C9);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
         }
 
         #quickMessage {
-            border: 1px solid #F0C9C9;
+            border: 1px solid var(--border, #F0C9C9);
             border-right: none;
         }
 
@@ -183,9 +186,9 @@
         .template-chip {
             cursor: pointer;
             font-size: 12px;
-            background: var(--accent);
-            border: 1.5px solid #E8A765;
-            color: #3F4766;
+            background: var(--primary-soft);
+            border: 1.5px solid var(--border);
+            color: var(--primary-dark);
             font-weight: 600;
             border-radius: 20px;
             padding: 4px 12px;
@@ -194,8 +197,9 @@
         }
 
         .template-chip:hover {
-            background: var(--secondary);
-            border-color: #E27D7D;
+            background: var(--primary);
+            border-color: var(--primary-dark);
+            color: var(--white, #FFFFFF);
         }
 
         .greet-thread {
@@ -207,8 +211,8 @@
         }
 
         .greet-bubble {
-            background: #fff;
-            border: 1px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 1px solid var(--border, #F0C9C9);
             border-radius: 12px;
             padding: 8px 12px;
             font-size: 13px;
@@ -216,45 +220,45 @@
 
         .greet-bubble small {
             display: block;
-            color: var(--primary);
+            color: var(--secondary);
             font-size: 11px;
             margin-top: 4px;
         }
 
         .end-text {
-            background: #fff;
-            border: 1px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 1px solid var(--border, #F0C9C9);
             border-radius: 18px;
             text-align: center;
             padding: 32px 24px;
         }
 
         .end-text h5 {
-            color: #3F4766;
+            color: var(--text, #333333);
             font-weight: 700;
         }
 
         .end-text p {
             font-size: 13px;
-            color: var(--primary);
+            color: var(--secondary);
         }
 
         .sticker {
-            color: #2B1F22;
+            color: var(--text, #333333);
             paint-order: stroke fill;
             -webkit-text-stroke: .28em #fff;
             text-shadow: 0 0 10px rgba(255, 255, 255, .9);
         }
 
         .sticker-soft {
-            color: var(--primary);
+            color: var(--primary-dark);
             font-weight: 600;
         }
 
         .unread-text {
             font-size: 14px;
             font-weight: 600;
-            color: #3F4766;
+            color: var(--primary-dark);
             paint-order: stroke fill;
             -webkit-text-stroke: 4px #fff;
         }
@@ -276,38 +280,40 @@
         }
 
         .btn-modal-send {
-            background: var(--secondary);
-            color: #3F4766;
-            border: 1px solid #E27D7D;
+            background: var(--primary);
+            color: var(--white, #FFFFFF);
+            border: 1px solid var(--primary-dark);
         }
 
         .btn-modal-send:hover {
-            background: #E27D7D;
+            background: var(--primary-dark);
+            color: var(--white, #FFFFFF);
         }
 
         .btn-modal-cancel {
-            background: var(--background);
-            color: var(--primary);
-            border: 1px solid var(--primary);
+            background: var(--secondary-soft);
+            color: var(--secondary-dark);
+            border: 1px solid var(--secondary);
         }
 
         .btn-modal-cancel:hover {
-            background: var(--accent);
+            background: var(--secondary);
+            color: var(--white, #FFFFFF);
         }
 
         #wishModal .modal-content {
             background: var(--background);
-            border: 1px solid #F0C9C9 !important;
+            border: 1px solid var(--border, #F0C9C9) !important;
             box-shadow: none !important;
         }
 
         #wishModal .modal-title {
             font-weight: 700;
-            color: #3F4766;
+            color: var(--text, #333333);
         }
 
         #wishModal .modal-title svg {
-            color: var(--secondary) !important;
+            color: var(--primary) !important;
         }
 
         #wishModal input[type="radio"] {
@@ -315,12 +321,12 @@
         }
 
         #wishModal .form-control:focus {
-            border-color: var(--secondary);
-            box-shadow: 0 0 0 3px rgba(247, 165, 165, .25);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(232, 143, 155, .22);
         }
 
         #wishAvatar {
-            border-color: var(--secondary) !important;
+            border-color: var(--primary) !important;
         }
 
         .pick {
@@ -333,28 +339,28 @@
             align-items: center;
             justify-content: space-between;
             gap: 8px;
-            background: #fff;
-            color: #3F4766;
+            background: var(--white, #fff);
+            color: var(--text, #333333);
             font-size: 14px;
             font-weight: 600;
             padding: 6px 12px;
-            border: 1px solid #F0C9C9;
+            border: 1px solid var(--border, #F0C9C9);
             border-radius: 12px;
             cursor: pointer;
             transition: border-color .2s ease, box-shadow .2s ease;
         }
 
         .pick-btn:hover {
-            background: var(--background);
+            background: var(--primary-soft);
         }
 
         .pick.open .pick-btn {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(93, 104, 138, .2);
+            box-shadow: 0 0 0 3px rgba(232, 143, 155, .22);
         }
 
         .pick-btn svg {
-            color: var(--primary);
+            color: var(--secondary);
             transition: transform .2s ease;
             flex-shrink: 0;
         }
@@ -364,7 +370,8 @@
         }
 
         .pick-placeholder {
-            color: #8A8FA8;
+            color: var(--secondary);
+            opacity: 0.7;
             font-weight: 500;
         }
 
@@ -375,8 +382,8 @@
             left: 0;
             right: 0;
             z-index: 50;
-            background: #fff;
-            border: 1px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 1px solid var(--border, #F0C9C9);
             border-radius: 14px;
             overflow: hidden;
         }
@@ -401,16 +408,17 @@
             border-radius: 9px;
             font-size: 13px;
             font-weight: 500;
-            color: #3F4766;
+            color: var(--text, #333333);
             cursor: pointer;
         }
 
         .pick-item:hover {
-            background: var(--background);
+            background: var(--primary-soft);
         }
 
         .pick-item.active {
-            background: var(--background);
+            background: var(--primary-soft);
+            color: var(--primary-dark);
             font-weight: 700;
         }
 
@@ -422,9 +430,9 @@
             width: 16px;
             height: 16px;
             flex-shrink: 0;
-            border: 2px solid #C9CCDA;
+            border: 2px solid var(--border, #F0C9C9);
             border-radius: 5px;
-            background: #fff;
+            background: var(--white, #fff);
         }
 
         .pick-item.active .pick-check {
@@ -435,7 +443,7 @@
         .pick-tag {
             font-size: 12px;
             font-weight: 500;
-            color: var(--primary);
+            color: var(--primary-dark);
         }
 
         .pick-foot {
@@ -446,18 +454,19 @@
         }
 
         .pick-clear {
-            background: var(--background);
-            color: var(--primary);
+            background: var(--secondary-soft);
+            color: var(--secondary-dark);
             font-size: 12px;
             font-weight: 700;
-            border: 1px solid var(--primary);
+            border: 1px solid var(--secondary);
             border-radius: 999px;
             padding: 5px 14px;
             cursor: pointer;
         }
 
         .pick-clear:hover {
-            background: var(--accent);
+            background: var(--secondary);
+            color: var(--white, #FFFFFF);
         }
     </style>
 
@@ -562,7 +571,7 @@
                 <div class="end-text" id="notifEmpty">
                     <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                        style="display:block;margin:0 auto 12px;color:#C55F4E">
+                        style="display:block;margin:0 auto 12px;color:var(--primary, #E88F9B)">
                         <path d="M6 9a6 6 0 0112 0c0 6 2.5 7.5 2.5 7.5h-17S6 15 6 9M10 20a2 2 0 004 0" />
                     </svg>
                     <h5>Belum ada notifikasi</h5>
@@ -580,7 +589,7 @@
                         Kirim Ucapan
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
-                            style="color:#C55F4E">
+                            style="color:var(--primary, #E88F9B)">
                             <path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" fill="currentColor"
                                 stroke-width="1" />
                             <path d="M12 7v3.5" />
@@ -594,7 +603,7 @@
                 <div class="modal-body">
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <img id="wishAvatar" src="" alt="Avatar" class="rounded-circle"
-                            style="width:52px;height:52px;object-fit:cover;border:2px solid #FFE6E3;">
+                            style="width:52px;height:52px;object-fit:cover;border:2px solid var(--primary, #E88F9B);">
                         <div>
                             <div id="wishName" class="fw-bold"></div>
                             <small class="text-muted" id="wishContact"></small>

@@ -12,8 +12,8 @@
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
-        background: #FFFFFF;
-        border-right: 1px solid #F0C9C9;
+        background: var(--white, #FFFFFF);
+        border-right: 1px solid var(--border, #F0C9C9);
         z-index: 1000;
         transition: width 0.3s ease, padding 0.3s ease, transform 0.3s ease, margin-left 0.3s ease;
     }
@@ -126,7 +126,7 @@
     .brand h1 {
         margin: 0;
         font-family: 'Fraunces', Georgia, serif;
-        color: var(--primary, #5D688A);
+        color: var(--secondary-dark, #3F4766);
         font-size: 18px;
         font-weight: 800;
         white-space: nowrap;
@@ -134,7 +134,7 @@
     }
 
     .brand h1 span {
-        color: var(--secondary, #F7A5A5);
+        color: var(--primary-dark, #B95569);
     }
 
     .menu {
@@ -148,7 +148,7 @@
         align-items: center;
         gap: 12px;
         padding: 10px 14px;
-        color: var(--primary);
+        color: var(--secondary, #5D688A);
         font-size: 14px;
         font-weight: 500;
         text-decoration: none;
@@ -158,13 +158,13 @@
     }
 
     .menu a:hover {
-        background: var(--background);
-        color: #3F4766;
+        background: var(--primary-soft, #FCE4E6);
+        color: var(--primary-dark, #B95569);
     }
 
     .menu a.active {
-        background: var(--background);
-        color: #3F4766;
+        background: var(--primary-soft, #FCE4E6);
+        color: var(--primary-dark, #B95569);
         font-weight: 700;
     }
 
@@ -183,8 +183,8 @@
 
     .badge-count {
         margin-left: auto;
-        background: #E27D7D;
-        color: white;
+        background: var(--primary, #E88F9B);
+        color: var(--white, #FFFFFF);
         padding: 2px 8px;
         border-radius: 12px;
         font-size: 11px;
@@ -193,8 +193,8 @@
 
     .sidebar-user {
         margin-top: auto;
-        background: var(--background);
-        border: 1px solid #F0C9C9;
+        background: var(--primary-soft, #FCE4E6);
+        border: 1px solid var(--border, #F0C9C9);
         border-radius: 16px;
         padding: 10px 14px;
         display: flex;
@@ -205,8 +205,8 @@
     }
 
     .sidebar-user:hover {
-        background: #fff;
-        border-color: var(--secondary);
+        background: var(--white, #FFFFFF);
+        border-color: var(--primary, #E88F9B);
     }
 
     .brand h1,
@@ -279,7 +279,7 @@
         height: 36px;
         border-radius: 50%;
         object-fit: cover;
-        border: 1px solid var(--secondary);
+        border: 1.5px solid var(--primary, #E88F9B);
         flex-shrink: 0;
     }
 
@@ -291,7 +291,7 @@
     .user-info .name {
         font-size: 12px;
         font-weight: 700;
-        color: #3F4766;
+        color: var(--text, #333333);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -299,14 +299,14 @@
 
     .user-info .email {
         font-size: 9.5px;
-        color: var(--primary);
+        color: var(--primary-dark, #B95569);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
 
     .user-actions {
-        color: var(--primary);
+        color: var(--primary-dark, #B95569);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -315,8 +315,8 @@
 
     @media (max-width: 992px) {
         .sidebar {
-            background: #FFFFFF;
-            border-right: 1px solid #F0C9C9;
+            background: var(--white, #FFFFFF);
+            border-right: 1px solid var(--border, #F0C9C9);
             width: 220px;
         }
 
@@ -330,7 +330,7 @@
             width: 100%;
             height: auto;
             border-right: none;
-            border-bottom: 1px solid #F0C9C9;
+            border-bottom: 1px solid var(--border, #F0C9C9);
             position: relative;
         }
 
@@ -447,18 +447,18 @@
     </div>
     <div class="sidebar-cake-mini" aria-hidden="true">
         <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="34" width="44" height="20" rx="5" fill="#F7A5A5" />
+            <rect x="10" y="34" width="44" height="20" rx="5" fill="#E88F9B" />
             <path d="M10 40c4 5 8 5 11 0s7 5 11 0 7 5 11 0 7 5 11 0v-3a5 5 0 00-5-5H15a5 5 0 00-5 5z" fill="#FFF2EF" />
             <rect x="18" y="20" width="28" height="14" rx="4" fill="#FFDBB6" />
             <path d="M32 8v12" stroke="#5D688A" stroke-width="3" stroke-linecap="round" />
-            <path d="M32 2c3 3 3 5 0 6-3-1-3-3 0-6z" fill="#F7A5A5" />
-            <rect x="6" y="54" width="52" height="4" rx="2" fill="#EEE6E6" />
+            <path d="M32 2c3 3 3 5 0 6-3-1-3-3 0-6z" fill="#E88F9B" />
+            <rect x="6" y="54" width="52" height="4" rx="2" fill="#F0C9C9" />
         </svg>
     </div>
     <a href="{{ route('profile.edit') }}" class="sidebar-user text-decoration-none" title="Profile"
         style="cursor: pointer;">
         @if (Auth::check())
-            <img src="{{ Auth::user()->avatar_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) }}"
+            <img src="{{ Auth::user()->avatar_url ?? 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=FCE4E6&color=B95569' }}"
                 alt="{{ Auth::user()->name }}">
         @endif
         <div class="user-info">

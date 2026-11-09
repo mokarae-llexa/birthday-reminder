@@ -3,40 +3,40 @@
 @section('content')
     <style>
         .sticker {
-            color: #2B1F22;
+            color: var(--text, #333333);
             paint-order: stroke fill;
             -webkit-text-stroke: 0.28em #fff;
             text-shadow: 0 0 10px rgba(255, 255, 255, .9);
         }
 
         .sticker-soft {
-            color: #6B3F49;
+            color: var(--primary-dark, #B95569);
             font-weight: 500;
         }
 
         .btn-chip {
-            background: #fff;
-            border: 1.5px solid #D9B8B2;
-            color: #6B3F49;
+            background: var(--secondary-soft, #E9ECF4);
+            border: 1.5px solid var(--secondary, #5D688A);
+            color: var(--secondary-dark, #3F4766);
             font-weight: 600;
         }
 
         .btn-chip:hover {
-            background: #FFE6E3;
-            border-color: #C55F4E;
-            color: #C55F4E;
+            background: var(--secondary, #5D688A);
+            border-color: var(--secondary-dark, #3F4766);
+            color: var(--white, #FFFFFF);
         }
 
         .card-flat {
-            background: #fff;
-            border: 1.5px solid #F3DDD8 !important;
+            background: var(--white, #fff);
+            border: 1.5px solid var(--border, #F0C9C9) !important;
         }
     </style>
     @php
         $isLinked =
             !empty($prefillIsLinked ?? false) || !empty(old('linked_user_id', $prefill['linked_user_id'] ?? null));
 
-        $linkIcon = fn($size = 13) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--primary, #5D688A);"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>';
+        $linkIcon = fn($size = 13) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--secondary, #5D688A);"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>';
     @endphp
     <div class="container py-2" style="max-width: 800px;">
         <div class="mb-4 d-flex justify-content-between align-items-start gap-3 flex-wrap">
@@ -52,7 +52,7 @@
         </div>
 
         <div id="prefillNotice" class="alert alert-dismissible fade show rounded-4 mb-3"
-            style="background: #ffffff; color: #7A3A30; border: 1.5px solid #F3DDD8;">
+            style="background: var(--primary-soft, #FCE4E6); color: var(--primary-dark, #B95569); border: 1.5px solid var(--border, #F0C9C9);">
             <strong id="prefillNoticeTitle" class="d-inline-flex align-items-center gap-1">
                 @if ($isLinked)
                     {!! $linkIcon(15) !!}
@@ -67,7 +67,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
 
-        <div class="card border-0 shadow-sm rounded-4" style="background: #FFFFFF;">
+        <div class="card border-0 shadow-sm rounded-4" style="background: var(--white, #FFFFFF);">
             <div class="card-body p-4">
                 <form action="{{ route('friends.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -83,7 +83,7 @@
                     <div class="mb-3">
                         <label for="name" class="form-label fw-semibold">Friend's Name @if ($isLinked)
                                 <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                    style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="text" name="name" id="name"
@@ -108,7 +108,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label fw-semibold">Email @if ($isLinked)
                                     <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                        style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                        style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                                 @endif
                             </label>
                             <input type="email" name="email" id="email"
@@ -124,7 +124,7 @@
                     <div class="mb-3">
                         <label for="birth_date" class="form-label fw-semibold">Birth Date @if ($isLinked)
                                 <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                    style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="date" name="birth_date" id="birth_date"
@@ -157,7 +157,7 @@
                             Back
                         </a>
                         <button type="submit" class="btn btn-primary rounded-pill px-4"
-                            style="background-color: #C55F4E; border-color: #C55F4E;">
+                            style="background-color: var(--primary, #E88F9B); border-color: var(--primary, #E88F9B); color: var(--white, #fff);">
                             Save Friend Data
                         </button>
                     </div>

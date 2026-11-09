@@ -23,22 +23,22 @@
 
     <style>
         .beranda {
-            --ink: #2B1F22;
-            --muted: #A0707A;
-            --accent: #E8637D;
-            --line: #F3DDD8;
-            --pink-bg: #FFD6DA;
-            --pink-fg: #E8637D;
-            --pink-av: #FFD3D9;
-            --lav-bg: #CFE8FC;
-            --lav-fg: #2196F3;
-            --lav-av: #90CAF9;
-            --yel-bg: #FFEFB0;
-            --yel-fg: #E39B0B;
-            --yel-av: #FFE9A3;
-            --mint-av: #B9F3E4;
-            --blue-av: #C9E6FF;
-
+            --ink: var(--text, #333333);
+            --muted: var(--secondary, #5D688A);
+            --accent: var(--primary, #E88F9B);
+            --line: var(--border, #F0C9C9);
+            --pink-bg: var(--primary-soft, #FCE4E6);
+            --pink-fg: var(--primary-dark, #B95569);
+            --pink-av: var(--primary, #E88F9B);
+            --lav-bg: var(--secondary-soft, #E9ECF4);
+            --lav-fg: var(--secondary, #5D688A);
+            --lav-av: var(--secondary, #5D688A);
+            --yel-bg: var(--accent, #FFDBB6);
+            --yel-fg: var(--primary-dark, #B95569);
+            --yel-av: var(--accent-dark, #E8A765);
+            --mint-av: var(--primary-soft, #FCE4E6);
+            --blue-av: var(--secondary-soft, #E9ECF4);
+            color: var(--ink);
         }
 
         .beranda a {
@@ -86,21 +86,21 @@
         }
 
         .btn-tambah {
-            background: var(--accent);
-            color: #fff;
+            background: var(--primary, #E88F9B);
+            color: var(--white, #fff);
             font-weight: 600;
             justify-content: flex-end;
             font-size: 14px;
             padding: 11px 20px;
             border-radius: 12px;
-            box-shadow: 0 6px 16px rgba(232, 99, 125, .28);
+            box-shadow: 0 6px 16px rgba(232, 143, 155, .28);
             white-space: nowrap;
             margin-left: auto;
         }
 
         .btn-tambah:hover {
-            background: #ffb2c2;
-            color: #fff;
+            background: var(--primary-dark, #B95569);
+            color: var(--white, #fff);
         }
 
         .beranda-body {
@@ -245,22 +245,22 @@
 
         .av.yellow {
             background: var(--yel-av);
-            color: #B97A00;
+            color: var(--primary-dark, #B95569);
         }
 
         .av.mint {
             background: var(--mint-av);
-            color: #0E8A70;
+            color: var(--primary-dark, #B95569);
         }
 
         .av.blue {
             background: var(--blue-av);
-            color: #2F7FC1;
+            color: var(--secondary-dark, #3F4766);
         }
 
         .panel {
-            background: #fff;
-            border: 2px solid #F0C9C9;
+            background: var(--white, #fff);
+            border: 2px solid var(--border, #F0C9C9);
             border-radius: 18px;
             padding: 24px 32px 20px;
         }
@@ -276,12 +276,17 @@
             font-family: 'Roboto', Georgia, serif;
             font-size: 18px;
             font-weight: 700;
+            color: var(--ink);
         }
 
         .panel-link {
             font-size: 12px;
-            color: var(--accent);
+            color: var(--primary-dark, #B95569);
             font-weight: 600;
+        }
+
+        .panel-link:hover {
+            color: var(--secondary, #5D688A);
         }
 
         .daftar {
@@ -296,7 +301,7 @@
             justify-content: space-between;
             gap: 12px;
             padding: 16px 0;
-            border-bottom: 1px solid #F8ECE8;
+            border-bottom: 1px solid var(--background, #FFF2EF);
         }
 
         .baris-kiri {
@@ -336,7 +341,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--accent);
+            background: var(--primary, #E88F9B);
             flex-shrink: 0;
         }
 
@@ -347,7 +352,7 @@
         }
 
         .kosong a {
-            color: var(--accent);
+            color: var(--primary-dark, #B95569);
             font-weight: 600;
         }
 
@@ -371,7 +376,7 @@
             width: 64px;
             height: 64px;
             font-size: 18px;
-            border: 3px solid #FFB6C1;
+            border: 3px solid var(--primary, #E88F9B);
         }
 
         .avatar-lebih {
@@ -380,11 +385,11 @@
             border-radius: 50%;
             align-items: center;
             justify-content: center;
-            background: var(--pink-bg);
-            color: var(--accent);
+            background: var(--primary-soft, #FCE4E6);
+            color: var(--primary-dark, #B95569);
             font-weight: 700;
             font-size: 16px;
-            border: 3px solid #FFB6C1;
+            border: 3px solid var(--primary, #E88F9B);
         }
 
         @media (max-width: 900px) {
@@ -449,7 +454,7 @@
 
             .rencana-err {
                 font-size: 12px;
-                color: #D6336C;
+                color: var(--primary-dark, #B95569);
                 margin-bottom: 8px;
             }
 
@@ -457,7 +462,7 @@
                 display: grid;
                 gap: 8px;
                 padding-bottom: 14px;
-                border-bottom: 1px solid #F8ECE8;
+                border-bottom: 1px solid var(--background, #FFF2EF);
             }
 
             .rencana-form select,
@@ -467,7 +472,7 @@
                 border-radius: 10px;
                 padding: 8px 12px;
                 font-size: 13px;
-                background: #fff;
+                background: var(--white, #fff);
                 color: var(--ink);
             }
 
@@ -478,8 +483,8 @@
             }
 
             .rencana-form button {
-                background: var(--accent);
-                color: #fff;
+                background: var(--primary, #E88F9B);
+                color: var(--white, #fff);
                 border: 0;
                 border-radius: 10px;
                 padding: 8px 16px;
@@ -489,7 +494,7 @@
             }
 
             .rencana-form button:hover {
-                background: #d4506b;
+                background: var(--primary-dark, #B95569);
             }
 
             .rencana-list {
@@ -506,7 +511,7 @@
                 display: flex;
                 align-items: flex-start;
                 gap: 10px;
-                background: #FFF7F5;
+                background: var(--background, #FFF2EF);
                 border: 1.5px solid var(--line);
                 border-radius: 14px;
                 padding: 10px 12px;
@@ -524,9 +529,9 @@
                 width: 22px;
                 height: 22px;
                 border-radius: 50%;
-                border: 2px solid var(--accent);
-                background: #fff;
-                color: #fff;
+                border: 2px solid var(--primary, #E88F9B);
+                background: var(--white, #fff);
+                color: var(--white, #fff);
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
@@ -540,7 +545,7 @@
             }
 
             .plan.done .plan-cek {
-                background: var(--accent);
+                background: var(--primary, #E88F9B);
             }
 
             .plan.done .plan-cek svg {
@@ -564,7 +569,7 @@
             }
 
             .plan-sub .telat {
-                color: #D6336C;
+                color: var(--primary-dark, #B95569);
                 font-weight: 600;
             }
 
@@ -618,7 +623,7 @@
 
         .rencana-err {
             font-size: 12px;
-            color: #D6336C;
+            color: var(--primary-dark, #B95569);
             margin-bottom: 8px;
         }
 
@@ -626,7 +631,7 @@
             display: grid;
             gap: 8px;
             padding-bottom: 14px;
-            border-bottom: 1px solid #F8ECE8;
+            border-bottom: 1px solid var(--background, #FFF2EF);
         }
 
         .rencana-form select,
@@ -636,7 +641,7 @@
             border-radius: 10px;
             padding: 8px 12px;
             font-size: 13px;
-            background: #fff;
+            background: var(--white, #fff);
             color: var(--ink);
         }
 
@@ -647,8 +652,8 @@
         }
 
         .rencana-form button {
-            background: var(--accent);
-            color: #fff;
+            background: var(--primary, #E88F9B);
+            color: var(--white, #fff);
             border: 0;
             border-radius: 10px;
             padding: 8px 16px;
@@ -658,7 +663,7 @@
         }
 
         .rencana-form button:hover {
-            background: #d4506b;
+            background: var(--primary-dark, #B95569);
         }
 
         .rencana-list {
@@ -675,7 +680,7 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            background: #FFF7F5;
+            background: var(--background, #FFF2EF);
             border: 1.5px solid var(--line);
             border-radius: 14px;
             padding: 10px 12px;
@@ -693,9 +698,9 @@
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            border: 2px solid var(--accent);
-            background: #fff;
-            color: #fff;
+            border: 2px solid var(--primary, #E88F9B);
+            background: var(--white, #fff);
+            color: var(--white, #fff);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -709,7 +714,7 @@
         }
 
         .plan.done .plan-cek {
-            background: var(--accent);
+            background: var(--primary, #E88F9B);
         }
 
         .plan.done .plan-cek svg {
@@ -733,7 +738,7 @@
         }
 
         .plan-sub .telat {
-            color: #D6336C;
+            color: var(--primary-dark, #B95569);
             font-weight: 600;
         }
 
@@ -818,7 +823,7 @@
                                 <div class="tumpuk">
                                     @foreach (collect($k['daftar'])->take(3) as $t)
                                         <img class="av"
-                                            src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
+                                            src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FCE4E6&color=B95569&size=128&bold=true' }}"
                                             alt="{{ $t->name }}" title="{{ $t->name }}">
                                     @endforeach
                                 </div>
@@ -854,7 +859,7 @@
                                 <div class="baris">
                                     <div class="baris-kiri">
                                         <img class="av lg"
-                                            src="{{ $b->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($b->name) . '&background=FFE1DD&color=C55F4E&size=96&bold=true' }}"
+                                            src="{{ $b->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($b->name) . '&background=FCE4E6&color=B95569&size=96&bold=true' }}"
                                             alt="{{ $b->name }}">
                                         <p class="baris-nama">{{ $b->name }}</p>
                                     </div>
@@ -890,7 +895,7 @@
                                 <a href="{{ route('friends.edit', $t->id) }}" class="avatar-item"
                                     title="{{ $t->name }}">
                                     <img class="av x1"
-                                        src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
+                                        src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FCE4E6&color=B95569&size=128&bold=true' }}"
                                         alt="{{ $t->name }}">
                                 </a>
                             @endforeach

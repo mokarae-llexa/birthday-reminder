@@ -61,9 +61,9 @@
         width: 100%;
         max-width: 840px;
         min-height: 480px;
-        background: #fff;
+        background: var(--white, #fff);
         border-radius: 28px;
-        box-shadow: 0 20px 50px rgba(95, 106, 141, 0.25);
+        box-shadow: 0 20px 50px rgba(93, 104, 138, 0.25);
         padding: 48px 32px;
         display: flex;
         align-items: center;
@@ -86,12 +86,13 @@
         font-family: var(--font-heading, 'Fraunces', Georgia, serif);
         font-weight: 700;
         font-size: 1.8rem;
-        color: #5f6a8d;
+        color: var(--primary-dark, #B95569);
         margin-bottom: 8px;
     }
     .forgot-subtitle {
         font-size: 0.9rem;
-        color: #777;
+        color: var(--secondary, #5D688A);
+        opacity: 0.9;
         line-height: 1.5;
         margin-bottom: 28px;
     }
@@ -102,37 +103,38 @@
         display: block;
         font-weight: 700;
         font-size: 0.85rem;
-        color: #5f6a8d;
+        color: var(--primary-dark, #B95569);
         margin-bottom: 8px;
     }
     .forgot-page input[type="email"] {
         width: 100%;
         padding: 13px 20px;
-        border: 1px solid #e6e0e0;
+        border: 1px solid var(--border, #F0C9C9);
         border-radius: 50px;
-        background: #fffafa;
-        color: #333;
+        background: var(--background, #FFF2EF);
+        color: var(--text, #333);
         font-size: 0.95rem;
         outline: none;
         transition: border-color .2s, box-shadow .2s, background .2s;
     }
-    .forgot-page input[type="email"]::placeholder { color: #999; }
+    .forgot-page input[type="email"]::placeholder { color: var(--secondary, #5D688A); opacity: 0.6; }
     .forgot-page input[type="email"]:focus {
-        border-color: #f7a3a6;
-        background: #fff;
-        box-shadow: 0 0 0 4px rgba(247, 163, 166, 0.25);
+        border-color: var(--primary, #E88F9B);
+        background: var(--white, #fff);
+        box-shadow: 0 0 0 4px rgba(232, 143, 155, 0.25);
     }
-    .forgot-page input.is-invalid { border-color: #e55353; }
+    .forgot-page input.is-invalid { border-color: var(--primary-dark, #B95569); }
 
     .error-text {
-        color: #e55353;
+        color: var(--primary-dark, #B95569);
         font-size: 0.8rem;
         margin-top: 6px;
         padding-left: 8px;
     }
     .alert-success {
-        background: #e8f7ee;
-        color: #1f7a45;
+        background: var(--primary-soft, #FCE4E6);
+        border: 1px solid var(--border, #F0C9C9);
+        color: var(--primary-dark, #B95569);
         border-radius: 12px;
         padding: 12px 14px;
         font-size: 0.85rem;
@@ -146,23 +148,23 @@
         padding: 14px;
         border: none;
         border-radius: 50px;
-        background: #f7a3a6;
-        color: #fff;
+        background: var(--primary, #E88F9B);
+        color: var(--white, #fff);
         font-weight: 700;
         font-size: 1rem;
         cursor: pointer;
         transition: background .2s;
     }
-    .btn-submit:hover { background: #f28b8f; }
+    .btn-submit:hover { background: var(--primary-dark, #B95569); }
 
     .forgot-back {
         display: inline-block;
         margin-top: 22px;
         font-size: 0.9rem;
         font-weight: 700;
-        color: #5f6a8d;
+        color: var(--secondary, #5D688A);
         text-decoration: none;
     }
-    .forgot-back:hover { text-decoration: underline; }
+    .forgot-back:hover { color: var(--primary-dark, #B95569); text-decoration: underline; }
 </style>
 @endsection

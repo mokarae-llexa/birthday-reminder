@@ -4,16 +4,16 @@
     @php
         $isLinked = !empty($friend->linked_user_id) && $friend->linkedUser;
 
-        $linkIcon = fn($size = 13) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--primary, #5D688A);"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>';
+        $linkIcon = fn($size = 13) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;color:var(--secondary, #5D688A);"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>';
     @endphp
    <div class="container-fluid px-4 py-2" style="max-width: 1500px;">
         <div class="mb-4">
-            <h2 class="fw-bold mb-1" style="color: #1F1F1F;">Edit Friend's Data</h2>
-            <p class="text-muted mb-0">Update your friend's information and profile picture</p>
+            <h2 class="fw-bold mb-1 sticker">Edit Friend's Data</h2>
+            <p class="mb-0 sticker sticker-soft">Update your friend's information and profile picture</p>
         </div>
 
         @if ($isLinked)
-            <div class="alert border-0 shadow-sm rounded-4 mb-3" style="background: #EAF1FE; color: #1A3A7A;" role="alert">
+            <div class="alert border-0 shadow-sm rounded-4 mb-3" style="background: var(--primary-soft, #FCE4E6); color: var(--primary-dark, #B95569); border: 1.5px solid var(--border, #F0C9C9) !important;" role="alert">
                 <strong class="d-inline-flex align-items-center gap-2">
                     {!! $linkIcon(16) !!}
                     Linked to {{ $friend->linkedUser->name }}'s account
@@ -24,7 +24,7 @@
             </div>
         @endif
 
-        <div class="card border-0 shadow-sm rounded-4" style="background: #FFFFFF;">
+        <div class="card border-0 shadow-sm rounded-4" style="background: var(--white, #FFFFFF);">
             <div class="card-body p-4">
                 <form action="{{ route('friends.update', $friend->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -34,7 +34,7 @@
                     <div class="mb-3">
                         <label for="name" class="form-label fw-semibold">Friend's Name @if ($isLinked)
                                 <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                    style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="text" name="name" id="name" class="form-control rounded-3"
@@ -50,7 +50,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label fw-semibold">Email @if ($isLinked)
                                     <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                        style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                        style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                                 @endif
                             </label>
                             <input type="email" name="email" id="email" class="form-control rounded-3"
@@ -61,7 +61,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="class_name" class="form-label fw-semibold">Class @if ($isLinked)
                                     <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                        style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                        style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                                 @endif
                             </label>
                             <input type="text" name="class_name" id="class_name" class="form-control rounded-3"
@@ -73,7 +73,7 @@
                     <div class="mb-3">
                         <label for="birth_date" class="form-label fw-semibold">Birth Date @if ($isLinked)
                                 <span class="badge rounded-pill ms-1 d-inline-flex align-items-center gap-1"
-                                    style="background:#E8F0FE;color:var(--primary, #5D688A);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
+                                    style="background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);font-size:10px;">{!! $linkIcon(11) !!} synced</span>
                             @endif
                         </label>
                         <input type="date" name="birth_date" id="birth_date" class="form-control rounded-3"
@@ -86,7 +86,7 @@
                         <textarea name="notes" id="notes" class="form-control rounded-3" rows="4">{{ old('notes', $friend->notes) }}</textarea>
                     </div>
                     @if ($isLinked)
-                        <div class="form-check mb-4 p-3 rounded-3" style="background: #FFF8F6; border: 1px solid #FFE0DB;">
+                        <div class="form-check mb-4 p-3 rounded-3" style="background: var(--background, #FFF2EF); border: 1px solid var(--border, #F0C9C9);">
                             <input class="form-check-input" type="checkbox" name="unlink" id="unlink" value="1"
                                 {{ old('unlink') ? 'checked' : '' }}>
                             <label class="form-check-label fw-semibold" for="unlink">
@@ -101,7 +101,7 @@
                             Back
                         </a>
                         <button type="submit" class="btn btn-primary rounded-pill px-4"
-                            style="background-color: #C55F4E; border-color: #C55F4E;">
+                            style="background-color: var(--primary, #E88F9B); border-color: var(--primary, #E88F9B); color: var(--white, #fff);">
                             Save Changes
                         </button>
                     </div>

@@ -80,13 +80,14 @@
 
 <style>
     :root {
-        --slate: #5D688A;
-        --slate-dark: #3F4766;
-        --pink: #F7A5A5;
-        --pink-deep: #E27D7D;
-        --cream: #FFF2EF;
-        --peach: #FFDBB6;
-        --peach-deep: #E8A765;
+        --slate: var(--secondary, #5D688A);
+        --slate-dark: var(--secondary-dark, #3F4766);
+        --pink: var(--primary, #E88F9B);
+        --pink-deep: var(--primary-dark, #B95569);
+        --pink-soft: var(--primary-soft, #FCE4E6);
+        --cream: var(--background, #FFF2EF);
+        --peach: var(--accent, #FFDBB6);
+        --peach-deep: var(--accent-dark, #E8A765);
     }
 
     .toast-container-custom {
@@ -110,16 +111,16 @@
         padding: 14px 16px;
         background: var(--cream);
         border-radius: 16px;
-        border: 2.5px solid var(--slate);
-        box-shadow: 4px 4px 0 var(--pink);
+        border: 2.5px solid var(--pink);
+        box-shadow: 4px 4px 0 var(--pink-soft);
         animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
     }
 
-    .toast-success { border-color: var(--slate);     box-shadow: 4px 4px 0 var(--pink); }
-    .toast-info    { border-color: var(--peach-deep); box-shadow: 4px 4px 0 var(--peach); }
+    .toast-success { border-color: var(--pink);       box-shadow: 4px 4px 0 var(--pink-deep); }
+    .toast-info    { border-color: var(--slate);      box-shadow: 4px 4px 0 var(--secondary-soft, #E9ECF4); }
     .toast-error   { border-color: var(--pink-deep);  box-shadow: 4px 4px 0 var(--slate); }
 
     .toast-icon {
@@ -134,21 +135,21 @@
     }
 
     .toast-success .toast-icon {
-        background-color: #E4E8F5;
-        border: 2px solid var(--slate);
-        color: var(--slate);
+        background-color: var(--pink-soft);
+        border: 2px solid var(--pink);
+        color: var(--pink-deep);
     }
 
     .toast-info .toast-icon {
-        background-color: var(--peach);
-        border: 2px solid var(--peach-deep);
-        color: #B8742B;
+        background-color: var(--secondary-soft, #E9ECF4);
+        border: 2px solid var(--slate);
+        color: var(--slate-dark);
     }
 
     .toast-error .toast-icon {
-        background-color: var(--pink);
+        background-color: var(--pink-soft);
         border: 2px solid var(--pink-deep);
-        color: #B83F3F;
+        color: var(--pink-deep);
     }
 
     .toast-content {
@@ -160,7 +161,7 @@
     .toast-title {
         font-size: 14.5px;
         font-weight: 800;
-        color: var(--slate-dark);
+        color: var(--text, #333333);
         margin-bottom: 2px;
     }
 

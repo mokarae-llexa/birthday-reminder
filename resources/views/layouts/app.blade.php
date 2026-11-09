@@ -18,19 +18,29 @@
 
         <style>
             :root {
-                --primary: #5D688A;
-                --secondary: #F7A5A5;
+                --primary: #E88F9B;
+                --primary-dark: #B95569;
+
+                --secondary: #5D688A;
+                --secondary-dark: #3F4766;
+
                 --accent: #FFDBB6;
+                --accent-dark: #E8A765;
+
                 --background: #FFF2EF;
                 --text: #333333;
                 --white: #FFFFFF;
+                --border: #F0C9C9;
+
+                --primary-soft: #FCE4E6;
+                --secondary-soft: #E9ECF4;
             }
 
 body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     color: var(--text);
-    background-color: #FFF2EF;
+    background-color: var(--background);
     background-image:
         linear-gradient(rgba(255, 242, 239, 0.75), rgba(255, 242, 239, 0.75)),
         url("{{ asset('assets/bg-pattern.jpeg') }}");
@@ -85,50 +95,51 @@ body {
                 width: 38px;
                 height: 38px;
                 border-radius: 10px;
-                background: #FFFFFF;
-                border: 1.5px solid #F3DDD8;
+                background: var(--white);
+                border: 1.5px solid var(--border);
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                color: #C55F4E;
+                color: var(--primary-dark);
                 cursor: pointer;
                 box-shadow: none;
                 flex-shrink: 0;
             }
 
             #sidebarToggle:hover {
-                background: #FFF0EE;
+                background: var(--primary-soft);
+                border-color: var(--primary);
             }
 
             .sticker {
-                color: #2B1F22;
+                color: var(--text);
                 paint-order: stroke fill;
                 -webkit-text-stroke: 0.28em #fff;
                 text-shadow: 0 0 10px rgba(255, 255, 255, .9);
             }
 
             .sticker-soft {
-                color: #6B3F49;
+                color: var(--primary-dark);
                 font-weight: 500;
             }
 
 
             .btn-chip {
-                background: #fff;
-                border: 1.5px solid #D9B8B2;
-                color: #6B3F49;
+                background: var(--secondary-soft);
+                border: 1.5px solid var(--secondary);
+                color: var(--secondary-dark);
                 font-weight: 600;
             }
 
             .btn-chip:hover {
-                background: #FFE6E3;
-                border-color: #C55F4E;
-                color: #C55F4E;
+                background: var(--secondary);
+                border-color: var(--secondary-dark);
+                color: var(--white);
             }
 
             .card-flat {
-                background: #fff;
-                border: 1.5px solid #F3DDD8 !important;
+                background: var(--white);
+                border: 1.5px solid var(--border) !important;
             }
 
             @keyframes fadeUp {
@@ -185,7 +196,7 @@ body {
             }
 
             .card-flat:hover {
-                border-color: #E8637D !important;
+                border-color: var(--primary) !important;
             }
 
             .btn:active {

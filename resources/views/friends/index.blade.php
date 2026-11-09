@@ -9,7 +9,7 @@
         $ic = fn($paths, $size = 13, $style = '') => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;' . $style . '">' . $paths . '</svg>';
 
         $sortIcon = function ($key) use ($ic) {
-            $s = 'vertical-align:-2px;margin-left:4px;color:var(--primary, #5D688A);';
+            $s = 'vertical-align:-2px;margin-left:4px;color:var(--secondary, #5D688A);';
             if (request('sort') !== $key) {
                 return $ic('<path d="M8 4v16M8 4L4.5 7.5M8 4l3.5 3.5M16 20V4M16 20l-3.5-3.5M16 20l3.5-3.5"/>', 13, $s);
             }
@@ -18,20 +18,20 @@
                 : $ic('<path d="M12 6l7 11H5z" fill="currentColor"/>', 13, $s);
         };
 
-        $blue = 'color: var(--primary, #5D688A);';
+        $blue = 'color: var(--secondary, #5D688A);';
 
-        $cakeIcon = fn($size = 16) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" style="fill:#F7A5A5;stroke:#F7A5A5;stroke-width:1"/><path d="M12 7v3.5" style="stroke:var(--primary, #5D688A)"/><rect x="4" y="10.5" width="16" height="9" rx="2" style="stroke:var(--primary, #5D688A)"/><path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" style="stroke:#F7A5A5"/><path d="M2.5 21.5h19" style="stroke:var(--primary, #5D688A)"/></svg>';
+        $cakeIcon = fn($size = 16) => '<svg width="' . $size . '" height="' . $size . '" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0;"><path d="M12 2.6c.8.7 1 1.4.5 2a1 1 0 01-1.7-.1c-.2-.6 0-1.2 1.2-1.9z" style="fill:var(--primary, #E88F9B);stroke:var(--primary, #E88F9B);stroke-width:1"/><path d="M12 7v3.5" style="stroke:var(--secondary, #5D688A)"/><rect x="4" y="10.5" width="16" height="9" rx="2" style="stroke:var(--secondary, #5D688A)"/><path d="M4 14.5c1.3 1.4 2.7 1.4 4 0s2.7-1.4 4 0 2.7 1.4 4 0 2.7-1.4 4 0" style="stroke:var(--primary, #E88F9B)"/><path d="M2.5 21.5h19" style="stroke:var(--secondary, #5D688A)"/></svg>';
     @endphp
     <style>
         .sticker {
-            color: #2B1F22;
+            color: var(--text, #333333);
             paint-order: stroke fill;
             -webkit-text-stroke: 0.28em #fff;
             text-shadow: 0 0 10px rgba(255, 255, 255, .9);
         }
 
         .sticker-soft {
-            color: #6B3F49;
+            color: var(--primary-dark, #B95569);
             font-weight: 500;
         }
 
@@ -41,13 +41,14 @@
             display: flex;
             align-items: center;
             padding: 0 16px;
-            background: #FFFFFF;
+            background: var(--white, #FFFFFF);
+            border: 1.5px solid var(--border, #F0C9C9);
             border-radius: 20px;
         }
 
         .search-box span {
             margin-right: 8px;
-            color: var(--primary, #5D688A);
+            color: var(--secondary, #5D688A);
             display: flex;
             align-items: center;
         }
@@ -63,35 +64,36 @@
             outline: none;
             background: transparent;
             font-size: 13px;
-            color: #1f1f1f;
+            color: var(--text, #333333);
         }
 
         .search-box input::placeholder {
-            color: #B58F86;
+            color: var(--secondary, #5D688A);
+            opacity: 0.65;
         }
 
         .search-box:focus-within {
-            border-color: #C55F4E;
+            border-color: var(--primary, #E88F9B);
         }
 
         .btn-chip {
-            background: #fff;
-            border: 1.5px solid #D9B8B2;
-            color: #6B3F49;
+            background: var(--secondary-soft, #E9ECF4);
+            border: 1.5px solid var(--secondary, #5D688A);
+            color: var(--secondary-dark, #3F4766);
             font-weight: 600;
         }
 
 
         .btn-chip:hover {
-            background: #FFE6E3;
-            border-color: #C55F4E;
-            color: #C55F4E;
+            background: var(--secondary, #5D688A);
+            border-color: var(--secondary-dark, #3F4766);
+            color: var(--white, #FFFFFF);
         }
 
 
         .card-flat {
-            background: #fff;
-            border: 1.5px solid #F3DDD8 !important;
+            background: var(--white, #fff);
+            border: 1.5px solid var(--border, #F0C9C9) !important;
         }
     </style>
 
@@ -119,7 +121,7 @@
                         <input type="text" name="search" placeholder="Search" value="{{ request('search') }}">
                         @if (request('search'))
                             <a href="{{ route('friends.index') }}"
-                                style="color: var(--primary, #5D688A); text-decoration: none; margin-left: 6px; display: inline-flex; align-items: center;"
+                                style="color: var(--secondary, #5D688A); text-decoration: none; margin-left: 6px; display: inline-flex; align-items: center;"
                                 title="Reset" aria-label="Reset">
                                 {!! $ic('<path d="M6 6l12 12M18 6L6 18"/>', 14) !!}
                             </a>
@@ -127,7 +129,7 @@
                     </div>
                 </form>
                 <a href="{{ route('friends.create') }}" class="btn btn-primary rounded-pill px-4"
-                    style="background-color: #C55F4E; border-color: #C55F4E;">
+                    style="background-color: var(--primary, #E88F9B); border-color: var(--primary, #E88F9B); color: var(--white, #fff);">
                     + Add Friend
                 </a>
                 <button type="button" class="btn btn-chip rounded-pill px-4" data-bs-toggle="modal"
@@ -140,12 +142,12 @@
             <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
                 <span class="text-muted small">Class</span>
                 <a href="{{ request()->fullUrlWithQuery(['class' => null]) }}"
-                    class="btn btn-sm rounded-pill {{ request('class') ? 'btn-outline-secondary' : 'text-white' }}"
-                    style="{{ request('class') ? '' : 'background-color:#C55F4E;border-color:#C55F4E;' }}">All</a>
+                    class="btn btn-sm rounded-pill {{ request('class') ? 'btn-chip' : 'text-white' }}"
+                    style="{{ request('class') ? '' : 'background-color:var(--primary, #E88F9B);border-color:var(--primary, #E88F9B);' }}">All</a>
                 @foreach ($classList as $c)
                     <a href="{{ request()->fullUrlWithQuery(['class' => $c]) }}"
-                        class="btn btn-sm rounded-pill {{ request('class') === $c ? 'text-white' : 'btn-outline-secondary' }}"
-                        style="{{ request('class') === $c ? 'background-color:#C55F4E;border-color:#C55F4E;' : '' }}">{{ $c }}</a>
+                        class="btn btn-sm rounded-pill {{ request('class') === $c ? 'text-white' : 'btn-chip' }}"
+                        style="{{ request('class') === $c ? 'background-color:var(--primary, #E88F9B);border-color:var(--primary, #E88F9B);' : '' }}">{{ $c }}</a>
                 @endforeach
             </div>
         @endif
@@ -153,7 +155,7 @@
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead style="background-color: #FFE6E3; color: #C55F4E;">
+                        <thead style="background-color: var(--primary-soft, #FCE4E6); color: var(--primary-dark, #B95569);">
                             <tr>
                                 <th class="py-3 px-4 text-center" style="width: 70px;">No</th>
                                 <th class="py-3 px-3">Avatar</th>
@@ -182,21 +184,21 @@
                                     <td class="py-3 px-3">
                                         <img src="{{ $friend->display_avatar_url }}" alt="{{ $friend->display_name }}"
                                             class="rounded-circle shadow-sm border"
-                                            style="width: 44px; height: 44px; object-fit: cover; border-color: #FFE6E3 !important;">
+                                            style="width: 44px; height: 44px; object-fit: cover; border-color: var(--border, #F0C9C9) !important;">
                                     </td>
                                     <td class="py-3 px-3">
-                                        <span class="fw-bold d-block text-dark"
-                                            style="font-size: 15px;">{{ $friend->display_name }}</span>
+                                        <span class="fw-bold d-block"
+                                            style="font-size: 15px; color: var(--text, #333333);">{{ $friend->display_name }}</span>
                                         @if ($friend->is_linked)
                                             <span class="badge rounded-pill mt-1 d-inline-flex align-items-center gap-1"
-                                                style="font-size:10px;background:#E8F0FE;color:#1A56DB;border:1px solid #C7DBFF;"
+                                                style="font-size:10px;background:var(--secondary-soft, #E9ECF4);color:var(--secondary-dark, #3F4766);border:1px solid var(--secondary, #5D688A);"
                                                 title="Auto-synced from {{ $friend->linkedUser?->name }}'s profile">
                                                 {!! $ic('<path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/>', 11, $blue) !!}
                                                 Linked</span>
                                         @endif
                                         @if ($friend->isPending())
                                             <span class="badge rounded-pill mt-1 d-inline-flex align-items-center gap-1"
-                                                style="font-size:10px;background:#FFF7E6;color:#B7791F;border:1px solid #F5D67B;">
+                                                style="font-size:10px;background:var(--accent, #FFDBB6);color:var(--text, #333333);border:1px solid var(--accent-dark, #E8A765);">
                                                 {!! $ic('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', 11, $blue) !!}
                                                 Pending confirmation</span>
                                         @endif
@@ -255,12 +257,12 @@
                                         @else
                                             <div class="d-flex justify-content-center gap-2">
                                                 <a href="{{ route('friends.edit', $friend->id) }}"
-                                                    class="btn btn-sm btn-outline-warning rounded-pill px-3"
+                                                    class="btn btn-sm btn-outline-secondary rounded-pill px-3"
                                                     title="Edit Data">
                                                     Edit
                                                 </a>
                                                 <button type="button"
-                                                    class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                                    class="btn btn-sm btn-outline-primary rounded-pill px-3"
                                                     title="Delete Data"
                                                     onclick="openDeleteModal('{{ route('friends.destroy', $friend->id) }}', '{{ addslashes($friend->display_name) }}')">
                                                     Delete
@@ -274,7 +276,7 @@
                                     <td colspan="9" class="text-center py-5">
                                         <div class="my-3">
                                             <div class="d-flex justify-content-center mb-3"
-                                                style="color: var(--primary, #5D688A);" aria-hidden="true">
+                                                style="color: var(--primary, #E88F9B);" aria-hidden="true">
                                                 @if (request('search') || request('class'))
                                                     {{-- Ikon kaca pembesar: hasil pencarian kosong --}}
                                                     <svg width="56" height="56" viewBox="0 0 24 24"
@@ -318,7 +320,7 @@
                                             @else
                                                 <a href="{{ route('friends.create') }}"
                                                     class="btn btn-sm btn-primary rounded-pill px-4"
-                                                    style="background-color: #C55F4E; border-color: #C55F4E;">
+                                                    style="background-color: var(--primary, #E88F9B); border-color: var(--primary, #E88F9B); color: var(--white, #fff);">
                                                     + Add First Friend
                                                 </a>
                                             @endif

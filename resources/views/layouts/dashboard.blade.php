@@ -13,19 +13,29 @@
 
     <style>
         :root {
-            --primary: #5D688A;
-            --secondary: #F7A5A5;
+            --primary: #E88F9B;
+            --primary-dark: #B95569;
+
+            --secondary: #5D688A;
+            --secondary-dark: #3F4766;
+
             --accent: #FFDBB6;
+            --accent-dark: #E8A765;
+
             --background: #FFF2EF;
             --text: #333333;
             --white: #FFFFFF;
+            --border: #F0C9C9;
+
+            --primary-soft: #FCE4E6;
+            --secondary-soft: #E9ECF4;
         }
 
     body {
     margin: 0;
     font-family: "Poppins", sans-serif;
     color: var(--text);
-    background-color: #FFF2EF;
+    background-color: var(--background);
     background-image:
         linear-gradient(rgba(255, 242, 239, 0.75), rgba(255, 242, 239, 0.75)),
         url("{{ asset('assets/bg-pattern.jpeg') }}");

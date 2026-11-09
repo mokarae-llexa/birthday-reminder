@@ -6,10 +6,10 @@
         width: 100%;
         max-width: 520px;
         margin: 0 auto;
-        background: #fff;
+        background: var(--white, #fff);
         border-radius: 24px;
         padding: 52px 52px 44px;
-        box-shadow: 0 18px 50px rgba(95, 106, 139, .18);
+        box-shadow: 0 18px 50px rgba(93, 104, 138, .18);
         text-align: left;
     }
 
@@ -26,22 +26,24 @@
         font-weight: 700;
         font-size: 2.1rem;
         line-height: 1.2;
-        color: #5f6a8b;
+        color: var(--primary-dark, #B95569);
     }
 
     .verify-card .verify-subtitle {
         margin: 0;
         font-size: 1rem;
         line-height: 1.6;
-        color: #7b819a;
+        color: var(--secondary, #5D688A);
+        opacity: 0.9;
     }
 
     .verify-alert {
         margin-top: 20px;
         padding: 10px 14px;
         border-radius: 12px;
-        background: #e8f7ee;
-        color: #166534;
+        background: var(--primary-soft, #FCE4E6);
+        border: 1px solid var(--border, #F0C9C9);
+        color: var(--primary-dark, #B95569);
         font-size: .9rem;
         line-height: 1.5;
     }
@@ -51,7 +53,7 @@
         height: 96px;
         margin: 40px auto;
         border-radius: 24px;
-        background: #fdeeee;
+        background: var(--primary-soft, #FCE4E6);
         display: grid;
         place-items: center;
     }
@@ -60,7 +62,7 @@
     .verify-resend {
         text-align: center;
         font-size: .95rem;
-        color: #5f6a8b;
+        color: var(--secondary, #5D688A);
     }
     .verify-resend form { display: inline; }
     .verify-resend button {
@@ -70,14 +72,14 @@
         margin: 0;
         font: inherit;
         font-weight: 700;
-        color: #5f6a8b;
+        color: var(--primary-dark, #B95569);
         cursor: pointer;
         text-decoration: underline;
         text-underline-offset: 3px;
     }
-    .verify-resend button:hover { color: #f08a8a; }
+    .verify-resend button:hover { color: var(--secondary, #5D688A); }
     .verify-resend button:focus-visible {
-        outline: 2px solid #f8a5a5;
+        outline: 2px solid var(--primary, #E88F9B);
         outline-offset: 3px;
         border-radius: 3px;
     }
@@ -107,7 +109,7 @@
             @endif
 
             <div class="verify-mail" aria-hidden="true">
-                <svg viewBox="0 0 40 40" fill="none" stroke="#5f6a8b" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                <svg viewBox="0 0 40 40" fill="none" stroke="var(--primary-dark, #B95569)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
                     <rect x="3" y="7" width="34" height="26" rx="2"/>
                     <path d="M3 8l17 14L37 8"/>
                     <path d="M3 32l12-12M37 32L25 20"/>

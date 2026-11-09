@@ -28,13 +28,14 @@
     .kal button:focus-visible { outline: 2px solid var(--slate); outline-offset: 2px; }
 
     .kal {
-        --ink: #3F4766;
-        --muted: #5D688A;
-        --slate: #5D688A;
-        --pink: #F7A5A5;
-        --pink-deep: #E27D7D;
-        --peach: #FFDBB6;
-        --cream: #FFF2EF;
+        --ink: var(--text, #333333);
+        --muted: var(--secondary, #5D688A);
+        --slate: var(--secondary, #5D688A);
+        --pink: var(--primary, #E88F9B);
+        --pink-deep: var(--primary-dark, #B95569);
+        --pink-soft: var(--primary-soft, #FCE4E6);
+        --peach: var(--accent, #FFDBB6);
+        --cream: var(--background, #FFF2EF);
 
         color: var(--ink);
         min-height: 100vh;
@@ -83,8 +84,8 @@
         padding: 18px 20px;
         transition: background-color .2s ease;
     }
-    .bday-item:hover { background: var(--cream); }
-    .bday-item.lewat { background: #fff; border-color: #EADFE0; }
+    .bday-item:hover { background: var(--pink-soft); }
+    .bday-item.lewat { background: #fff; border-color: var(--border, #F0C9C9); }
 
     .bday-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
 
@@ -92,7 +93,7 @@
         width: 56px; height: 56px;
         border-radius: 50%;
         object-fit: cover;
-        background: var(--cream);
+        background: var(--pink-soft);
         border: 2px solid var(--pink);
         flex-shrink: 0;
     }
@@ -106,10 +107,10 @@
         white-space: nowrap;
         padding: 6px 12px;
         border-radius: 999px;
-        background: var(--peach);
-        color: var(--ink);
+        background: var(--pink-soft);
+        color: var(--pink-deep);
     }
-    .bday-item.hari-ini .bday-label { background: var(--slate); color: #fff; }
+    .bday-item.hari-ini .bday-label { background: var(--pink); color: #fff; }
 
     .kosong {
         font-size: 13px;
@@ -143,7 +144,7 @@
         font-size: 16px;
         transition: background .15s;
     }
-    .cal-panah:hover { background: var(--peach); color: var(--ink); }
+    .cal-panah:hover { background: var(--pink-soft); color: var(--pink-deep); }
 
     .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 2px; text-align: center; }
     .cal-head { font-size: 14px; font-weight: 600; color: var(--muted); padding-bottom: 6px; }
@@ -162,7 +163,7 @@
         transition: background .15s;
     }
     .tgl.luar { color: #C9CCDA; }
-    a.tgl:hover { background: var(--peach); }
+    a.tgl:hover { background: var(--pink-soft); }
 
     .tgl.ada::after {
         content: '';
@@ -174,10 +175,10 @@
         background: var(--pink-deep);
     }
 
-    .tgl.hari-ini { background: var(--slate); color: #fff; font-weight: 700; }
-    .tgl.hari-ini.ada::after { background: #fff; }~
-    .tgl.dipilih { background: var(--pink); color: var(--ink); font-weight: 700; }
-    .tgl.dipilih.hari-ini { background: var(--slate); color: #fff; }
+    .tgl.hari-ini { background: var(--pink); color: #fff; font-weight: 700; }
+    .tgl.hari-ini.ada::after { background: #fff; }
+    .tgl.dipilih { background: var(--secondary-soft, #E9ECF4); color: var(--secondary-dark, #3F4766); border: 1.5px solid var(--slate); font-weight: 700; }
+    .tgl.dipilih.hari-ini { background: var(--pink-deep); color: #fff; }
 
     .cal-aksi { margin-top: 18px; display: grid; gap: 10px; }
 
@@ -185,7 +186,7 @@
         display: block;
         text-align: center;
         background: var(--pink);
-        color: var(--ink) !important;
+        color: #fff !important;
         font-weight: 700;
         font-size: 14px;
         padding: 11px 20px;
@@ -193,13 +194,13 @@
         border: 2px solid var(--pink-deep);
         transition: background .15s;
     }
-    .btn-tambah:hover { background: var(--pink-deep); }
+    .btn-tambah:hover { background: var(--pink-deep); color: #fff !important; }
 
     .btn-hari-ini { text-align: center; font-size: 12px; font-weight: 600; color: var(--slate); }
     .btn-hari-ini:hover { color: var(--pink-deep); }
 
     .sticker {
-        color: #2B1F22;
+        color: var(--ink);
         paint-order: stroke fill;
         -webkit-text-stroke: 0.28em #fff;
         text-shadow: 0 0 10px rgba(255, 255, 255, .9);
@@ -227,7 +228,7 @@
                 <section aria-label="Daftar ulang tahun">
                     <div class="sec-head">
                         <div>
-                            <h6 class="fw-bold mb-0" style="color: #1F1F1F;">
+                            <h6 class="fw-bold mb-0" style="color: var(--ink);">
                                 {{ $dipilih ? 'Birthday on ' . $dipilih . ' ' . $namaBulan : 'Birthday this month' }}
                             </h6>
                             <p class="sec-sub">{{ $namaBulanTahun }}</p>
@@ -261,7 +262,7 @@
                                         $f->avatar_url ?:
                                         'https://ui-avatars.com/api/?name=' .
                                             urlencode($f->name) .
-                                            '&background=FFE1DD&color=C55F4E&size=96&bold=true';
+                                            '&background=FCE4E6&color=B95569&size=96&bold=true';
                                 @endphp
                                 <article class="bday-item {{ $kelas }}">
                                     <div class="bday-left">

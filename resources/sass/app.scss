@@ -3,12 +3,22 @@
 @import "bootstrap/scss/bootstrap";
 
 :root {
-    --primary: #5d688a;
-    --secondary: #f7a5a5;
-    --accent: #ffdbb6;
-    --background: #fff2ef;
+    --primary: #E88F9B;
+    --primary-dark: #B95569;
+
+    --secondary: #5D688A;
+    --secondary-dark: #3F4766;
+
+    --accent: #FFDBB6;
+    --accent-dark: #E8A765;
+
+    --background: #FFF2EF;
     --text: #333333;
-    --white: #ffffff;
+    --white: #FFFFFF;
+    --border: #F0C9C9;
+
+    --primary-soft: #FCE4E6;
+    --secondary-soft: #E9ECF4;
 }
 body {
     margin: 0;
@@ -23,7 +33,7 @@ body {
     justify-content: center;
     padding: 40px;
 
-    background-color: #fff2ef;
+    background-color: var(--background);
     background-image:
         linear-gradient(rgba(255, 242, 239, 0.75), rgba(255, 242, 239, 0.75)),
         url("/assets/bg-pattern.jpeg");
@@ -39,7 +49,7 @@ body {
     overflow: hidden;
     background: var(--white);
     border-radius: 28px;
-    box-shadow: 0 15px 40px rgba(93, 104, 138, 0.15);
+    box-shadow: 0 15px 40px rgba(232, 143, 155, 0.15);
 }
 .auth-left {
     width: 45%;
@@ -58,17 +68,17 @@ body {
     justify-content: center;
 }
 .auth-input {
-    border: 1px solid #e5dede;
+    border: 1px solid var(--border);
     border-radius: 12px;
     padding: 13px 15px;
-    background: #fffafa;
+    background: var(--background);
 }
 .auth-button {
     width: 100%;
     border: none;
     border-radius: 12px;
     padding: 13px;
-    background: var(--secondary);
+    background: var(--primary);
     color: white;
     font-weight: 600;
 }
@@ -76,13 +86,13 @@ body {
 .calendar-page {
     min-height: 100vh;
     display: flex;
-    background: #fff1f1;
+    background: var(--background);
 }
 .calendar-sidebar {
     width: 334px;
     min-height: 100vh;
-    background: white;
-    border-right: 1px solid #ea8a8a;
+    background: var(--white);
+    border-right: 1px solid var(--border);
     padding: 55px 25px 25px;
     display: flex;
     flex-direction: column;
@@ -101,14 +111,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #b2ebf2;
+    background: var(--primary-soft);
     border-radius: 50%;
     font-size: 30px;
 }
 .calendar-brand-title {
     font-size: 20px;
     font-weight: 500;
-    color: #000;
+    color: var(--secondary-dark);
 }
 .sidebar-menu {
     display: flex;
@@ -122,17 +132,17 @@ body {
     gap: 15px;
     padding: 0 18px;
     border-radius: 10px;
-    color: #211744;
+    color: var(--secondary);
     text-decoration: none;
     font-size: 18px;
 }
 .sidebar-item:hover {
-    background: #fff1f1;
-    color: #211744;
+    background: var(--primary-soft);
+    color: var(--primary-dark);
 }
 .sidebar-item.active {
-    background: #fff1f1;
-    color: #bb8760;
+    background: var(--primary-soft);
+    color: var(--primary-dark);
     font-weight: 600;
 }
 .sidebar-icon {
@@ -146,7 +156,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f95252;
+    background: var(--primary);
     color: white;
     border-radius: 20px;
     font-size: 12px;
@@ -154,7 +164,7 @@ body {
 }
 .user-card {
     margin-top: auto;
-    background: #ffdada;
+    background: var(--primary-soft);
     border-radius: 15px;
     padding: 15px;
     display: flex;
@@ -167,7 +177,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #edd75a;
+    background: var(--accent);
     border-radius: 50%;
 }
 .user-info {
@@ -184,12 +194,12 @@ body {
     flex: 1;
     min-width: 0;
     padding: 35px 40px;
-    background: #fff1f1;
+    background: var(--background);
 }
 .calendar-title {
     font-size: 52px;
     font-weight: 700;
-    color: #000;
+    color: var(--text);
     margin: 0;
 }
 .calendar-card-wrapper {
@@ -207,7 +217,7 @@ body {
     text-align: center;
     font-size: 12px;
     font-weight: 700;
-    color: #242323;
+    color: var(--secondary-dark);
 }
 .calendar-grid {
     display: grid;
@@ -221,20 +231,20 @@ body {
 .calendar-date {
     min-height: 119px;
     padding: 10px;
-    background: #e5f4ef;
-    border: 1px solid #ddd3cb;
+    background: var(--white);
+    border: 1px solid var(--border);
     border-radius: 15px;
     transition: 0.2s;
 }
 .calendar-date:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 15px rgba(232, 143, 155, 0.15);
 }
 .date-number {
     display: block;
     font-size: 25px;
     font-weight: 700;
-    color: #4c8c7d;
+    color: var(--text);
 }
 .birthday-list {
     display: flex;
@@ -247,7 +257,7 @@ body {
     align-items: center;
     gap: 4px;
     padding: 4px 6px;
-    background: #f7a5a5;
+    background: var(--primary);
     border-radius: 7px;
     color: white;
     font-size: 11px;

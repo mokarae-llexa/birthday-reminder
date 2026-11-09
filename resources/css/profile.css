@@ -9,17 +9,17 @@
     width: 100%;
     max-width: 800px;
     margin: 2rem auto;
-    background: #ffffff;
+    background: var(--white, #FFFFFF);
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px rgba(93, 104, 138, 0.08);
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border, #F0C9C9);
 }
 
 
 .pc-banner {
     height: 150px;
-    background: linear-gradient(to right, #ffc0c7, #fca5a5);
+    background: linear-gradient(to right, var(--primary-soft, #FCE4E6), var(--primary, #E88F9B));
 }
 
 
@@ -36,10 +36,10 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 5px solid #ffffff;
-    background: #e5e7eb;
+    border: 5px solid var(--white, #FFFFFF);
+    background: var(--primary-soft, #FCE4E6);
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(232, 143, 155, 0.18);
 }
 
 .pc-avatar-img {
@@ -57,13 +57,13 @@
 .pc-user-name {
     font-size: 24px;
     font-weight: 700;
-    color: #111827;
+    color: var(--text, #333333);
     text-transform: lowercase;
 }
 
 .pc-user-email {
     font-size: 14px;
-    color: #6b7280;
+    color: var(--secondary, #5D688A);
 }
 
 
@@ -76,12 +76,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #1f2937;
+    color: var(--primary-dark, #B95569);
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.05em;
     padding-bottom: 15px;
-    border-bottom: 1px solid #f3f4f6;
+    border-bottom: 1px solid var(--border, #F0C9C9);
     margin-bottom: 25px;
 }
 
@@ -91,9 +91,9 @@
     justify-content: center;
     width: 35px;
     height: 35px;
-    background-color: #fee2e2;
+    background-color: var(--primary-soft, #FCE4E6);
     border-radius: 8px;
-    color: #ef4444;
+    color: var(--primary-dark, #B95569);
 }
 
 
@@ -111,13 +111,13 @@
 
 .pc-info-label {
     width: 150px;
-    color: #6b7280;
+    color: var(--secondary, #5D688A);
     font-size: 15px;
 }
 
 
 .pc-info-colon {
-    color: #d1d5db;
+    color: var(--border, #F0C9C9);
     margin-right: 15px;
     font-size: 14px;
 }
@@ -125,7 +125,7 @@
 
 .pc-info-value {
     flex: 1;
-    color: #111827;
+    color: var(--text, #333333);
     font-size: 15px;
     font-weight: 500;
 }
@@ -139,8 +139,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background-color: #fca5a5;
-    color: white;
+    background-color: var(--primary, #E88F9B);
+    color: var(--white, #FFFFFF);
     border: none;
     padding: 10px 20px;
     border-radius: 8px;
@@ -152,5 +152,5 @@
 }
 
 .pc-btn-edit:hover {
-    background-color: #f87171;
+    background-color: var(--primary-dark, #B95569);
 }

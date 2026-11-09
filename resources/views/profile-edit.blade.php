@@ -13,11 +13,11 @@
   .edit-card {
     width: 100%;
     max-width: 600px;
-    background: #ffffff;
+    background: var(--white, #ffffff);
     border-radius: 24px;
-    border: 1.2px solid #F3F4F6;
+    border: 1.5px solid var(--border, #F0C9C9);
     padding: 35px 40px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 10px 30px rgba(93, 104, 138, 0.06);
     font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
   }
 
@@ -35,21 +35,21 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    border: 1.5px solid #E2E8F0;
-    color: #475569;
+    border: 1.5px solid var(--border, #F0C9C9);
+    color: var(--secondary, #5D688A);
     text-decoration: none;
     transition: all 0.2s ease;
   }
 
   .btn-back:hover {
-    background: #F8FAFC;
-    color: #0F172A;
+    background: var(--primary-soft, #FCE4E6);
+    color: var(--primary-dark, #B95569);
   }
 
   .edit-title {
     font-size: 1.35rem;
     font-weight: 700;
-    color: #0F172A;
+    color: var(--text, #333333);
     margin: 0;
   }
 
@@ -66,7 +66,7 @@
     height: 110px;
     border-radius: 50%;
     padding: 3px;
-    border: 2.5px solid #EA8A8A;
+    border: 2.5px solid var(--primary, #E88F9B);
     margin-bottom: 8px;
   }
 
@@ -84,26 +84,26 @@
     right: 2px;
     width: 32px;
     height: 32px;
-    background: #ffffff;
+    background: var(--white, #ffffff);
     border-radius: 50%;
-    border: 1px solid #E2E8F0;
+    border: 1px solid var(--border, #F0C9C9);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    color: #64748B;
+    box-shadow: 0 2px 6px rgba(93, 104, 138, 0.12);
+    color: var(--secondary, #5D688A);
     transition: all 0.2s ease;
   }
 
   .camera-btn:hover {
-    background: #FFF1F2;
-    color: #EA8A8A;
+    background: var(--primary-soft, #FCE4E6);
+    color: var(--primary-dark, #B95569);
   }
 
   .upload-hint {
     font-size: 0.8rem;
-    color: #64748B;
+    color: var(--secondary, #5D688A);
   }
 
   .form-group-custom {
@@ -114,7 +114,7 @@
     display: block;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #334155;
+    color: var(--text, #333333);
     margin-bottom: 8px;
   }
 
@@ -127,7 +127,7 @@
   .input-icon {
     position: absolute;
     left: 14px;
-    color: #94A3B8;
+    color: var(--secondary, #5D688A);
     display: flex;
     align-items: center;
     pointer-events: none;
@@ -136,24 +136,24 @@
   .form-control-custom {
     width: 100%;
     padding: 11px 14px 11px 42px;
-    border: 1.5px solid #E2E8F0;
+    border: 1.5px solid var(--border, #F0C9C9);
     border-radius: 12px;
     font-size: 0.95rem;
-    color: #0F172A;
-    background: #F8FAFC;
+    color: var(--text, #333333);
+    background: var(--background, #FFF2EF);
     outline: none;
     transition: all 0.2s ease;
   }
 
   .form-control-custom:focus {
-    background: #ffffff;
-    border-color: #EA8A8A;
-    box-shadow: 0 0 0 3px rgba(234, 138, 138, 0.15);
+    background: var(--white, #ffffff);
+    border-color: var(--primary, #E88F9B);
+    box-shadow: 0 0 0 3px rgba(232, 143, 155, 0.22);
   }
 
   .error-text {
     font-size: 0.8rem;
-    color: #EF4444;
+    color: var(--primary-dark, #B95569);
     margin-top: 5px;
   }
 
@@ -167,9 +167,9 @@
   .btn-cancel {
     padding: 10px 22px;
     border-radius: 12px;
-    border: 1px solid #E2E8F0;
-    background: #ffffff;
-    color: #64748B;
+    border: 1px solid var(--secondary, #5D688A);
+    background: var(--secondary-soft, #E9ECF4);
+    color: var(--secondary-dark, #3F4766);
     font-weight: 600;
     font-size: 0.95rem;
     text-decoration: none;
@@ -177,16 +177,16 @@
   }
 
   .btn-cancel:hover {
-    background: #F1F5F9;
-    color: #0F172A;
+    background: var(--secondary, #5D688A);
+    color: var(--white, #ffffff);
   }
 
   .btn-save {
     padding: 10px 24px;
     border-radius: 12px;
     border: none;
-    background: #EA8A8A;
-    color: #ffffff;
+    background: var(--primary, #E88F9B);
+    color: var(--white, #ffffff);
     font-weight: 600;
     font-size: 0.95rem;
     cursor: pointer;
@@ -194,8 +194,8 @@
   }
 
   .btn-save:hover {
-    background: #e07474;
-    box-shadow: 0 4px 12px rgba(234, 138, 138, 0.4);
+    background: var(--primary-dark, #B95569);
+    box-shadow: 0 4px 12px rgba(185, 85, 105, 0.25);
   }
 </style>
 
@@ -221,7 +221,7 @@
           @if($user->avatar)
             <img id="preview-img" src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="avatar-preview-img">
           @else
-            <img id="preview-img" src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=ea8a8a&color=fff&size=150" alt="Avatar" class="avatar-preview-img">
+            <img id="preview-img" src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=FCE4E6&color=B95569&size=150" alt="Avatar" class="avatar-preview-img">
           @endif
 
           <label for="avatar-input" class="camera-btn">

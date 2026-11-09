@@ -13,18 +13,18 @@
         .profile-card {
             width: 100%;
             max-width: 1050px;
-            background: #ffffff;
+            background: var(--white, #ffffff);
             border-radius: 24px;
-            border: 1.2px solid #e2e8f0;
+            border: 1.5px solid var(--border, #F0C9C9);
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px rgba(93, 104, 138, 0.06);
             font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
         }
 
         .profile-banner {
             height: 130px;
-            background: #ffa0a6;
-            border-bottom: 1.5px solid #FECDD3;
+            background: linear-gradient(135deg, var(--primary-soft, #FCE4E6), var(--primary, #E88F9B));
+            border-bottom: 1.5px solid var(--border, #F0C9C9);
         }
 
         .profile-header {
@@ -40,9 +40,9 @@
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            background: #ffffff;
+            background: var(--white, #ffffff);
             padding: 4px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 12px rgba(232, 143, 155, 0.2);
             flex-shrink: 0;
         }
 
@@ -60,8 +60,8 @@
             right: 8px;
             width: 18px;
             height: 18px;
-            background-color: #10B981;
-            border: 3px solid #ffffff;
+            background-color: var(--primary, #E88F9B);
+            border: 3px solid var(--white, #ffffff);
             border-radius: 50%;
         }
 
@@ -72,14 +72,14 @@
         .user-meta h2 {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #0F172A;
+            color: var(--text, #333333);
             margin: 0;
             line-height: 1.2;
         }
 
         .user-meta p {
             font-size: 0.95rem;
-            color: #64748B;
+            color: var(--secondary, #5D688A);
             margin: 4px 0 0 0;
         }
 
@@ -92,25 +92,25 @@
             align-items: center;
             gap: 12px;
             padding-bottom: 16px;
-            border-bottom: 1.5px solid #F1F5F9;
+            border-bottom: 1.5px solid var(--border, #F0C9C9);
             margin-bottom: 24px;
         }
 
         .icon-wrapper {
             width: 36px;
             height: 36px;
-            background-color: #FFF1F2;
+            background-color: var(--primary-soft, #FCE4E6);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #E11D48;
+            color: var(--primary-dark, #B95569);
         }
 
         .section-title {
             font-size: 0.85rem;
             font-weight: 800;
-            color: #0F172A;
+            color: var(--primary-dark, #B95569);
             letter-spacing: 0.05em;
         }
 
@@ -129,17 +129,17 @@
         }
 
         .info-key {
-            color: #64748B;
+            color: var(--secondary, #5D688A);
             font-weight: 500;
         }
 
         .info-sep {
-            color: #94A3B8;
+            color: var(--border, #F0C9C9);
             font-weight: 600;
         }
 
         .info-val {
-            color: #1E293B;
+            color: var(--text, #333333);
             font-weight: 600;
         }
 
@@ -152,8 +152,8 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background-color: #EA8A8A;
-            color: #ffffff;
+            background-color: var(--primary, #E88F9B);
+            color: var(--white, #ffffff);
             border: none;
             padding: 10px 22px;
             font-size: 0.95rem;
@@ -164,9 +164,9 @@
         }
 
         .btn-edit-profile:hover {
-            background-color: #e07474;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(234, 138, 138, 0.4);
+            background-color: var(--primary-dark, #B95569);
+            color: var(--white, #ffffff);
+            box-shadow: 0 4px 12px rgba(185, 85, 105, 0.25);
         }
 
         @media (max-width: 768px) {
@@ -198,7 +198,7 @@
                     @if ($user->avatar)
                         <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="avatar-img">
                     @else
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=ea8a8a&color=fff&size=150"
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($user->name) }}&background=FCE4E6&color=B95569&size=150"
                             alt="Avatar" class="avatar-img">
                     @endif
                     <span class="status-dot"></span>
