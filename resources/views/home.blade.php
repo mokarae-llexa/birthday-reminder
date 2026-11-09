@@ -412,13 +412,10 @@
                 gap: 32px;
             }
 
-            .beranda-body {
-                grid-template-columns: minmax(0, 1fr) 340px;
-                align-items: start;
-            }
 
             .kolom-utama {
                 display: grid;
+                grid-template-columns: minmax(0, 1fr);
                 gap: 32px;
                 min-width: 0;
             }
@@ -426,8 +423,9 @@
             .rencana {
                 position: sticky;
                 top: 24px;
-                height: calc(100vh - 48px);
-                min-height: 420px;
+                height: fit-content;
+                min-height: 0;
+                max-height: none;
                 display: flex;
                 flex-direction: column;
                 padding: 20px 20px 12px;
@@ -579,167 +577,333 @@
                 font-size: 18px;
                 line-height: 1;
             }
-
-            @media (max-width: 1200px) {
-                .daftar {
-                    grid-template-columns: 1fr;
-                }
-            }
-
-            @media (max-width: 1100px) {
-                .beranda-body {
-                    grid-template-columns: 1fr;
-                }
-
-                .rencana {
-                    position: static;
-                    height: auto;
-                    max-height: 560px;
-                }
-            }
         }
+
+        .beranda-body {
+            grid-template-columns: minmax(0, 1fr) 340px;
+            align-items: start;
+        }
+
+        .kolom-utama {
+            display: grid;
+            gap: 32px;
+            min-width: 0;
+        }
+
+        .rencana {
+            position: sticky;
+            top: 24px;
+            height: fit-content;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 20px 12px;
+        }
+
+        .rencana-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+        }
+
+        .rencana-badge {
+            background: var(--pink-bg);
+            color: var(--pink-fg);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 999px;
+        }
+
+        .rencana-err {
+            font-size: 12px;
+            color: #D6336C;
+            margin-bottom: 8px;
+        }
+
+        .rencana-form {
+            display: grid;
+            gap: 8px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid #F8ECE8;
+        }
+
+        .rencana-form select,
+        .rencana-form input {
+            width: 100%;
+            border: 1.5px solid var(--line);
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 13px;
+            background: #fff;
+            color: var(--ink);
+        }
+
+        .rencana-form .baris2 {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 8px;
+        }
+
+        .rencana-form button {
+            background: var(--accent);
+            color: #fff;
+            border: 0;
+            border-radius: 10px;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .rencana-form button:hover {
+            background: #d4506b;
+        }
+
+        .rencana-list {
+            flex: none;
+            min-height: 0;
+            overflow-y: visible;
+            padding-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .plan {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: #FFF7F5;
+            border: 1.5px solid var(--line);
+            border-radius: 14px;
+            padding: 10px 12px;
+        }
+
+        .plan.done {
+            opacity: .55;
+        }
+
+        .plan.done .plan-judul {
+            text-decoration: line-through;
+        }
+
+        .plan-cek {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            background: #fff;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .plan-cek svg {
+            opacity: 0;
+        }
+
+        .plan.done .plan-cek {
+            background: var(--accent);
+        }
+
+        .plan.done .plan-cek svg {
+            opacity: 1;
+        }
+
+        .plan-isi {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .plan-judul {
+            font-size: 13.5px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .plan-sub {
+            font-size: 11.5px;
+            color: var(--muted);
+        }
+
+        .plan-sub .telat {
+            color: #D6336C;
+            font-weight: 600;
+        }
+
+        .plan-hapus {
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            cursor: pointer;
+            padding: 0 2px;
+            font-size: 18px;
+            line-height: 1;
+        }
+        @media (max-width: 560px) {
+    .beranda-body {
+        grid-template-columns: 1fr;
+    }
+
+    .rencana {
+        position: static;
+        height: auto;
+        max-height: 560px;
+    }
+
+    .rencana-list {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+    }
+}
     </style>
 
     <div class="beranda">
         <div class="beranda-body">
+            <div class="kolom-utama">
+                <section class="ringkasan" aria-label="Ringkasan ulang tahun">
+                    @foreach ($kartu as $k)
+                        @php
+                            $total = count($k['daftar']);
+                            $sisa = max($total - 2, 0);
+                            $depan = collect($k['daftar'])->take(2)->map(fn($t) => $namaDepan($t->name))->implode(', ');
+                        @endphp
+                        <article class="kartu {{ $k['kelas'] }}">
+                            <div class="kartu-top">
+                                <span class="kartu-judul">{{ $k['judul'] }}</span>
+                                <span class="kartu-ikon" aria-hidden="true">
+                                    @switch($k['ikon'])
+                                        @case('cake')
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 2.5c.8.7 1 1.4.5 2a1 1 0 0 1-1.7-.1c-.2-.6 0-1.2 1.2-1.9Z"
+                                                    fill="currentColor" stroke-width="1" />
+                                                <path d="M12 7v3" />
+                                                <rect x="4" y="10" width="16" height="9" rx="2" />
+                                                <path d="M4 14c1.3 1.3 2.7 1.3 4 0s2.7-1.3 4 0 2.7 1.3 4 0 2.7-1.3 4 0" />
+                                                <path d="M3 21.5h18" />
+                                            </svg>
+                                        @break
 
-            <section class="ringkasan" aria-label="Ringkasan ulang tahun">
-                @foreach ($kartu as $k)
-                    @php
-                        $total = count($k['daftar']);
-                        $sisa = max($total - 2, 0);
-                        $depan = collect($k['daftar'])->take(2)->map(fn($t) => $namaDepan($t->name))->implode(', ');
-                    @endphp
-                    <article class="kartu {{ $k['kelas'] }}">
-                        <div class="kartu-top">
-                            <span class="kartu-judul">{{ $k['judul'] }}</span>
-                            <span class="kartu-ikon" aria-hidden="true">
-                                @switch($k['ikon'])
-                                    @case('cake')
-                                        {{-- Kue --}}
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M12 2.5c.8.7 1 1.4.5 2a1 1 0 0 1-1.7-.1c-.2-.6 0-1.2 1.2-1.9Z"
-                                                fill="currentColor" stroke-width="1" />
-                                            <path d="M12 7v3" />
-                                            <rect x="4" y="10" width="16" height="9" rx="2" />
-                                            <path d="M4 14c1.3 1.3 2.7 1.3 4 0s2.7-1.3 4 0 2.7 1.3 4 0 2.7-1.3 4 0" />
-                                            <path d="M3 21.5h18" />
-                                        </svg>
-                                    @break
+                                        @case('week')
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="3" y="5" width="18" height="16" rx="2" />
+                                                <path d="M16 3v4M8 3v4M3 10h18" />
+                                                <path d="M7 15h10" />
+                                            </svg>
+                                        @break
 
-                                    @case('week')
-                                        {{-- Kalender dengan satu baris terpilih (minggu ini) --}}
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="5" width="18" height="16" rx="2" />
-                                            <path d="M16 3v4M8 3v4M3 10h18" />
-                                            <path d="M7 15h10" />
-                                        </svg>
-                                    @break
-
-                                    @default
-                                        {{-- Kalender dengan grid tanggal (bulan ini) --}}
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                                            stroke-linecap="round" stroke-linejoin="round">
-                                            <rect x="3" y="5" width="18" height="16" rx="2" />
-                                            <path d="M16 3v4M8 3v4M3 10h18" />
-                                            <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"
-                                                stroke-width="2.4" />
-                                        </svg>
-                                @endswitch
-                            </span>
-                        </div>
-
-                        <div class="kartu-tengah">
-                            <p class="kartu-angka"><strong>{{ $total }}</strong> people</p>
-                            <div class="tumpuk">
-                                @foreach (collect($k['daftar'])->take(3) as $t)
-                                    <img class="av"
-                                        src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
-                                        alt="{{ $t->name }}" title="{{ $t->name }}">
-                                @endforeach
+                                        @default
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <rect x="3" y="5" width="18" height="16" rx="2" />
+                                                <path d="M16 3v4M8 3v4M3 10h18" />
+                                                <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01M16 18h.01"
+                                                    stroke-width="2.4" />
+                                            </svg>
+                                    @endswitch
+                                </span>
                             </div>
-                        </div>
 
-                        <p class="kartu-nama">
-                            @if ($total === 0)
-                                there isn't any yet
-                            @else
-                                {{ $depan }}@if ($sisa > 0)
-                                    +{{ $sisa }} more
+                            <div class="kartu-tengah">
+                                <p class="kartu-angka"><strong>{{ $total }}</strong> people</p>
+                                <div class="tumpuk">
+                                    @foreach (collect($k['daftar'])->take(3) as $t)
+                                        <img class="av"
+                                            src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
+                                            alt="{{ $t->name }}" title="{{ $t->name }}">
+                                    @endforeach
+                                </div>
+                            </div>
+
+                            <p class="kartu-nama">
+                                @if ($total === 0)
+                                    there isn't any yet
+                                @else
+                                    {{ $depan }}@if ($sisa > 0)
+                                        +{{ $sisa }} more
+                                    @endif
                                 @endif
-                            @endif
+                            </p>
+                        </article>
+                    @endforeach
+                </section>
+
+                <section class="panel">
+                    <div class="panel-head">
+                        <h2 class="panel-judul">The Next Birthday</h2>
+                        <a href="{{ route('calendar') }}" class="panel-link">See all</a>
+                    </div>
+
+                    @if ($berikutnya->isEmpty())
+                        <p class="kosong">
+                            There are no upcoming birthdays.
+                            <a href="{{ route('friends.create') }}">Add Friend</a>
                         </p>
-                    </article>
-                @endforeach
-            </section>
-
-            <section class="panel">
-                <div class="panel-head">
-                    <h2 class="panel-judul">The Next Birthday</h2>
-                    <a href="{{ route('calendar') }}" class="panel-link">See all</a>
-                </div>
-
-                @if ($berikutnya->isEmpty())
-                    <p class="kosong">
-                        There are no upcoming birthdays.
-                        <a href="{{ route('friends.create') }}">Add Friend</a>
-                    </p>
-                @else
-                    <div class="daftar">
-                        @foreach ($berikutnya as $b)
-                            <div class="baris">
-                                <div class="baris-kiri">
-                                    <img class="av lg"
-                                        src="{{ $b->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($b->name) . '&background=FFE1DD&color=C55F4E&size=96&bold=true' }}"
-                                        alt="{{ $b->name }}">
-                                    <p class="baris-nama">{{ $b->name }}</p>
-                                </div>
-                                <div class="baris-kanan">
-                                    <div>
-                                        <p class="baris-tgl">
-                                            {{ $b->ulang_tahun_berikutnya->format('j M') }}</p>
-                                        <p class="baris-sub">
-                                            {{ $b->sisa_hari === 1 ? 'Tomorrow' : $b->sisa_hari . ' days left' }}</p>
+                    @else
+                        <div class="daftar">
+                            @foreach ($berikutnya as $b)
+                                <div class="baris">
+                                    <div class="baris-kiri">
+                                        <img class="av lg"
+                                            src="{{ $b->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($b->name) . '&background=FFE1DD&color=C55F4E&size=96&bold=true' }}"
+                                            alt="{{ $b->name }}">
+                                        <p class="baris-nama">{{ $b->name }}</p>
                                     </div>
-                                    <span class="dot" aria-hidden="true"></span>
+                                    <div class="baris-kanan">
+                                        <div>
+                                            <p class="baris-tgl">
+                                                {{ $b->ulang_tahun_berikutnya->format('j M') }}</p>
+                                            <p class="baris-sub">
+                                                {{ $b->sisa_hari === 1 ? 'Tomorrow' : $b->sisa_hari . ' days left' }}</p>
+                                        </div>
+                                        <span class="dot" aria-hidden="true"></span>
+                                    </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
+                    @endif
+                </section>
+                <section class="panel">
+                    <div class="panel-head">
+                        <h2 class="panel-judul">Friends Who Have Joined</h2>
+                        <a href="{{ route('friends.index') }}" class="panel-link">See all</a>
                     </div>
-                @endif
-            </section>
-            <section class="panel">
-                <div class="panel-head">
-                    <h2 class="panel-judul">Friends Who Have Joined</h2>
-                    <a href="{{ route('friends.index') }}" class="panel-link">See all</a>
-                </div>
 
-                @if ($semuaTeman->isEmpty())
-                    <p class="kosong">
-                        No Friend's yet.
-                        <a href="{{ route('friends.create') }}">Add Friend</a>
-                    </p>
-                @else
-                    @php $maks = 14; @endphp
-                    <div class="avatar-grid">
-                        @foreach ($semuaTeman->take($maks) as $t)
-                            <a href="{{ route('friends.edit', $t->id) }}" class="avatar-item" title="{{ $t->name }}">
-                                <img class="av x1"
-                                    src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
-                                    alt="{{ $t->name }}">
-                            </a>
-                        @endforeach
+                    @if ($semuaTeman->isEmpty())
+                        <p class="kosong">
+                            No Friend's yet.
+                            <a href="{{ route('friends.create') }}">Add Friend</a>
+                        </p>
+                    @else
+                        @php $maks = 14; @endphp
+                        <div class="avatar-grid">
+                            @foreach ($semuaTeman->take($maks) as $t)
+                                <a href="{{ route('friends.edit', $t->id) }}" class="avatar-item"
+                                    title="{{ $t->name }}">
+                                    <img class="av x1"
+                                        src="{{ $t->avatar_url ?: 'https://ui-avatars.com/api/?name=' . urlencode($t->name) . '&background=FFE1DD&color=C55F4E&size=128&bold=true' }}"
+                                        alt="{{ $t->name }}">
+                                </a>
+                            @endforeach
 
-                        @if ($semuaTeman->count() > $maks)
-                            <a href="{{ route('friends.index') }}" class="avatar-item avatar-lebih">
-                                +{{ $semuaTeman->count() - $maks }}
-                            </a>
-                        @endif
-                    </div>
-                @endif
-            </section>
+                            @if ($semuaTeman->count() > $maks)
+                                <a href="{{ route('friends.index') }}" class="avatar-item avatar-lebih">
+                                    +{{ $semuaTeman->count() - $maks }}
+                                </a>
+                            @endif
+                        </div>
+                    @endif
+                </section>
+            </div>
             <aside class="panel rencana" aria-label="Preparations">
                 <div class="rencana-head">
                     <h2 class="panel-judul">Preparations</h2>
@@ -824,5 +988,4 @@
                 </div>
             </aside>
         </div>
-    </div>
-@endsection
+    @endsection
